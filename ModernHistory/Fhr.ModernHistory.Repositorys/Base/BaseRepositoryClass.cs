@@ -1,4 +1,5 @@
 ﻿using Fhr.ModernHistory.Repositorys.Contexts;
+using Fhr.ModernHistory.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -55,25 +56,28 @@ namespace Fhr.ModernHistory.Repositorys
             }
         }
 
-        public virtual T Update(T obj)
+        public virtual void Update(T obj)
         {
             throw new NotImplementedException();
 
         }
-
-        public T Update(T obj, Func<T, object> getPkHandler)
+        /// <summary>
+        /// EF的更新最好的办法就是先查询再修改，不然很麻烦
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="getPkHandler"></param>
+        public void Update(T obj, Func<T, object> getPkHandler)
         {
             using (var context = new ModernHisContext())
             {
                 var key = getPkHandler.Invoke(obj);
                 var oldObj = context.Set<T>().Find(key);
-                if (oldObj == null)
+                if (oldObj != null)
                 {
-                    return null;
+                    ObjectRefletUtil.SetValue<T>(oldObj, obj);
+                    context.Entry<T>(obj).State = EntityState.Modified;
+                    context.SaveChanges();
                 }
-                context.Entry<T>(oldObj).State = EntityState.Modified;
-                context.SaveChanges();
-                return oldObj;
             }
         }
 

@@ -39,6 +39,9 @@
     <Reference Include="Fhr.ModernHistory.Models">
       <HintPath>..\Fhr.ModernHistory.Models\bin\Debug\Fhr.ModernHistory.Models.dll</HintPath>
     </Reference>
+    <Reference Include="Fhr.ModernHistory.Utils">
+      <HintPath>..\Fhr.ModernHistory.Utils\bin\Debug\Fhr.ModernHistory.Utils.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data">
       <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
     </Reference>

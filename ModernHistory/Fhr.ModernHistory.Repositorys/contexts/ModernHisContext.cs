@@ -1,4 +1,5 @@
-﻿using MySql.Data.Entity;
+﻿using Fhr.ModernHistory.Models;
+using MySql.Data.Entity;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -21,6 +22,20 @@ namespace Fhr.ModernHistory.Repositorys.Contexts
         {
 
         }
+
+        public DbSet<FamousPerson> FamousPersons { get; set; }
+
+        public DbSet<FamousPersonType> FamousPersonTypes { get; set; }
+
+        public DbSet<HistoryEvent> HistoryEvents { get; set; }
+
+        public DbSet<HistoryEventType> HistoryEventTypes { get; set; }
+
+        public DbSet<MhUser> MhUsers { get; set; }
+
+
+        public DbSet<PersonEventRelation> PersonEventRelation { get; set; }
+
         //去掉表名复数
         protected override void OnModelCreating(DbModelBuilder modelbuilder)
         {

@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="ConfigHelper.cs" />
     <Compile Include="EntityValidatorUtil.cs" />
+    <Compile Include="ObjectRefletUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

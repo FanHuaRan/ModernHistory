@@ -40,14 +40,14 @@ namespace Fhr.ModernHistory.Repositorys
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        T Update(T obj);
+        void Update(T obj);
         /// <summary>
         /// 更新对象 同时加一个获取对象主键的委托
         /// </summary>
         /// <param name="obj"></param>
         /// <param name="getPkHandler"></param>
         /// <returns></returns>
-        T Update(T obj, Func<T, object> getPkHandler);
+        void Update(T obj, Func<T, object> getPkHandler);
         /// <summary>
         /// 查询所有记录
         /// </summary>
