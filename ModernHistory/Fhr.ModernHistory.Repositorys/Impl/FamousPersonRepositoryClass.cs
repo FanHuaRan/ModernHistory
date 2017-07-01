@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Data.Entity;
 namespace Fhr.ModernHistory.Repositorys.Impl
 {
     /// <summary>
@@ -14,7 +14,21 @@ namespace Fhr.ModernHistory.Repositorys.Impl
     /// </summary>
     public class FamousPersonRepositoryClass : BaseRepositoryClass<FamousPerson>, IFamousPersonRepository
     {
-        public void testTran()
+            /// <summary>
+            /// 重写FindAll，让其支持PersonType属性的加载
+            /// </summary>
+            /// <returns></returns>
+            public override IEnumerable<FamousPerson> FindAll()
+            {
+                  using (var context = new ModernHisContext())
+                  {
+                        return context.FamousPersons.Include(p => p.PersonType)
+                                                                         .Select(p => p)
+                                                                         .ToList();
+                  }
+            }
+
+            public void testTran()
         {
             //数据库上下文
             using (var context = new ModernHisContext())

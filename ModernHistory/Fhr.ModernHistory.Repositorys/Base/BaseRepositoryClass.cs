@@ -17,7 +17,7 @@ namespace Fhr.ModernHistory.Repositorys
     public class BaseRepositoryClass<T> : IBaseRepository<T> where T : class
     {
 
-        public T FindById(object id)
+        public virtual T FindById(object id)
         {
             using (var context = new ModernHisContext())
             {
@@ -85,44 +85,49 @@ namespace Fhr.ModernHistory.Repositorys
         {
             using (var context = new ModernHisContext())
             {
-                return context.Set<T>().Select(p => p);
+                return context.Set<T>()
+                              .Select(p => p)
+                              .ToList();
             }
         }
 
-        public IEnumerable<T> FindByLinq(Func<T, bool> expression)
+        public virtual IEnumerable<T> FindByLinq(Func<T, bool> expression)
         {
             using (var context = new ModernHisContext())
             {
                 return context.Set<T>()
                               .Where(expression)
-                              .Select(p => p);
+                              .Select(p => p)
+                              .ToList();
             }
         }
 
-        public IEnumerable<object> FindByWhereAndSelect(Func<T, bool> whereExpression, Func<T, object> selectExpression)
+        public virtual IEnumerable<object> FindByWhereAndSelect(Func<T, bool> whereExpression, Func<T, object> selectExpression)
         {
             using (var context = new ModernHisContext())
             {
                 return context.Set<T>()
                               .Where(whereExpression)
-                              .Select(selectExpression);
+                              .Select(selectExpression)
+                              .ToList();
+                  }
             }
-        }
 
-        public IEnumerable<V> FindBySelect<V>(Func<T, V> selectExpression)
+        public virtual IEnumerable<V> FindBySelect<V>(Func<T, V> selectExpression)
         {
-            using (var context = new ModernHisContext())
-            {
-                return context.Set<T>()
-                              .Select(selectExpression);
+                  using (var context = new ModernHisContext())
+                  {
+                        return context.Set<T>()
+                                      .Select(selectExpression)
+                                      .ToList();
+                  }
             }
-        }
 
         public IEnumerable<T> FindBySQL(string sql, params object[] sqlParams)
         {
             using (var context = new ModernHisContext())
             {
-                return context.Database.SqlQuery<T>(sql, sqlParams);
+                return context.Database.SqlQuery<T>(sql, sqlParams).ToList();
             }
         }
     }

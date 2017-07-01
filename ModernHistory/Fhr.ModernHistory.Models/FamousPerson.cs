@@ -97,6 +97,6 @@ namespace Fhr.ModernHistory.Models
         /// <summary>
         /// 名人类型
         /// </summary>
-        public virtual FamousPersonType PersonType { get; set; }
+        public  virtual FamousPersonType PersonType { get; set; }
     }
 }
