@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModernHistory", "ModernHistory\ModernHistory.csproj", "{FF430C13-CB00-4530-9D28-341A4D6DBECF}"
 EndProject
@@ -9,11 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fhr.ModernHistory.Models", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fhr.ModernHistory.Utils", "Fhr.ModernHistory.Utils\Fhr.ModernHistory.Utils.csproj", "{5B6C3F9E-77C6-4A70-A129-76D110C8588C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModernHistoryWebApi", "ModernHistoryWebApi\ModernHistoryWebApi.csproj", "{A091EAFF-5F88-4FFB-930C-DB063EB3782E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fhr.ModernHistory.Repositorys", "Fhr.ModernHistory.Repositorys\Fhr.ModernHistory.Repositorys.csproj", "{7249D58C-BA8A-4687-8B0E-AD5D2ABD9968}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fhr.ModernHistory.Services", "Fhr.ModernHistory.Services\Fhr.ModernHistory.Services.csproj", "{4D4D892E-6019-4292-9CBE-D305634F0BF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModernHistoryWebApi", "ModernHistoryWebApi\ModernHistoryWebApi.csproj", "{B8012099-54D5-4936-AE5E-9D2CAFEF0AEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +33,6 @@ Global
 		{5B6C3F9E-77C6-4A70-A129-76D110C8588C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B6C3F9E-77C6-4A70-A129-76D110C8588C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B6C3F9E-77C6-4A70-A129-76D110C8588C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A091EAFF-5F88-4FFB-930C-DB063EB3782E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A091EAFF-5F88-4FFB-930C-DB063EB3782E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A091EAFF-5F88-4FFB-930C-DB063EB3782E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A091EAFF-5F88-4FFB-930C-DB063EB3782E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7249D58C-BA8A-4687-8B0E-AD5D2ABD9968}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7249D58C-BA8A-4687-8B0E-AD5D2ABD9968}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7249D58C-BA8A-4687-8B0E-AD5D2ABD9968}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +41,10 @@ Global
 		{4D4D892E-6019-4292-9CBE-D305634F0BF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D4D892E-6019-4292-9CBE-D305634F0BF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D4D892E-6019-4292-9CBE-D305634F0BF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8012099-54D5-4936-AE5E-9D2CAFEF0AEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8012099-54D5-4936-AE5E-9D2CAFEF0AEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8012099-54D5-4936-AE5E-9D2CAFEF0AEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8012099-54D5-4936-AE5E-9D2CAFEF0AEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

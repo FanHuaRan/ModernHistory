@@ -9,15 +9,17 @@ using System.Web.Routing;
 
 namespace ModernHistoryWebApi
 {
-    public class WebApiApplication : System.Web.HttpApplication
-    {
-        protected void Application_Start()
-        {
-            AreaRegistration.RegisterAllAreas();
-            GlobalConfiguration.Configure(WebApiConfig.Register);
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
-        }
-    }
+      public class WebApiApplication : System.Web.HttpApplication
+      {
+            protected void Application_Start()
+            {
+                  //Code First 数据库初始化
+                  System.Data.Entity.Database.SetInitializer(new Fhr.ModernHistory.Repositorys.Contexts.SampleData());
+                  AreaRegistration.RegisterAllAreas();
+                  GlobalConfiguration.Configure(WebApiConfig.Register);
+                  FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+                  RouteConfig.RegisterRoutes(RouteTable.Routes);
+                  BundleConfig.RegisterBundles(BundleTable.Bundles);
+            }
+      }
 }

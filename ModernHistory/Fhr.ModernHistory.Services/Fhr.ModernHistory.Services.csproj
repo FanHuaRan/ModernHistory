@@ -30,6 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Fhr.ModernHistory.Models">
+      <HintPath>..\Fhr.ModernHistory.Models\bin\Debug\Fhr.ModernHistory.Models.dll</HintPath>
+    </Reference>
+    <Reference Include="Fhr.ModernHistory.Repositorys">
+      <HintPath>..\Fhr.ModernHistory.Repositorys\bin\Debug\Fhr.ModernHistory.Repositorys.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,6 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IFamousPersonService.cs" />
+    <Compile Include="Impl\FamousPersonServiceClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

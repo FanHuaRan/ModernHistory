@@ -18,7 +18,7 @@ namespace Fhr.ModernHistory.Repositorys.Contexts
     public class ModernHisContext : DbContext
     {
         public ModernHisContext()
-            : base("conncodefirst")
+            : base("modernhistory")
         {
 
         }
