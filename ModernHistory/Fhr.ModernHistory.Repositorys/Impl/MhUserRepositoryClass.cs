@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fhr.ModernHistory.BIL
+namespace Fhr.ModernHistory.Repositorys.Impl
 {
-    public class Class1
+    class MhUserRepositoryClass
     {
     }
 }

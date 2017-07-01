@@ -7,8 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fhr.ModernHistory.Repositorys.contexts
+namespace Fhr.ModernHistory.Repositorys.Contexts
 {
+    /// <summary>
+    /// EF数据上下文(mysql数据库)
+    /// 2017/06/30 fhr
+    /// </summary>
     [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class ModernHisContext : DbContext
     {

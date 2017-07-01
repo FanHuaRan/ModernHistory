@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fhr.ModernHistory.Repositorys.contexts
+namespace Fhr.ModernHistory.Repositorys.Contexts
 {
     /// <summary>
     /// EF数据库初始化策略

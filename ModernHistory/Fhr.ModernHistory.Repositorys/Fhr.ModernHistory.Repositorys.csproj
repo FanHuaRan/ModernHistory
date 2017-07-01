@@ -36,6 +36,9 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Fhr.ModernHistory.Models">
+      <HintPath>..\Fhr.ModernHistory.Models\bin\Debug\Fhr.ModernHistory.Models.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data">
       <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
     </Reference>
@@ -52,8 +55,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="contexts\ModernHisContext.cs" />
-    <Compile Include="contexts\SampleData.cs" />
+    <Compile Include="Base\BaseRepositoryClass.cs" />
+    <Compile Include="Contexts\ModernHisContext.cs" />
+    <Compile Include="Contexts\SampleData.cs" />
+    <Compile Include="Base\IBaseRepository.cs" />
+    <Compile Include="IFamousPersonRepository.cs" />
+    <Compile Include="IFamousPersonTypeRepository.cs" />
+    <Compile Include="IHistoryEventRepository.cs" />
+    <Compile Include="IHistoryEventTypeRepository.cs" />
+    <Compile Include="Impl\FamousPersonRepositoryClass.cs" />
+    <Compile Include="Impl\FamousPersonTypeRepositoryClass.cs" />
+    <Compile Include="Impl\HistoryEventRepositoryClass.cs" />
+    <Compile Include="Impl\HistoryEventTypeRepositoryClass.cs" />
+    <Compile Include="Impl\MhUserRepositoryClass.cs" />
+    <Compile Include="Impl\PersonEventRelationRepositoryClass.cs" />
+    <Compile Include="IPersonEventRelationRepository.cs" />
+    <Compile Include="IMhUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -63,9 +80,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="impl\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
