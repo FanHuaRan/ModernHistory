@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using ModernHistoryWebApi.ExceptionDeal;
 
 namespace ModernHistoryWebApi
 {
@@ -21,6 +22,8 @@ namespace ModernHistoryWebApi
                   );
                   //清除xml序列化，因为我们的实体类没有加上序列化特性，但是Google浏览器默认是xml，
                   GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
+                  //异常处理器
+                  config.Filters.Add(new CustomerExceptionFilterAttribute());
             }
       }
 }

@@ -46,7 +46,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IFamousPersonService.cs" />
+    <Compile Include="IFamousPersonTypeService.cs" />
+    <Compile Include="IHistoryEventService.cs" />
+    <Compile Include="IHistoryEventTypeService.cs" />
+    <Compile Include="IMhUserService.cs" />
     <Compile Include="Impl\FamousPersonServiceClass.cs" />
+    <Compile Include="Impl\FamousPersonTypeServiceClass.cs" />
+    <Compile Include="Impl\HistoryEventServiceClass.cs" />
+    <Compile Include="Impl\HistoryEventTypeServiceClass.cs" />
+    <Compile Include="Impl\MhUserServiceClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

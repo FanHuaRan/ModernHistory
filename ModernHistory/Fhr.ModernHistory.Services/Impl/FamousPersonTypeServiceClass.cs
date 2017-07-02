@@ -10,19 +10,19 @@ using Fhr.ModernHistory.Repositorys.Impl;
 namespace Fhr.ModernHistory.Services.Impl
 {
       /// <summary>
-      /// FamousPerson服务实现
+      /// FamousPersonType服务实现
       /// 2017/07/02 fhr
       /// </summary>
-      public class FamousPersonServiceClass : IFamousPersonService
+      public class FamousPersonTypeServiceClass : IFamousPersonTypeService
       {
-            private IFamousPersonRepository famousPersonRepository = new FamousPersonRepositoryClass();
+            private IFamousPersonTypeRepository famousPersonRepository = new FamousPersonTypeRepositoryClass();
 
-            public IEnumerable<FamousPerson> FindAll()
+            public IEnumerable<FamousPersonType> FindAll()
             {
                   return famousPersonRepository.FindAll();
             }
 
-            public FamousPerson FindById(object id)
+            public FamousPersonType FindById(object id)
             {
                   return famousPersonRepository.FindById(id);
             }

@@ -11,7 +11,7 @@ namespace Fhr.ModernHistory.Repositorys
     /// HistoryEventType仓库接口
     /// 2017/07/01 fhr
     /// </summary>
-    interface IHistoryEventTypeRepository:IBaseRepository<HistoryEventType>
+    public interface IHistoryEventTypeRepository:IBaseRepository<HistoryEventType>
     {
 
     }

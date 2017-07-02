@@ -8,13 +8,13 @@ using Fhr.ModernHistory.Models;
 namespace Fhr.ModernHistory.Services
 {
       /// <summary>
-      /// FamousPerson服务接口
+      /// HistoryEvent服务借口
       /// 2017/07/02 fhr
       /// </summary>
-      public interface IFamousPersonService
-    {
-            IEnumerable<FamousPerson> FindAll();
+      public interface IHistoryEventService
+      {
+            IEnumerable<HistoryEvent> FindAll();
 
-            FamousPerson FindById(Object id);
+            HistoryEvent FindById(Object id);
       }
 }

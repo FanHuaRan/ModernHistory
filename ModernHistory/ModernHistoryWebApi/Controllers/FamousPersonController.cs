@@ -8,6 +8,7 @@ using Fhr.ModernHistory.Models;
 using Fhr.ModernHistory.Repositorys.Contexts;
 using Fhr.ModernHistory.Services;
 using Fhr.ModernHistory.Services.Impl;
+using ModernHistoryWebApi.ExceptionDeal;
 
 namespace ModernHistoryWebApi.Controllers
 {
@@ -22,14 +23,19 @@ namespace ModernHistoryWebApi.Controllers
             // GET api/<controller>
             public IEnumerable<FamousPerson> Get()
             {
-                 // SampleData.TestSeed();
+                  // SampleData.TestSeed();
                   return famousPersonService.FindAll();
             }
 
             // GET api/<controller>/5
-            public string Get(int id)
+            public FamousPerson Get(int id)
             {
-                  return "value";
+                  var person=famousPersonService.FindById(id);
+                  if (person == null)
+                  {
+                        throw new CustomerApiException(HttpStatusCode.NotFound, 1, "错误消息");
+                  }
+                  return person;
             }
 
             // POST api/<controller>
