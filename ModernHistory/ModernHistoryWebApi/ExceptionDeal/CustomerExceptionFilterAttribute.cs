@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Web;
 using System.Web.Http.Filters;
+using log4net;
 using ModernHistoryWebApi.Models;
 
 namespace ModernHistoryWebApi.ExceptionDeal
@@ -16,6 +17,11 @@ namespace ModernHistoryWebApi.ExceptionDeal
       /// </summary>
       public class CustomerExceptionFilterAttribute : ExceptionFilterAttribute
       {
+            /// <summary>
+            /// 日志组件
+            /// </summary>
+            private readonly ILog logger = LogManager.GetLogger(typeof(CustomerExceptionFilterAttribute));
+
             /// <summary>
             /// 错误抛出后的拦截方法
             /// </summary>
@@ -36,6 +42,8 @@ namespace ModernHistoryWebApi.ExceptionDeal
                         statusCode = apiException.StatusCode;
                         code = apiException.Code;
                   }
+                  //错误记录日志
+                  logger.Error(string.Format("code:{0} message:{1}", code, message), exception);
                   //返回自定义的错误httpresponse
                   actionExecutedContext.Response = GetResponseMessage(statusCode, -1, actionExecutedContext.Exception.Message);
             }

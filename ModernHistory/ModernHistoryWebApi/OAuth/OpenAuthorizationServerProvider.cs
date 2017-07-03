@@ -17,7 +17,7 @@ namespace ModernHistoryWebApi.OAuth
     public class OpenAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
         //用户服务组件 自定义
-        private IUserService userService = new WebApiXmlUserServiceClass();
+     //  private IUserService userService = new WebApiXmlUserServiceClass();
 
         //客户端服务组件 自定义
         //private IClientService clientServce = new WebApiXmlClientServiceClass();

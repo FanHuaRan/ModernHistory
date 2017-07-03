@@ -10,6 +10,7 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 
 [assembly: OwinStartup(typeof(ModernHistoryWebApi.Startup))]
+[assembly: log4net.Config.XmlConfigurator(Watch = true)]
 namespace ModernHistoryWebApi
 {
       /// <summary>
@@ -27,7 +28,8 @@ namespace ModernHistoryWebApi
                   FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
                   RouteConfig.RegisterRoutes(RouteTable.Routes);
                   BundleConfig.RegisterBundles(BundleTable.Bundles);
-               //   FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+                  FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+
                   app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
                   app.UseWebApi(config);
             }
