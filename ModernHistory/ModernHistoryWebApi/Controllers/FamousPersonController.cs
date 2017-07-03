@@ -13,24 +13,30 @@ using ModernHistoryWebApi.ExceptionDeal;
 namespace ModernHistoryWebApi.Controllers
 {
       /// <summary>
-      /// http://localhost:57759/api/FamousPerson/get
+      ///  FamousPerson API控制器
+      ///  2017/07/02 fhr
       /// </summary>
       public class FamousPersonController : ApiController
       {
 
-            public IFamousPersonService famousPersonService = new FamousPersonServiceClass();
+            public IFamousPersonService FamousPersonService { get; set; }
+
+            public FamousPersonController(IFamousPersonService famousePersonService)
+            {
+                  this.FamousPersonService = famousePersonService;
+            }
 
             // GET api/<controller>
             public IEnumerable<FamousPerson> Get()
             {
                   // SampleData.TestSeed();
-                  return famousPersonService.FindAll();
+                  return FamousPersonService.FindAll();
             }
 
             // GET api/<controller>/5
             public FamousPerson Get(int id)
             {
-                  var person=famousPersonService.FindById(id);
+                  var person= FamousPersonService.FindById(id);
                   if (person == null)
                   {
                         throw new CustomerApiException(HttpStatusCode.NotFound, 1, "错误消息");

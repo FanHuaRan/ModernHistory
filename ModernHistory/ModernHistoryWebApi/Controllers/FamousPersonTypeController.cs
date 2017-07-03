@@ -7,6 +7,10 @@ using System.Web.Http;
 
 namespace ModernHistoryWebApi.Controllers
 {
+      /// <summary>
+      /// FamousPersonType API控制器
+      ///  2017/07/02 fhr
+      /// </summary>
       public class FamousPersonTypeController : ApiController
       {
             // GET api/<controller>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using ModernHistoryWebApi.Dependencys;
 using ModernHistoryWebApi.ExceptionDeal;
 
 namespace ModernHistoryWebApi
@@ -11,7 +12,8 @@ namespace ModernHistoryWebApi
             public static void Register(HttpConfiguration config)
             {
                   // Web API 配置和服务
-
+                  //注册依赖注入容器
+                  config.DependencyResolver = new NinjectDependencyResolver(new Ninject.StandardKernel());
                   // Web API 路由
                   config.MapHttpAttributeRoutes();
 

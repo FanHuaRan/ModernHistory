@@ -14,9 +14,9 @@ using Fhr.ModernHistory.Repositorys.Impl;
 namespace ModernHistoryWebApi.Dependencys
 {
       /// <summary>
-      /// 依赖注入容器，实现IDependencyResolver（IDependencyResolver继承自IDependencyScope）
+      /// 基于Ninject的依赖注入容器，实现IDependencyResolver（IDependencyResolver继承自IDependencyScope）
       /// 前者接口代表依赖注入容器，后者代表依赖注入范围
-      /// 2017/05/16 fhr
+      /// 2017/07/02 fhr
       /// </summary>
       public class NinjectDependencyResolver : NinjectDependencyScope, IDependencyResolver
       {
@@ -51,6 +51,7 @@ namespace ModernHistoryWebApi.Dependencys
             /// </summary>
             private void AddBindings()
             {
+                  //所有组件全是单例模式 因为不存在线程问题
                   //repository层组件
                   this.kernel.Bind<IFamousPersonRepository>().To<FamousPersonRepositoryClass>().InSingletonScope();
                   this.kernel.Bind<IFamousPersonTypeRepository>().To<FamousPersonTypeRepositoryClass>().InSingletonScope();
