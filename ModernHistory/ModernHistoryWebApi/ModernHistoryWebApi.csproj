@@ -247,6 +247,9 @@
     <Compile Include="ExceptionDeal\CustomerApiException.cs" />
     <Compile Include="ExceptionDeal\CustomerExceptionFilterAttribute.cs" />
     <Compile Include="Models\ApiErrorModel.cs" />
+    <Compile Include="OAuth\OpenAuthorizationCodeProvider.cs" />
+    <Compile Include="OAuth\OpenAuthorizationServerProvider.cs" />
+    <Compile Include="OAuth\OpenRefreshTokenProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
