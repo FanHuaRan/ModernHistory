@@ -4,7 +4,7 @@ using ModernHistoryWebApi;
 using Swashbuckle.Application;
 using System;
 
-[assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
+//[assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
 namespace ModernHistoryWebApi
 {
@@ -17,7 +17,7 @@ namespace ModernHistoryWebApi
                   GlobalConfiguration.Configuration
                       .EnableSwagger(c =>
                           {
-                                c.SingleApiVersion("v1", "swagger");
+                                c.SingleApiVersion("v1", "ModernHistoryApi");
                                 c.IncludeXmlComments(GetXmlCommentsPath());
                           })
                       .EnableSwaggerUi(c =>
@@ -30,7 +30,7 @@ namespace ModernHistoryWebApi
             /// <returns></returns>
             private static string GetXmlCommentsPath()
             {
-                  return System.String.Format(@"{0}\bin\swagger.xml", System.AppDomain.CurrentDomain.BaseDirectory);
+                  return System.String.Format(@"{0}\bin\ModernHistoryApi.xml", System.AppDomain.CurrentDomain.BaseDirectory);
             }
       }
 }

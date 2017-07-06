@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Web;
 using System.Web.Http;
 using Fhr.ModernHistory.Models;
 using Fhr.ModernHistory.Models.SearchModels;
@@ -52,6 +53,11 @@ namespace ModernHistoryWebApi.Controllers
                   if (value != null && ModelState.IsValid)
                   {
                         FamousPersonService.Save(value);
+                        if (HttpContext.Current.Request.Files.Count > 0)
+                        {
+                              var imgFile = HttpContext.Current.Request.Files[0];
+                              //保存文件
+                        }
                   }
                   else
                   {
