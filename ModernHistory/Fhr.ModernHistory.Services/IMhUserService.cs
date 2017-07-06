@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Fhr.ModernHistory.Models;
 
 namespace Fhr.ModernHistory.Services
 {
@@ -12,6 +13,11 @@ namespace Fhr.ModernHistory.Services
       /// </summary>
       public interface IMhUserService
       {
+             MhUser FindByUserName(string userName);
+
+            string FindPassword(string userName);
+
+            Task<string> FindPasswordAsync(string userName);
 
       }
 }

@@ -55,6 +55,8 @@
     <Compile Include="Impl\HistoryEventServiceClass.cs" />
     <Compile Include="Impl\HistoryEventTypeServiceClass.cs" />
     <Compile Include="Impl\MhUserServiceClass.cs" />
+    <Compile Include="Impl\PersonEventRelationServiceClass.cs" />
+    <Compile Include="IPersonEventRelationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -15,7 +15,17 @@ namespace Fhr.ModernHistory.Services.Impl
       /// </summary>
       public class HistoryEventTypeServiceClass : IHistoryEventTypeService
       {
-            private IHistoryEventTypeRepository historyEventTypeRepository = new HistoryEventTypeRepositoryClass();
+            private IHistoryEventTypeRepository historyEventTypeRepository = null;
+
+            public HistoryEventTypeServiceClass(IHistoryEventTypeRepository historyEventTypeRepository)
+            {
+                  this.historyEventTypeRepository = historyEventTypeRepository;
+            }
+
+            public void Delete(object id)
+            {
+                  historyEventTypeRepository.DeleteById(id);
+            }
 
             public IEnumerable<HistoryEventType> FindAll()
             {
@@ -25,6 +35,22 @@ namespace Fhr.ModernHistory.Services.Impl
             public HistoryEventType FindById(object id)
             {
                   return historyEventTypeRepository.FindById(id);
+            }
+
+            public HistoryEventType FindByName(string name)
+            {
+                  return historyEventTypeRepository.FindByLinq(p => p.HistoryEventTypeName == name)
+                                                                          .FirstOrDefault();
+            }
+
+            public HistoryEventType Save(HistoryEventType historyEventType)
+            {
+                  return historyEventTypeRepository.Save(historyEventType);
+            }
+
+            public void Update(HistoryEventType historyEventType)
+            {
+                   historyEventTypeRepository.Update(historyEventType);
             }
       }
 }

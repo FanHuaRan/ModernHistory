@@ -11,39 +11,39 @@ using ModernHistoryWebApi.ExceptionDeal;
 namespace ModernHistoryWebApi.Controllers
 {
       /// <summary>
-      /// FamousPersonType API控制器
-      ///  2017/07/02 fhr
+      /// HistoryEventType API控制器
+      /// 2017/07/06 fhr
       /// </summary>
       [Authorize]
-      public class FamousPersonTypeController : ApiController
+      public class HistoryEventTypeController : ApiController
       {
 
-            public IFamousPersonTypeService FamousPersonTypeService { get; set; }
+            public IHistoryEventTypeService HistoryEventTypeService { get; set; }
 
-            public FamousPersonTypeController(IFamousPersonTypeService famousPersonTypeService)
+            public HistoryEventTypeController(IHistoryEventTypeService historyEventTypeService)
             {
-                  this.FamousPersonTypeService = famousPersonTypeService;
+                  this.HistoryEventTypeService = historyEventTypeService;
             }
 
-            public IEnumerable<FamousPersonType> Get()
+            public IEnumerable<HistoryEventType> Get()
             {
-                  return FamousPersonTypeService.FindAll();
+                  return HistoryEventTypeService.FindAll();
             }
-            public FamousPersonType Get(int id)
+            public HistoryEventType Get(int id)
             {
-                  var person = FamousPersonTypeService.FindById(id);
+                  var person = HistoryEventTypeService.FindById(id);
                   if (person == null)
                   {
-                        throw new CustomerApiException(HttpStatusCode.NotFound, 1, "该名人类型不存在");
+                        throw new CustomerApiException(HttpStatusCode.NotFound, 1, "该历史事件类型不存在");
                   }
                   return person;
             }
             [HttpPost]
-            public void Save([FromBody]FamousPersonType value)
+            public void Save([FromBody]HistoryEventType value)
             {
                   if (value != null && ModelState.IsValid)
                   {
-                        FamousPersonTypeService.Save(value);
+                        HistoryEventTypeService.Save(value);
                   }
                   else
                   {
@@ -51,12 +51,12 @@ namespace ModernHistoryWebApi.Controllers
                   }
             }
             [HttpPost]
-            public void Update(int id, [FromBody]FamousPersonType value)
+            public void Update(int id, [FromBody]HistoryEventType value)
             {
                   if (value != null && ModelState.IsValid)
                   {
-                        value.FamousPersonTypeId = id;
-                        FamousPersonTypeService.Update(value);
+                        value.HistoryEventTypeId = id;
+                        HistoryEventTypeService.Update(value);
                   }
                   else
                   {
@@ -66,7 +66,7 @@ namespace ModernHistoryWebApi.Controllers
             [HttpPost]
             public void Delete(int id)
             {
-                  FamousPersonTypeService.Delete(id);
+                  HistoryEventTypeService.Delete(id);
             }
       }
 }

@@ -16,5 +16,13 @@ namespace Fhr.ModernHistory.Services
             IEnumerable<FamousPersonType> FindAll();
 
             FamousPersonType FindById(Object id);
+
+            void Update(FamousPersonType famousePersonType);
+
+            FamousPersonType Save(FamousPersonType famousePersonType);
+
+            void Delete(object id);
+
+            FamousPersonType FindByName(string name);
       }
 }

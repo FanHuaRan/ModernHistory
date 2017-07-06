@@ -25,7 +25,7 @@ namespace Fhr.ModernHistory.Models
         [Required(ErrorMessage = "Person Name is required")]
         [StringLength(20)]
         public string PersonName { get; set; }
-
+      
         /// <summary>
         /// 省份籍贯
         /// </summary>

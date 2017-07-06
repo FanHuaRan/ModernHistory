@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Fhr.ModernHistory.Models;
+using Fhr.ModernHistory.Models.SearchModels;
 
 namespace Fhr.ModernHistory.Services
 {
@@ -16,5 +17,13 @@ namespace Fhr.ModernHistory.Services
             IEnumerable<FamousPerson> FindAll();
 
             FamousPerson FindById(Object id);
+
+            void Update(FamousPerson famousePerson);
+
+            FamousPerson Save(FamousPerson famousePerson);
+
+            void Delete(object id);
+
+            IEnumerable<FamousPerson> Search(PersonSearchModel searchModel);
       }
 }

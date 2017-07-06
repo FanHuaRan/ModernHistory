@@ -15,7 +15,17 @@ namespace Fhr.ModernHistory.Services.Impl
       /// </summary>
       public class FamousPersonTypeServiceClass : IFamousPersonTypeService
       {
-            private IFamousPersonTypeRepository famousPersonRepository = new FamousPersonTypeRepositoryClass();
+            private IFamousPersonTypeRepository famousPersonRepository = null;
+
+            public FamousPersonTypeServiceClass(IFamousPersonTypeRepository famousPersonRepository)
+            {
+                  this.famousPersonRepository = famousPersonRepository;
+            }
+
+            public void Delete(object id)
+            {
+                  famousPersonRepository.DeleteById(id);
+            }
 
             public IEnumerable<FamousPersonType> FindAll()
             {
@@ -25,6 +35,22 @@ namespace Fhr.ModernHistory.Services.Impl
             public FamousPersonType FindById(object id)
             {
                   return famousPersonRepository.FindById(id);
+            }
+
+            public FamousPersonType FindByName(string name)
+            {
+                 return famousPersonRepository.FindByLinq(p => p.FamousPersonTypeName == name)
+                                                          .FirstOrDefault();
+            }
+
+            public FamousPersonType Save(FamousPersonType famousePersonType)
+            {
+                  return famousPersonRepository.Save(famousePersonType);
+            }
+
+            public void Update(FamousPersonType famousePersonType)
+            {
+                  famousPersonRepository.Update(famousePersonType);
             }
       }
 }

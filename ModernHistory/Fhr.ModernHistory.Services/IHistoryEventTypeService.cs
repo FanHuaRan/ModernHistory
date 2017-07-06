@@ -16,5 +16,13 @@ namespace Fhr.ModernHistory.Services
             IEnumerable<HistoryEventType> FindAll();
 
             HistoryEventType FindById(Object id);
+
+            void Update(HistoryEventType historyEventType);
+
+            HistoryEventType Save(HistoryEventType historyEventType);
+
+            void Delete(object id);
+
+            HistoryEventType FindByName(string name);
       }
 }

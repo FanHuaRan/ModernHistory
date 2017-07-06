@@ -252,13 +252,13 @@
     <Compile Include="Controllers\FamousPersonController.cs" />
     <Compile Include="Controllers\FamousPersonTypeController.cs" />
     <Compile Include="Controllers\HistoryEventController.cs" />
+    <Compile Include="Controllers\HistoryEventTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\PersonEventRelationController.cs" />
     <Compile Include="Dependencys\NinjectDependencyResolver.cs" />
     <Compile Include="ExceptionDeal\CustomerApiException.cs" />
     <Compile Include="ExceptionDeal\CustomerExceptionFilterAttribute.cs" />
     <Compile Include="Models\ApiErrorModel.cs" />
-    <Compile Include="OAuth\OpenAuthorizationCodeProvider.cs" />
     <Compile Include="OAuth\OpenAuthorizationServerProvider.cs" />
     <Compile Include="OAuth\OpenRefreshTokenProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

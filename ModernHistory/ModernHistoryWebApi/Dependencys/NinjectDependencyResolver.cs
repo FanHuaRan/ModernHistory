@@ -66,6 +66,7 @@ namespace ModernHistoryWebApi.Dependencys
                   this.kernel.Bind<IHistoryEventService>().To<HistoryEventServiceClass>().InSingletonScope();
                   this.kernel.Bind<IHistoryEventTypeService>().To<HistoryEventTypeServiceClass>().InSingletonScope();
                   this.kernel.Bind<IMhUserService>().To<MhUserServiceClass>().InSingletonScope();
+                  this.kernel.Bind<IPersonEventRelationService>().To<PersonEventRelationServiceClass>().InSingletonScope();
             }
       }
       /// <summary>
