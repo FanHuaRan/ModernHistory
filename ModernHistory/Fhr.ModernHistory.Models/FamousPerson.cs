@@ -41,11 +41,6 @@ namespace Fhr.ModernHistory.Models
         public string Nation { get; set; }
 
         /// <summary>
-        /// 人物图片地址
-        /// </summary>
-        public string ImageUrl { get; set; }
-
-        /// <summary>
         /// 出生日期
         /// </summary>
         [Required(ErrorMessage = "date of birth is required")]

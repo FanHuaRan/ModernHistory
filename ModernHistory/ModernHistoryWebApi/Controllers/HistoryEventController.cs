@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using Fhr.ModernHistory.Models;
 using Fhr.ModernHistory.Models.SearchModels;
@@ -21,10 +22,13 @@ namespace ModernHistoryWebApi.Controllers
 
             public IHistoryEventService HistoryEventService { get; set; }
 
+            public IPictureService PictureService { get; set; }
 
-            public HistoryEventController(IHistoryEventService historyEventService)
+
+            public HistoryEventController(IHistoryEventService historyEventService, IPictureService pictureService)
             {
                   this.HistoryEventService = historyEventService;
+                  this.PictureService = pictureService;
             }
 
             public IEnumerable<HistoryEvent> Get()
@@ -46,7 +50,13 @@ namespace ModernHistoryWebApi.Controllers
             {
                   if (value != null && ModelState.IsValid)
                   {
-                        HistoryEventService.Save(value);
+                        var saveResult = HistoryEventService.Save(value);
+                        if (HttpContext.Current.Request.Files.Count > 0)
+                        {
+                              HttpPostedFile imgFile = HttpContext.Current.Request.Files[0];
+                              //保存图片文件
+                              PictureService.SavePersonImagFile(imgFile, saveResult.HistoryEventId);
+                        }
                   }
                   else
                   {
@@ -60,6 +70,7 @@ namespace ModernHistoryWebApi.Controllers
                   {
                         value.HistoryEventId = id;
                         HistoryEventService.Update(value);
+                        //不处理图片文件了
                   }
                   else
                   {

@@ -19,20 +19,24 @@ namespace ModernHistoryWebApi
       /// </summary>
       public class Startup
       {
+
+            public static HttpConfiguration HttpConfiguration { get; private set; }
+
             public void Configuration(IAppBuilder app)
             {
                   // 有关如何配置应用程序的详细信息，请访问 http://go.microsoft.com/fwlink/?LinkID=316888
                   System.Data.Entity.Database.SetInitializer(new Fhr.ModernHistory.Repositorys.Contexts.SampleData());
-                  HttpConfiguration config = new HttpConfiguration();
+                  HttpConfiguration = new HttpConfiguration();
                   ConfigureOAuth(app);
-                  WebApiConfig.Register(config);
+                  AreaRegistration.RegisterAllAreas();
+                  WebApiConfig.Register(HttpConfiguration);
                   FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
                   RouteConfig.RegisterRoutes(RouteTable.Routes);
                   BundleConfig.RegisterBundles(BundleTable.Bundles);
                   FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-
                   app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-                  app.UseWebApi(config);
+                  app.UseWebApi(HttpConfiguration);
+                  SwaggerConfig.Register();
             }
             /// <summary>
             /// 配置OAuth

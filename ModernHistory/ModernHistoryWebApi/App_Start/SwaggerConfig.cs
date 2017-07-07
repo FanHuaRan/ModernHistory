@@ -5,7 +5,6 @@ using Swashbuckle.Application;
 using System;
 
 //[assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
-
 namespace ModernHistoryWebApi
 {
       public class SwaggerConfig
@@ -14,7 +13,7 @@ namespace ModernHistoryWebApi
             {
                   var thisAssembly = typeof(SwaggerConfig).Assembly;
 
-                  GlobalConfiguration.Configuration
+                  Startup.HttpConfiguration
                       .EnableSwagger(c =>
                           {
                                 c.SingleApiVersion("v1", "ModernHistoryApi");

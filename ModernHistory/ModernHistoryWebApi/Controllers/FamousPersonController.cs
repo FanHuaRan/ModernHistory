@@ -28,9 +28,12 @@ namespace ModernHistoryWebApi.Controllers
 
             public IFamousPersonService FamousPersonService { get; set; }
 
-            public FamousPersonController(IFamousPersonService famousePersonService)
+            public IPictureService PictureService { get; set; }
+
+            public FamousPersonController(IFamousPersonService famousePersonService, IPictureService pictureService)
             {
                   this.FamousPersonService = famousePersonService;
+                  this.PictureService = pictureService;
             }
 
             public IEnumerable<FamousPerson> Get()
@@ -52,11 +55,12 @@ namespace ModernHistoryWebApi.Controllers
             {
                   if (value != null && ModelState.IsValid)
                   {
-                        FamousPersonService.Save(value);
+                        var saveResult=FamousPersonService.Save(value);
                         if (HttpContext.Current.Request.Files.Count > 0)
                         {
-                              var imgFile = HttpContext.Current.Request.Files[0];
-                              //保存文件
+                              HttpPostedFile imgFile = HttpContext.Current.Request.Files[0];
+                              //保存图片文件
+                              PictureService.SavePersonImagFile(imgFile, saveResult.FamousPersonId);
                         }
                   }
                   else
@@ -71,6 +75,7 @@ namespace ModernHistoryWebApi.Controllers
                   {
                         value.FamousPersonId = id;
                         FamousPersonService.Update(value);
+                        //不处理图片文件了
                   }
                   else
                   {

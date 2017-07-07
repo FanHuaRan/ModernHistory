@@ -61,11 +61,6 @@ namespace Fhr.ModernHistory.Models
         public double OccurY { get; set; }
 
         /// <summary>
-        /// 事件图片地址
-        /// </summary>
-        public string ImageUrl { get; set; }
-
-        /// <summary>
         /// 历史事件类型编号
         /// </summary>
         public Int32 HistoryEventTypeId { get; set; }

@@ -1,43 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web.Http;
+using Fhr.ModernHistory.Services;
+using ModernHistoryWebApi.ExceptionDeal;
 
 namespace ModernHistoryWebApi.Controllers
 {
       /// <summary>
       /// 图片下载控制器
-      /// http://www.cnblogs.com/soundcode/p/6217016.html
+      /// http://www.cnblogs.com/qixiaoyizhan/p/6912321.html
       /// </summary>
       public class ImageDownLoadController : ApiController
       {
-            // GET api/<controller>
-            public IEnumerable<string> Get()
+            public IPictureService PictureService { get; set; }
+
+            public ImageDownLoadController(IPictureService pictureService)
             {
-                  return new string[] { "value1", "value2" };
+                  this.PictureService = pictureService;
             }
 
-            // GET api/<controller>/5
-            public string Get(int id)
+            public HttpResponseMessage GetPersonImg(int personId)
             {
-                  return "value";
+                  var fs = PictureService.GetPersonImageFile(personId);
+                  if (fs == null)
+                  {
+                        throw new CustomerApiException(HttpStatusCode.NotFound, 1, "没有该图片");
+                  }
+                  var result = CreateImageResponseMessage(personId, fs);
+                  return result;
             }
 
-            // POST api/<controller>
-            public void Post([FromBody]string value)
+            public HttpResponseMessage GetEventImg(int eventId)
             {
+                  var fs = PictureService.GetPersonImageFile(eventId);
+                  if (fs == null)
+                  {
+                        throw new CustomerApiException(HttpStatusCode.NotFound, 1, "没有该事件");
+                  }
+                  var result = CreateImageResponseMessage(eventId, fs);
+                  return result;
             }
 
-            // PUT api/<controller>/5
-            public void Put(int id, [FromBody]string value)
-            {
-            }
 
-            // DELETE api/<controller>/5
-            public void Delete(int id)
+
+            private static HttpResponseMessage CreateImageResponseMessage(int id, Stream fs)
             {
+                  var result = new HttpResponseMessage(HttpStatusCode.OK);
+                  result.Content = new StreamContent(fs);
+                  result.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+                  result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+                  result.Content.Headers.ContentDisposition.FileName = id.ToString();
+                  return result;
             }
       }
 }

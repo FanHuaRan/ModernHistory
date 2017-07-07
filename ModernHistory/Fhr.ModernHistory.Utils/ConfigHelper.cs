@@ -9,7 +9,6 @@ namespace Fhr.ModernHistory.Utils
 {
     /// <summary>
     /// 配置文件辅助类
-    /// 
     /// </summary>
     public class ConfigHelper
     {

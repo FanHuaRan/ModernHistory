@@ -36,8 +36,14 @@
     <Reference Include="Fhr.ModernHistory.Repositorys">
       <HintPath>..\Fhr.ModernHistory.Repositorys\bin\Debug\Fhr.ModernHistory.Repositorys.dll</HintPath>
     </Reference>
+    <Reference Include="Fhr.ModernHistory.Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Fhr.ModernHistory.Utils\bin\Debug\Fhr.ModernHistory.Utils.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,6 +53,8 @@
   <ItemGroup>
     <Compile Include="IFamousPersonService.cs" />
     <Compile Include="IFamousPersonTypeService.cs" />
+    <Compile Include="Impl\PictureServiceClass.cs" />
+    <Compile Include="IPictureService.cs" />
     <Compile Include="IHistoryEventService.cs" />
     <Compile Include="IHistoryEventTypeService.cs" />
     <Compile Include="IMhUserService.cs" />
