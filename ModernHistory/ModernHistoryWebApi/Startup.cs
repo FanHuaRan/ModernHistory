@@ -19,15 +19,19 @@ namespace ModernHistoryWebApi
       /// </summary>
       public class Startup
       {
-
+            //将配置对象作为静态属性，方便其他地方引用配置
             public static HttpConfiguration HttpConfiguration { get; private set; }
 
             public void Configuration(IAppBuilder app)
             {
                   // 有关如何配置应用程序的详细信息，请访问 http://go.microsoft.com/fwlink/?LinkID=316888
+                  //数据库初始化
                   System.Data.Entity.Database.SetInitializer(new Fhr.ModernHistory.Repositorys.Contexts.SampleData());
+                  //实例化配置对象
                   HttpConfiguration = new HttpConfiguration();
+                  //位置Oauth
                   ConfigureOAuth(app);
+                  //注册所有区域
                   AreaRegistration.RegisterAllAreas();
                   WebApiConfig.Register(HttpConfiguration);
                   FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
@@ -36,6 +40,7 @@ namespace ModernHistoryWebApi
                   FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
                   app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
                   app.UseWebApi(HttpConfiguration);
+                  //Swagger手动配置
                   SwaggerConfig.Register();
             }
             /// <summary>
