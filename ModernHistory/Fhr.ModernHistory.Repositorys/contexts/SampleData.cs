@@ -42,9 +42,7 @@ namespace Fhr.ModernHistory.Repositorys.Contexts
                               BornX=54521d,
                               BornY=124d,
                               DeadDate=DateTime.Parse("1828/06/02"),
-                              DeadPlace="湖南省xxxxxxxx",
-                              DeadX=54521d,
-                              DeadY=124d,
+                              Gender=1,
                               PersonType=personTypes.First()
                         }
                   };

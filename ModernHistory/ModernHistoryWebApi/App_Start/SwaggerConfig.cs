@@ -7,6 +7,10 @@ using System;
 //[assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")] 
 namespace ModernHistoryWebApi
 {
+      /// <summary>
+      /// Swagger APIŒƒµµ≈‰÷√¿‡
+      /// 2017/07/05 
+      /// </summary>
       public class SwaggerConfig
       {
             public static void Register()

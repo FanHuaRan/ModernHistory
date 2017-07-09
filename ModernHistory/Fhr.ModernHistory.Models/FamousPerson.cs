@@ -25,7 +25,13 @@ namespace Fhr.ModernHistory.Models
         [Required(ErrorMessage = "Person Name is required")]
         [StringLength(20)]
         public string PersonName { get; set; }
-      
+
+        /// <summary>
+        /// 性别
+        /// </summary>
+        [Required(ErrorMessage = "Gender is required")]
+         public byte Gender { get; set; }
+
         /// <summary>
         /// 省份籍贯
         /// </summary>
@@ -67,22 +73,6 @@ namespace Fhr.ModernHistory.Models
         /// </summary>
         [Required(ErrorMessage = "date of dead is required")]
         public DateTime DeadDate { get; set; }
-
-        /// <summary>
-        /// 逝世地点
-        /// </summary>
-        [Required(ErrorMessage = "Dead Place is required")]
-        public string DeadPlace { get; set; }
-
-        /// <summary>
-        /// 逝世地X坐标
-        /// </summary>
-        public double DeadX { get; set; }
-
-        /// <summary>
-        /// 逝世地Y坐标
-        /// </summary>
-        public double DeadY { get; set; }
 
         /// <summary>
         /// 名人类型编号
