@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ModernHistory.Others
+namespace ModernHistory.Others.Settings
 {
     /// <summary>
-    /// SettingsPage.xaml 的交互逻辑
+    /// Appearance.xaml 的交互逻辑
     /// </summary>
-    public partial class SettingsPage : UserControl
+    public partial class Appearance : UserControl
     {
-        public SettingsPage()
+        public Appearance()
         {
             InitializeComponent();
         }

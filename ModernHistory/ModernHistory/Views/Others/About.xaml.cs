@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ModernHistory.Views
+namespace ModernHistory.Others.Settings
 {
     /// <summary>
-    /// Page1.xaml 的交互逻辑
+    /// About.xaml 的交互逻辑
     /// </summary>
-    public partial class Page1 : Page
+    public partial class About : UserControl
     {
-        public Page1()
+        public About()
         {
             InitializeComponent();
         }

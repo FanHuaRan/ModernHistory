@@ -8,36 +8,32 @@
         DataContext="{Binding Source={StaticResource Locator}, Path=MainPageViewModel}"
         Width="1200" Height="600"
         WindowStartupLocation="CenterScreen" ContentSource="/Views/MapPage.xaml" >
- 
+     <!--菜单链接-->
     <mui:ModernWindow.MenuLinkGroups>
-      
         <mui:LinkGroup DisplayName="地图窗口" >
             <mui:LinkGroup.Links>
-                <mui:Link DisplayName="" Source="/Views/MapPage.xaml"/>
+                <mui:Link Source="/Views/MapPage.xaml"/>
             </mui:LinkGroup.Links>
         </mui:LinkGroup>
-        
         <mui:LinkGroup DisplayName="名人信息" >
             <mui:LinkGroup.Links>
-                <mui:Link DisplayName="link 1" Source="/Views/Page1.xaml" />
-                <mui:Link DisplayName="link 2" Source="/Views/CustomerView.xaml" />
+                <mui:Link  Source="/Views/PersonPage.xaml" />
             </mui:LinkGroup.Links>
         </mui:LinkGroup>
-        
         <mui:LinkGroup DisplayName="事件信息" >
             <mui:LinkGroup.Links>
-                <mui:Link DisplayName="link 1" />
-                <mui:Link DisplayName="link 2" />
-                <mui:Link DisplayName="link 3" />
+                <mui:Link  Source="/Views/PersonPage.xaml" />
             </mui:LinkGroup.Links>
         </mui:LinkGroup>
-        
         <mui:LinkGroup DisplayName="其它" >
             <mui:LinkGroup.Links>
-                <mui:Link DisplayName="设置" Source="/Views/SettingsPage.xaml" />
-                <mui:Link DisplayName="帮助" Source="https://github.com/firstfloorsoftware/mui" />
+                <mui:Link Source="/Views/SettingsPage.xaml" />
            </mui:LinkGroup.Links>
-
         </mui:LinkGroup>
     </mui:ModernWindow.MenuLinkGroups>
+    <!--标题链接-->
+    <mui:ModernWindow.TitleLinks>
+        <!--帮助链接-->
+        <mui:Link DisplayName="help" Source="https://github.com/firstfloorsoftware/mui" />
+    </mui:ModernWindow.TitleLinks>
 </mui:ModernWindow>

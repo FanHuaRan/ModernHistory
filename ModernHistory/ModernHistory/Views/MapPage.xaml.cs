@@ -13,12 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ModernHistory.Views
+namespace ModernHistory.Others
 {
     /// <summary>
     /// MapPage.xaml 的交互逻辑
     /// </summary>
-    public partial class MapPage : Page
+    public partial class MapPage : UserControl
     {
         public MapPage()
         {
