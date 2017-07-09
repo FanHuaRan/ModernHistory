@@ -16,6 +16,7 @@ using System.Collections.ObjectModel;
 
 // Toolkit namespace
 using SimpleMvvmToolkit;
+using ModernHistory.ViewModels;
 
 namespace ModernHistory
 {
@@ -57,6 +58,13 @@ namespace ModernHistory
             {
                 ICustomerServiceAgent serviceAgent = new MockCustomerServiceAgent();
                 return new CustomerViewModel(serviceAgent);
+            }
+        }
+        public AppearanceViewModel AppearanceViewModel
+        {
+            get
+            {
+                return new AppearanceViewModel();
             }
         }
     }
