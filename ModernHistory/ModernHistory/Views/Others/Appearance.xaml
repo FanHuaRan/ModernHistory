@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              DataContext="{Binding Source={StaticResource Locator}, Path=AppearanceViewModel}">
-   <Grid>
+    <Grid>
         <ScrollViewer>
             <StackPanel x:Name="Panel" MinWidth="150">
                 <TextBlock Text="字体颜色" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
@@ -38,13 +38,17 @@
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text="主题:" VerticalAlignment="Center" Margin="0,0,16,4" />
-                    <ComboBox Grid.Column="1" ItemsSource="{Binding Themes}" SelectedItem="{Binding SelectedTheme, Mode=TwoWay}" DisplayMemberPath="DisplayName" VerticalAlignment="Center" Margin="0,0,0,4" />
+                    <TextBlock Text="平台风格:" VerticalAlignment="Center" Margin="0,0,16,4" />
+                    <ComboBox Grid.Column="1" ItemsSource="{Binding Palettes}" SelectedItem="{Binding SelectedPalette, Mode=TwoWay}" VerticalAlignment="Center" Margin="0,0,0,4" />
 
-                    <TextBlock Grid.Row="1" Text="字体大小:" VerticalAlignment="Center" Margin="0,0,16,0" />
-                    <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding FontSizes}" SelectedItem="{Binding SelectedFontSize, Mode=TwoWay}" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="1" Text="主题风格:" VerticalAlignment="Center" Margin="0,0,16,4" />
+                    <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Themes}" SelectedItem="{Binding SelectedTheme, Mode=TwoWay}" DisplayMemberPath="DisplayName" VerticalAlignment="Center" Margin="0,0,0,4" />
+
+                    <TextBlock Grid.Row="2" Text="字体大小:" VerticalAlignment="Center" Margin="0,0,16,0" />
+                    <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding FontSizes}" SelectedItem="{Binding SelectedFontSize, Mode=TwoWay}" VerticalAlignment="Center" />
                 </Grid>
             </StackPanel>
         </ScrollViewer>
