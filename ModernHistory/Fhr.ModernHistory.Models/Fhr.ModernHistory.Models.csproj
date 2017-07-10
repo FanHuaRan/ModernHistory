@@ -48,6 +48,7 @@
     <Compile Include="PersonEventRelation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchModels\EventSearchModel.cs" />
+    <Compile Include="SearchModels\PersonEventRelationSearchModel.cs" />
     <Compile Include="SearchModels\PersonSearchModel.cs" />
   </ItemGroup>
   <ItemGroup>

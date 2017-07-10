@@ -254,7 +254,7 @@
     <Compile Include="Controllers\HistoryEventController.cs" />
     <Compile Include="Controllers\HistoryEventTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ImageDownLoadController.cs" />
+    <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\PersonEventRelationController.cs" />
     <Compile Include="Dependencys\NinjectDependencyResolver.cs" />
     <Compile Include="ExceptionDeal\CustomerApiException.cs" />

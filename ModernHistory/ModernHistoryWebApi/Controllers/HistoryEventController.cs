@@ -16,7 +16,7 @@ namespace ModernHistoryWebApi.Controllers
       /// HistoryEvent api控制器
       ///  2017/07/02 fhr
       /// </summary>
-      [Authorize]
+     // [Authorize]
       public class HistoryEventController : ApiController
       {
 
@@ -46,17 +46,11 @@ namespace ModernHistoryWebApi.Controllers
                   return person;
             }
             [HttpPost]
-            public void Save([FromBody]HistoryEvent value)
+            public HistoryEvent Save([FromBody]HistoryEvent value)
             {
                   if (value != null && ModelState.IsValid)
                   {
-                        var saveResult = HistoryEventService.Save(value);
-                        if (HttpContext.Current.Request.Files.Count > 0)
-                        {
-                              HttpPostedFile imgFile = HttpContext.Current.Request.Files[0];
-                              //保存图片文件
-                              PictureService.SavePersonImagFile(imgFile, saveResult.HistoryEventId);
-                        }
+                        return HistoryEventService.Save(value);
                   }
                   else
                   {
@@ -82,7 +76,7 @@ namespace ModernHistoryWebApi.Controllers
             {
                   HistoryEventService.Delete(id);
             }
-            [HttpGet]
+            [HttpPost]
             public IEnumerable<HistoryEvent> Search([FromUri] EventSearchModel searchModel)
             {
                   return HistoryEventService.Search(searchModel);

@@ -29,7 +29,8 @@ namespace ModernHistoryWebApi
                   System.Data.Entity.Database.SetInitializer(new Fhr.ModernHistory.Repositorys.Contexts.SampleData());
                   //实例化配置对象
                   HttpConfiguration = new HttpConfiguration();
-                  ConfigureOAuth(app);
+                  //时间来不及 暂时不配置OAUTH
+                  // ConfigureOAuth(app);
                   //注册所有区域
                   AreaRegistration.RegisterAllAreas();
                   WebApiConfig.Register(HttpConfiguration);

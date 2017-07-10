@@ -22,7 +22,7 @@
         </mui:LinkGroup>
         <mui:LinkGroup DisplayName="事件信息" >
             <mui:LinkGroup.Links>
-                <mui:Link  Source="/Views/PersonPage.xaml" />
+                <mui:Link  Source="/Views/EventPage.xaml" />
             </mui:LinkGroup.Links>
         </mui:LinkGroup>
         <mui:LinkGroup DisplayName="其它" >

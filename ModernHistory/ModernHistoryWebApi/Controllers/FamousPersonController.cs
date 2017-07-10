@@ -22,7 +22,7 @@ namespace ModernHistoryWebApi.Controllers
       ///  FamousPerson API控制器
       ///  2017/07/02 fhr
       /// </summary>
-      [Authorize]
+     // [Authorize]
       public class FamousPersonController : ApiController
       {
 
@@ -51,17 +51,11 @@ namespace ModernHistoryWebApi.Controllers
                   return person;
             }
             [HttpPost]
-            public void Save([FromBody]FamousPerson value)
+            public FamousPerson Save([FromBody]FamousPerson value)
             {
                   if (value != null && ModelState.IsValid)
                   {
-                        var saveResult=FamousPersonService.Save(value);
-                        if (HttpContext.Current.Request.Files.Count > 0)
-                        {
-                              HttpPostedFile imgFile = HttpContext.Current.Request.Files[0];
-                              //保存图片文件
-                              PictureService.SavePersonImagFile(imgFile, saveResult.FamousPersonId);
-                        }
+                        return FamousPersonService.Save(value);
                   }
                   else
                   {
@@ -87,8 +81,8 @@ namespace ModernHistoryWebApi.Controllers
             {
                   FamousPersonService.Delete(id);
             }
-            [HttpGet]
-            public IEnumerable<FamousPerson> Search([FromUri] PersonSearchModel searchModel)
+            [HttpPost]
+            public IEnumerable<FamousPerson> Search([FromBody] PersonSearchModel searchModel)
             {
                   return FamousPersonService.Search(searchModel);
             }

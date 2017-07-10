@@ -14,7 +14,7 @@ namespace ModernHistoryWebApi.Controllers
       /// FamousPersonType API控制器
       ///  2017/07/02 fhr
       /// </summary>
-      [Authorize]
+     // [Authorize]
       public class FamousPersonTypeController : ApiController
       {
 
@@ -39,11 +39,11 @@ namespace ModernHistoryWebApi.Controllers
                   return person;
             }
             [HttpPost]
-            public void Save([FromBody]FamousPersonType value)
+            public FamousPersonType Save([FromBody]FamousPersonType value)
             {
                   if (value != null && ModelState.IsValid)
                   {
-                        FamousPersonTypeService.Save(value);
+                        return FamousPersonTypeService.Save(value);
                   }
                   else
                   {

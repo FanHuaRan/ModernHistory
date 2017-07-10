@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Web;
 using System.Web.Http;
 using Fhr.ModernHistory.Services;
 using ModernHistoryWebApi.ExceptionDeal;
@@ -15,37 +16,56 @@ namespace ModernHistoryWebApi.Controllers
       /// 图片下载控制器
       /// http://www.cnblogs.com/qixiaoyizhan/p/6912321.html
       /// </summary>
-      public class ImageDownLoadController : ApiController
+      public class ImageController : ApiController
       {
             public IPictureService PictureService { get; set; }
 
-            public ImageDownLoadController(IPictureService pictureService)
+            public ImageController(IPictureService pictureService)
             {
                   this.PictureService = pictureService;
             }
-
-            public HttpResponseMessage GetPersonImg(int personId)
+            [HttpPost]
+            public void UplodPersonImg(int id)
             {
-                  var fs = PictureService.GetPersonImageFile(personId);
+                  if (HttpContext.Current.Request.Files.Count > 0)
+                  {
+                        HttpPostedFile imgFile = HttpContext.Current.Request.Files[0];
+                        //保存图片文件
+                        PictureService.SavePersonImagFile(imgFile, id);
+                  }
+
+            }
+            [HttpPost]
+            public void UploadEventImg(int id)
+            {
+                  if (HttpContext.Current.Request.Files.Count > 0)
+                  {
+                        HttpPostedFile imgFile = HttpContext.Current.Request.Files[0];
+                        //保存图片文件
+                        PictureService.SaveEventImageFile(imgFile, id);
+                  }
+            }
+            public HttpResponseMessage GetPersonImg(int id)
+            {
+                  var fs = PictureService.GetPersonImageFile(id);
                   if (fs == null)
                   {
                         throw new CustomerApiException(HttpStatusCode.NotFound, 1, "没有该图片");
                   }
-                  var result = CreateImageResponseMessage(personId, fs);
+                  var result = CreateImageResponseMessage(id, fs);
                   return result;
             }
 
-            public HttpResponseMessage GetEventImg(int eventId)
+            public HttpResponseMessage GetEventImg(int id)
             {
-                  var fs = PictureService.GetPersonImageFile(eventId);
+                  var fs = PictureService.GetEventImageFile(id);
                   if (fs == null)
                   {
                         throw new CustomerApiException(HttpStatusCode.NotFound, 1, "没有该事件");
                   }
-                  var result = CreateImageResponseMessage(eventId, fs);
+                  var result = CreateImageResponseMessage(id, fs);
                   return result;
             }
-
 
 
             private static HttpResponseMessage CreateImageResponseMessage(int id, Stream fs)

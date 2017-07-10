@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Fhr.ModernHistory.Models;
+using Fhr.ModernHistory.Models.SearchModels;
 using Fhr.ModernHistory.Services;
 using ModernHistoryWebApi.ExceptionDeal;
 
@@ -14,7 +15,7 @@ namespace ModernHistoryWebApi.Controllers
       /// PersonEventRelation API控制器
       /// 2017/07/06 
       /// </summary>
-      [Authorize]
+     // [Authorize]
       public class PersonEventRelationController : ApiController
       {
 
@@ -40,11 +41,11 @@ namespace ModernHistoryWebApi.Controllers
                   return person;
             }
             [HttpPost]
-            public void Save([FromBody]PersonEventRelation value)
+            public PersonEventRelation Save([FromBody]PersonEventRelation value)
             {
                   if (value != null && ModelState.IsValid)
                   {
-                        PersonEventRelationService.Save(value);
+                        return PersonEventRelationService.Save(value);
                   }
                   else
                   {
@@ -69,16 +70,10 @@ namespace ModernHistoryWebApi.Controllers
             {
                   PersonEventRelationService.Delete(id);
             }
-            [HttpGet]
-            public IEnumerable<PersonEventRelation> Search([FromUri] PersonEventRelationSearchModel searchModel)
+            [HttpPost]
+            public IEnumerable<PersonEventRelation> Search([FromBody] PersonEventRelationSearchModel searchModel)
             {
                   return PersonEventRelationService.FindByPersonAndEvent(searchModel.PersonId,searchModel.EventId);
             }
-      }
-      public class PersonEventRelationSearchModel
-      {
-           public Int32? PersonId { get; set; }
-
-           public  Int32? EventId { get; set; }
       }
 }

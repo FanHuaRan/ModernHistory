@@ -14,7 +14,7 @@ namespace ModernHistoryWebApi.Controllers
       /// HistoryEventType API控制器
       /// 2017/07/06 fhr
       /// </summary>
-      [Authorize]
+     // [Authorize]
       public class HistoryEventTypeController : ApiController
       {
 
@@ -39,11 +39,11 @@ namespace ModernHistoryWebApi.Controllers
                   return person;
             }
             [HttpPost]
-            public void Save([FromBody]HistoryEventType value)
+            public HistoryEventType Save([FromBody]HistoryEventType value)
             {
                   if (value != null && ModelState.IsValid)
                   {
-                        HistoryEventTypeService.Save(value);
+                      return   HistoryEventTypeService.Save(value);
                   }
                   else
                   {

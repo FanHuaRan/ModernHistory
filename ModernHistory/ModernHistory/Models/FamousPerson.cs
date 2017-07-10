@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fhr.ModernHistory.Models
+namespace ModernHistory.Models
 {
     /// <summary>
     /// 名人信息
