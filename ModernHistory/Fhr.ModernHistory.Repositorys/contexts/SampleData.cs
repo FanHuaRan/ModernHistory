@@ -20,6 +20,7 @@ namespace Fhr.ModernHistory.Repositorys.Contexts
             /// <param name="context"></param>
             protected override void Seed(ModernHisContext context)
             {
+                //成都各省市经纬度：http://www.d1xz.net/xp/jingwei/sicuan.aspx
                   var personTypes = new List<FamousPersonType>()
                   {
                         new FamousPersonType(){FamousPersonTypeName = "思想家"},

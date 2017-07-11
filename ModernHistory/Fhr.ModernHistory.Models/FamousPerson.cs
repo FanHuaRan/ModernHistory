@@ -31,7 +31,7 @@ namespace Fhr.ModernHistory.Models
         /// 性别
         /// </summary>
         [Required(ErrorMessage = "Gender is required")]
-         public byte Gender { get; set; }
+        public byte Gender { get; set; }
 
         /// <summary>
         /// 省份籍贯
@@ -62,11 +62,13 @@ namespace Fhr.ModernHistory.Models
         /// <summary>
         /// 出生地X坐标
         /// </summary>
+        [Required(ErrorMessage = "Born longitude is required")]
         public double BornX { get; set; }
 
         /// <summary>
         /// 出生地Y坐标
         /// </summary>
+        [Required(ErrorMessage = "Born  Latitude is required")]
         public double BornY { get; set; }
 
         /// <summary>
@@ -78,11 +80,12 @@ namespace Fhr.ModernHistory.Models
         /// <summary>
         /// 名人类型编号
         /// </summary>
+        [Required(ErrorMessage = "FamousPersonType Id is required")]
         public Int32 FamousPersonTypeId { get; set; }
 
         /// <summary>
         /// 名人类型
         /// </summary>
-        public  virtual FamousPersonType PersonType { get; set; }
+        public virtual FamousPersonType PersonType { get; set; }
     }
 }

@@ -48,21 +48,25 @@ namespace ModernHistory.Models
         /// <summary>
         /// 地点
         /// </summary>
+        [Required(ErrorMessage = "Place is required")]
         public string Place { get; set; }
 
         /// <summary>
         /// 事件X坐标
         /// </summary>
+        [Required(ErrorMessage = "Event  Occur longitude is required")]
         public double OccurX { get; set; }
         
         /// <summary>
         /// 事件Y坐标
         /// </summary>
+        [Required(ErrorMessage = "Event Occur Latitude is required")]
         public double OccurY { get; set; }
 
         /// <summary>
         /// 历史事件类型编号
         /// </summary>
+        [Required(ErrorMessage = "HistoryEventType Id is required")]
         public Int32 HistoryEventTypeId { get; set; }
 
         /// <summary>

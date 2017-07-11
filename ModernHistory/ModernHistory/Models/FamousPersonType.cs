@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace ModernHistory.Models
         /// <summary>
         /// 名人类型名称
         /// </summary>
+        [Required(ErrorMessage = "FamousPersonType Name is required")]
         public String FamousPersonTypeName { get; set; }
     }
 }
