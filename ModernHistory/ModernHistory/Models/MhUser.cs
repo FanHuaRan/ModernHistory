@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ModernHistory.Models
 {
     /// <summary>
-    /// 系统用户 暂时不使用咯
+    /// 系统用户 暂时不使用 也就不实现属性通知改变接口了
     /// 2017/06/30 fhr
     /// </summary>
     public class MhUser

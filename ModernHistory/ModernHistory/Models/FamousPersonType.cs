@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleMvvmToolkit;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,17 +12,42 @@ namespace ModernHistory.Models
     /// 名人类型
     /// 2017/06/30 fhr
     /// </summary>
-    public class FamousPersonType
+    public class FamousPersonType : ModelBase<FamousPersonType>
     {
+        private Int32 famousPersonTypeId;
+        private String famousPersonTypeName;
+
         /// <summary>
         /// 名人类型编号
         /// </summary>
-        public Int32 FamousPersonTypeId { get; set; }
+        public Int32 FamousPersonTypeId
+        {
+            get { return famousPersonTypeId; }
+            set
+            {
+                if (famousPersonTypeId != value)
+                {
+                    famousPersonTypeId = value;
+                    NotifyPropertyChanged(p => p.FamousPersonTypeId);
+                }
+            }
+        }
 
         /// <summary>
         /// 名人类型名称
         /// </summary>
         [Required(ErrorMessage = "FamousPersonType Name is required")]
-        public String FamousPersonTypeName { get; set; }
+        public String FamousPersonTypeName
+        {
+            get { return FamousPersonTypeName; }
+            set
+            {
+                if (famousPersonTypeName != value)
+                {
+                    famousPersonTypeName = value;
+                    NotifyPropertyChanged(p => p.FamousPersonTypeName);
+                }
+            }
+        }
     }
 }

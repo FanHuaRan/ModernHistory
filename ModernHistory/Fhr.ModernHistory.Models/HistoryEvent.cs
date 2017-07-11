@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Fhr.ModernHistory.Models
 {
     /// <summary>
-    /// 历史事件信息标题
+    /// 历史事件信息
     /// 2017/06/30 fhr
     /// </summary>
     public class HistoryEvent

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleMvvmToolkit;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,31 +7,172 @@ using System.Threading.Tasks;
 
 namespace ModernHistory.Models
 {
-      /// <summary>
-      /// 名人查询参数模型
-      /// 2017/07/06 fhr
-      /// </summary>
-      public class PersonSearchModel
-      {
-            public string PersonName { get; set; }
+    /// <summary>
+    /// 名人查询参数模型
+    /// 2017/07/06 fhr
+    /// </summary>
+    public class PersonSearchModel : ModelBase<PersonSearchModel>
+    {
+        private string personName;
 
-            public string Province { get; set; }
+        private string province;
 
-            public string Nation { get; set; }
+        private string nation;
 
-            public string BornPlace { get; set; }
+        private string bornPlace;
 
-            public string DeadPlace { get; set; }
+        private string deadPlace;
 
-            public DateTime? MinBornDate { get; set; }
+        private DateTime? minBornDate;
 
-            public DateTime? MaxBornDate { get; set; }
+        private DateTime? maxBornDate;
 
-            public DateTime? MinDeadDate { get; set; }
+        private DateTime? minDeadDate;
 
-            public DateTime? MaxDeadDate { get; set; }
+        private DateTime? maxDeadDate;
 
-            public Int32? FamousPersonTypeId { get; set; }
+        private Int32? famousPersonTypeId;
 
-      }
+
+
+        public string PersonName
+        {
+            get { return personName; }
+
+            set
+            {
+                if (personName != value)
+                {
+                    personName = value;
+                    NotifyPropertyChanged(p => p.PersonName);
+                }
+            }
+        }
+
+        public string Province
+        {
+            get { return province; }
+
+            set
+            {
+                if (province != value)
+                {
+                    province = value;
+                    NotifyPropertyChanged(p => p.Province);
+                }
+            }
+        }
+
+        public string Nation
+        {
+            get { return nation; }
+
+            set
+            {
+                if (nation != value)
+                {
+                    nation = value;
+                    NotifyPropertyChanged(p => p.Nation);
+                }
+            }
+        }
+
+        public string BornPlace
+        {
+            get { return bornPlace; }
+
+            set
+            {
+                if (bornPlace != value)
+                {
+                    bornPlace = value;
+                    NotifyPropertyChanged(p => p.BornPlace);
+                }
+            }
+        }
+
+        public string DeadPlace
+        {
+            get { return deadPlace; }
+
+            set
+            {
+                if (deadPlace != value)
+                {
+                    deadPlace = value;
+                    NotifyPropertyChanged(p => p.DeadPlace);
+                }
+            }
+        }
+
+        public DateTime? MinBornDate
+        {
+            get { return minBornDate; }
+
+            set
+            {
+                if (minBornDate != value)
+                {
+                    minBornDate = value;
+                    NotifyPropertyChanged(p => p.MinBornDate);
+                }
+            }
+        }
+
+        public DateTime? MaxBornDate
+        {
+            get { return maxBornDate; }
+
+            set
+            {
+                if (maxBornDate != value)
+                {
+                    maxBornDate = value;
+                    NotifyPropertyChanged(p => p.MaxBornDate);
+                }
+            }
+        }
+
+        public DateTime? MinDeadDate
+        {
+            get { return minDeadDate; }
+
+            set
+            {
+                if (minDeadDate != value)
+                {
+                    minDeadDate = value;
+                    NotifyPropertyChanged(p => p.MinDeadDate);
+                }
+            }
+        }
+
+        public DateTime? MaxDeadDate
+        {
+            get { return maxDeadDate; }
+
+            set
+            {
+                if (maxDeadDate != value)
+                {
+                    maxDeadDate = value;
+                    NotifyPropertyChanged(p => p.MaxDeadDate);
+                }
+            }
+        }
+
+        public Int32? FamousPersonTypeId
+        {
+            get { return famousPersonTypeId; }
+
+            set
+            {
+                if (famousPersonTypeId != value)
+                {
+                    famousPersonTypeId = value;
+                    NotifyPropertyChanged(p => p.FamousPersonTypeId);
+                }
+            }
+        }
+    }
 }
