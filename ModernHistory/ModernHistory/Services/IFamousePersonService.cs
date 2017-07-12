@@ -7,7 +7,7 @@ namespace ModernHistory.Services
     /// <summary>
     /// 名人服务接口
     /// </summary>
-    interface IFamousePersonService
+    public interface IFamousePersonService
     {
         Task DeleteAsync(int id);
         Task<ObservableCollection<FamousPerson>> FindAllAsync();
