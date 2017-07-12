@@ -1,5 +1,6 @@
 ﻿using ModernHistory.Gloabl;
 using ModernHistory.Models;
+using ModernHistory.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,112 +17,47 @@ namespace ModernHistory.Services.Impl
     /// </summary>
     public class HistoryEventServiceClass : IHistoryEventService
     {
-        public static readonly string FindUrl = WebApiConfig.WEBAPI_BASE_Uri + "/HistoryEvent/Get";
+        public static readonly string FIND_URL = WebApiConfig.WEBAPI_BASE_URL + "/HistoryEvent/Get";
 
-        public static readonly string SaveUrl = WebApiConfig.WEBAPI_BASE_Uri + "/HistoryEvent/Save";
+        public static readonly string SAVE_URL = WebApiConfig.WEBAPI_BASE_URL + "/HistoryEvent/Save";
 
-        public static readonly string UpdateUrl = WebApiConfig.WEBAPI_BASE_Uri + "/HistoryEvent/Update";
+        public static readonly string UPDATE_URL = WebApiConfig.WEBAPI_BASE_URL + "/HistoryEvent/Update";
 
-        public static readonly string SearchUrl = WebApiConfig.WEBAPI_BASE_Uri + "/HistoryEvent/Search";
+        public static readonly string SEARCH_URL = WebApiConfig.WEBAPI_BASE_URL + "/HistoryEvent/Search";
 
-        public static readonly string DeleteUrl = WebApiConfig.WEBAPI_BASE_Uri + "/HistoryEvent/Delete";
+        public static readonly string DELETE_URL = WebApiConfig.WEBAPI_BASE_URL + "/HistoryEvent/Delete";
 
         public async Task<ObservableCollection<HistoryEvent>> FindAllAsync()
         {
-            using (var httpClient = new HttpClient())
-            {
-                var response = await httpClient.GetAsync(FindUrl);
-                if (response.IsSuccessStatusCode)
-                {
-                    return await response.Content.ReadAsAsync<ObservableCollection<HistoryEvent>>();
-                }
-                else
-                {
-                    var apiErrorModel = await response.Content.ReadAsAsync<ApiErrorModel>();
-                    throw new ApiErrorException(apiErrorModel);
-                }
-            }
+            return await HttpClientUtils.GetAsync<ObservableCollection<HistoryEvent>>(FIND_URL);
         }
 
         public async Task<HistoryEvent> FindByIdAsync(int id)
         {
-            var address = string.Format("{0}/{1}", FindUrl, id);
-            using (var httpClient = new HttpClient())
-            {
-                var response = await httpClient.GetAsync(address);
-                if (response.IsSuccessStatusCode)
-                {
-                    return await response.Content.ReadAsAsync<HistoryEvent>();
-                }
-                else
-                {
-                    var apiErrorModel = await response.Content.ReadAsAsync<ApiErrorModel>();
-                    throw new ApiErrorException(apiErrorModel);
-                }
-            }
+            var address = string.Format("{0}/{1}", FIND_URL, id);
+            return await HttpClientUtils.GetAsync<HistoryEvent>(address);
         }
 
-        public async void UpdateAsync(HistoryEvent historyEvent)
+        public async Task UpdateAsync(HistoryEvent historyEvent)
         {
-            var address = string.Format("{0}/{1}",UpdateUrl,historyEvent.HistoryEventId);
-            using (var httpClient = new HttpClient())
-            {
-                var response = await httpClient.PostAsJsonAsync<HistoryEvent>(address, historyEvent);
-                if (!response.IsSuccessStatusCode)
-                {
-                    var apiErrorModel = await response.Content.ReadAsAsync<ApiErrorModel>();
-                    throw new ApiErrorException(apiErrorModel);
-                }
-            }
+            var address = string.Format("{0}/{1}",UPDATE_URL,historyEvent.HistoryEventId);
+            await HttpClientUtils.PostJsonNoReturnAsync<HistoryEvent>(address, historyEvent);
         }
 
-        public async Task<HistoryEvent> SaveAsync(HistoryEvent historyEvent, string pictureName)
+        public async Task<HistoryEvent> SaveAsync(HistoryEvent historyEvent)
         {
-            //var address=string
-            using (var httpClient = new HttpClient())
-            {
-                var response = await httpClient.PostAsJsonAsync(SaveUrl, historyEvent);
-                if (response.IsSuccessStatusCode)
-                {
-                    return await response.Content.ReadAsAsync<HistoryEvent>();
-                }
-                else
-                {
-                    var apiErrorModel = await response.Content.ReadAsAsync<ApiErrorModel>();
-                    throw new ApiErrorException(apiErrorModel);
-                }
-            }
+            return await HttpClientUtils.PostJsonAsync<HistoryEvent, HistoryEvent>(SAVE_URL, historyEvent);
         }
 
-        public async void DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            var address = string.Format("{0}/{1}", DeleteUrl, id);
-            using (var httpClient = new HttpClient())
-            {
-                var response = await httpClient.PostAsync(address, null);
-                if (!response.IsSuccessStatusCode)
-                {
-                    var apiErrorModel = await response.Content.ReadAsAsync<ApiErrorModel>();
-                    throw new ApiErrorException(apiErrorModel);
-                }
-            }
+            var address = string.Format("{0}/{1}", DELETE_URL, id);
+            await HttpClientUtils.PostAsync(address);
         }
 
         public async Task<ObservableCollection<HistoryEvent>> SearchAsync(EventSearchModel searchModel)
         {
-            using (var httpClient = new HttpClient())
-            {
-                var response = await httpClient.PostAsJsonAsync(SearchUrl, searchModel);
-                if (response.IsSuccessStatusCode)
-                {
-                    return await response.Content.ReadAsAsync<ObservableCollection<HistoryEvent>>();
-                }
-                else
-                {
-                    var apiErrorModel = await response.Content.ReadAsAsync<ApiErrorModel>();
-                    throw new ApiErrorException(apiErrorModel);
-                }
-            }
+            return await HttpClientUtils.PostJsonAsync<EventSearchModel, ObservableCollection<HistoryEvent>>(SEARCH_URL, searchModel);    
         }
 
     }

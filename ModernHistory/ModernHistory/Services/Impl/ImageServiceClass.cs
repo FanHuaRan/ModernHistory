@@ -8,6 +8,7 @@ using System.Net.Http.Formatting;
 using ModernHistory.Gloabl;
 using System.IO;
 using ModernHistory.Models;
+using ModernHistory.Utils;
 namespace ModernHistory.Services.Impl
 {
     /// <summary>
@@ -16,37 +17,20 @@ namespace ModernHistory.Services.Impl
     /// </summary>
     public class ImageServiceClass : IImageService
     {
-        public static readonly string UploadPersonImgUrl = WebApiConfig.WEBAPI_BASE_Uri + "/Image/UplodPersonImg";
-        
-        public static readonly string UploadEventImgUrl = WebApiConfig.WEBAPI_BASE_Uri + "/Image/UplodEventImg";
+        public static readonly string UPLOAD_PERSON_IMG_URL = WebApiConfig.WEBAPI_BASE_URL + "/Image/UplodPersonImg";
 
-        public async void UploadPersonImgAsync(int personId,string pictureName)
+        public static readonly string UPLOAD_EVENT_IMG_URL = WebApiConfig.WEBAPI_BASE_URL + "/Image/UplodEventImg";
+
+        public async Task UploadPersonImgAsync(int personId, string pictureName)
         {
-            var address = string.Format("{0}/{1}/", UploadPersonImgUrl, personId);
-             UploadImgAsync(pictureName, address);
+            var address = string.Format("{0}/{1}/", UPLOAD_PERSON_IMG_URL, personId);
+            await HttpClientUtils.UploadFileAsync(address, pictureName);
         }
-        public async void UploadEventImgAsync(int eventId, string pictureName)
+        public async Task UploadEventImgAsync(int eventId, string pictureName)
         {
-            var address = string.Format("{0}/{1}/", UploadEventImgUrl, eventId);
-            UploadImgAsync(pictureName, address);
+            var address = string.Format("{0}/{1}/", UPLOAD_EVENT_IMG_URL, eventId);
+            await HttpClientUtils.UploadFileAsync(address, pictureName);
         }
 
-        private static async void UploadImgAsync(string pictureName, string address)
-        {
-            using (var httpClient = new HttpClient())
-            {
-                using (var content = new MultipartFormDataContent(pictureName))
-                using (var imgStream = File.Open(pictureName, FileMode.Open))
-                {
-                    content.Add(new StreamContent(imgStream));
-                    var response = await httpClient.PostAsync(address, content);
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        var apiErrorModel = await response.Content.ReadAsAsync<ApiErrorModel>();
-                        throw new ApiErrorException(apiErrorModel);
-                    }
-                }
-            }
-        }
     }
 }

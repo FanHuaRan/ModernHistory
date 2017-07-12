@@ -1,5 +1,6 @@
 ﻿using ModernHistory.Gloabl;
 using ModernHistory.Models;
+using ModernHistory.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,41 +16,17 @@ namespace ModernHistory.Services.Impl
     /// </summary>
     public class FamousPersonTypeServiceClass:IFamousPersonTypeService
     {
-        public static readonly string FindUrl = WebApiConfig.WEBAPI_BASE_Uri + "/FamousPersonType/Get";
+        public static readonly string FIND_URL = WebApiConfig.WEBAPI_BASE_URL + "/FamousPersonType/Get";
 
         public async Task<ObservableCollection<FamousPersonType>> FindAllAsync()
         {
-            using (var httpClient = new HttpClient())
-            {
-                var response = await httpClient.GetAsync(FindUrl);
-                if (response.IsSuccessStatusCode)
-                {
-                    return await response.Content.ReadAsAsync<ObservableCollection<FamousPersonType>>();
-                }
-                else
-                {
-                    var apiErrorModel = await response.Content.ReadAsAsync<ApiErrorModel>();
-                    throw new ApiErrorException(apiErrorModel);
-                }
-            }
+            return await HttpClientUtils.GetAsync<ObservableCollection<FamousPersonType>>(FIND_URL);
         }
 
         public async Task<FamousPersonType> FindByIdAsync(int id)
         {
-            var address = string.Format("{0}/{1}", FindUrl, id);
-            using (var httpClient = new HttpClient())
-            {
-                var response = await httpClient.GetAsync(address);
-                if (response.IsSuccessStatusCode)
-                {
-                    return await response.Content.ReadAsAsync<FamousPersonType>();
-                }
-                else
-                {
-                    var apiErrorModel = await response.Content.ReadAsAsync<ApiErrorModel>();
-                    throw new ApiErrorException(apiErrorModel);
-                }
-            }
+            var address = string.Format("{0}/{1}", FIND_URL, id);
+            return await HttpClientUtils.GetAsync<FamousPersonType>(address);
         }
     }
 }

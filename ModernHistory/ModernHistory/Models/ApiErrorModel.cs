@@ -21,6 +21,7 @@ namespace ModernHistory.Models
         /// 错误业务标识 
         /// code=1代表是服务器逻辑自己抛出的异常
         /// code=2代表是服务器运行出错抛出的异常
+        /// code=3代表的是网络连接的问题
         /// </summary>
         public int Code { get; set; }
         /// <summary>

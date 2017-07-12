@@ -14,11 +14,11 @@ namespace ModernHistory.Services
     /// </summary>
     public interface IHistoryEventService
     {
-        Task DeleteAsync(int id);
+        void DeleteAsync(int id);
         Task<ObservableCollection<HistoryEvent>> FindAllAsync();
         Task<HistoryEvent> FindByIdAsync(int id);
-        Task<HistoryEvent> SaveAsync(HistoryEvent historyEvent);
+        Task<HistoryEvent> SaveAsync(HistoryEvent historyEvent, string pictureName);
         Task<ObservableCollection<HistoryEvent>> SearchAsync(EventSearchModel searchModel);
-        Task UpdateAsync(HistoryEvent historyEvent);
+        void UpdateAsync(HistoryEvent historyEvent);
     }
 }

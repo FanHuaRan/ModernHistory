@@ -26,7 +26,7 @@ namespace ModernHistory.Models
         private double bornY;
         private DateTime deadDate;
         private Int32 famousPersonTypeId;
-        private virtual FamousPersonType personType;
+        private FamousPersonType personType;
 
         /// <summary>
         /// 编号

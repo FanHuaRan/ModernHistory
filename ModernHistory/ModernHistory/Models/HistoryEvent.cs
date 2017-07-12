@@ -23,7 +23,7 @@ namespace ModernHistory.Models
         private double occurX;
         private double occurY;
         private Int32 historyEventTypeId;
-        private virtual HistoryEventType eventType;
+        private HistoryEventType eventType;
 
         /// <summary>
         /// 历史事件编号

@@ -9,11 +9,11 @@ namespace ModernHistory.Services
     /// </summary>
     interface IFamousePersonService
     {
-        Task DeleteAsync(int id);
+        void DeleteAsync(int id);
         Task<ObservableCollection<FamousPerson>> FindAllAsync();
         Task<FamousPerson> FindByIdAsync(int id);
-        Task<FamousPerson> SaveAsync(FamousPerson famousePerson);
+        Task<FamousPerson> SaveAsync(FamousPerson famousePerson, string pictureName);
         Task<ObservableCollection<FamousPerson>> SearchAsync(PersonSearchModel searchModel);
-        Task UpdateAsync(FamousPerson famousePerson);
+        void UpdateAsync(FamousPerson famousePerson);
     }
 }

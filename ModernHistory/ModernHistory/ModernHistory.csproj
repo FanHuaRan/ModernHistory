@@ -112,6 +112,7 @@
     <Compile Include="Services\Impl\FamousePersonServiceClass.cs" />
     <Compile Include="Services\Impl\PersonEventRelationServiceClass.cs" />
     <Compile Include="Services\IPersonEventRelationService.cs" />
+    <Compile Include="Utils\HttpClientUtils.cs" />
     <Compile Include="ViewModels\AppearanceViewModel.cs" />
     <Compile Include="Views\CustomerView.xaml.cs">
       <DependentUpon>CustomerView.xaml</DependentUpon>
