@@ -5,7 +5,7 @@
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300">   
     <Grid Style="{StaticResource ContentRoot}">
         <mui:ModernTab Layout="List" SelectedSource="/Views/Person/PersonList.xaml">
             <mui:ModernTab.Links>
@@ -14,6 +14,7 @@
                 <mui:Link DisplayName="新增"       Source="/Views/Person/PersonAdd.xaml"/>
                 <mui:Link DisplayName="详细信息"   Source="/Views/Person/PersonDetail.xaml" />
                 <mui:Link DisplayName="修改"       Source="/Views/Person/PersonEdit.xaml"/>
+                <mui:Link DisplayName="删除"       Source="/Views/Person/PersonDeleteConfirm.xaml"/>
                 <mui:Link DisplayName="统计信息"   Source="/Views/Person/PersonStatics.xaml"/>
             </mui:ModernTab.Links>
         </mui:ModernTab>

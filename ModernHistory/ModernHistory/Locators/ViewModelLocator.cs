@@ -31,6 +31,22 @@ namespace ModernHistory
         /// </summary>
         private IServiceFactory serviceFactory = new SingletonServiceFactory();
 
+        private PersonsInfoViewModel personsInfoViewModel = null;
+        /// <summary>
+        /// 名人信息ViewModel
+        /// </summary>
+        public PersonsInfoViewModel PersonsInfoViewModel
+        {
+            get
+            {
+                if (personsInfoViewModel == null)
+                {
+                    personsInfoViewModel = new PersonsInfoViewModel(serviceFactory.GetFamousePersonService());
+                }
+                return personsInfoViewModel;
+            }
+        }
+
         // Create MainPageViewModel on demand
         public MainPageViewModel MainPageViewModel
         {

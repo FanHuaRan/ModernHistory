@@ -16,8 +16,8 @@ namespace ModernHistory.Models
     public class FamousPerson : ModelBase<FamousPerson>
     {
         private Int32 famousPersonId;
-        public string personName;
-        public byte gender;
+        private string personName;
+        private byte gender;
         private string province;
         private string nation;
         private DateTime bornDate;

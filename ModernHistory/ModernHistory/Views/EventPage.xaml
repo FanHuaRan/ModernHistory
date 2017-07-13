@@ -14,6 +14,7 @@
                 <mui:Link DisplayName="新增"       Source="/Views/Event/EventAdd.xaml"/>
                 <mui:Link DisplayName="详细信息"   Source="/Views/Event/EventDetail.xaml" />
                 <mui:Link DisplayName="修改"       Source="/Views/Event/EventEdit.xaml"/>
+                <mui:Link DisplayName="删除"       Source="/Views/Event/EventDeleteConfirm.xaml"/>
                 <mui:Link DisplayName="统计信息"   Source="/Views/Event/EventStatics.xaml"/>
             </mui:ModernTab.Links>
         </mui:ModernTab>

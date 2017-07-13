@@ -86,6 +86,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\GenderConverter.cs" />
+    <Compile Include="Converters\EventDeleteInfoConverter.cs" />
+    <Compile Include="Converters\PersonDeleteInfoConverter.cs" />
+    <Compile Include="Converters\EventExistConverter.cs" />
+    <Compile Include="Converters\PersonExistConverter.cs" />
     <Compile Include="Gloabl\WebApiConfig.cs" />
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
@@ -116,6 +121,7 @@
     <Compile Include="Factorys\Impl\SingletonServiceFactory.cs" />
     <Compile Include="Utils\HttpClientUtils.cs" />
     <Compile Include="ViewModels\AppearanceViewModel.cs" />
+    <Compile Include="ViewModels\PersonsInfoViewModel.cs" />
     <Compile Include="Views\CustomerView.xaml.cs">
       <DependentUpon>CustomerView.xaml</DependentUpon>
     </Compile>
@@ -129,6 +135,9 @@
     </Compile>
     <Compile Include="Views\Event\EventAdd.xaml.cs">
       <DependentUpon>EventAdd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Event\EventDeleteConfirm.xaml.cs">
+      <DependentUpon>EventDeleteConfirm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Event\EventDetail.xaml.cs">
       <DependentUpon>EventDetail.xaml</DependentUpon>
@@ -156,6 +165,9 @@
     </Compile>
     <Compile Include="Views\Person\PersonAdd.xaml.cs">
       <DependentUpon>PersonAdd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Person\PersonDeleteConfirm.xaml.cs">
+      <DependentUpon>PersonDeleteConfirm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Person\PersonDetail.xaml.cs">
       <DependentUpon>PersonDetail.xaml</DependentUpon>
@@ -200,6 +212,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Event\EventDeleteConfirm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Event\EventDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -233,6 +249,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Person\PersonAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Person\PersonDeleteConfirm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
