@@ -50,8 +50,9 @@ namespace Fhr.ModernHistory.Utils
 
         private static string GetConfigFile()
         {
-            //return Application.ExecutablePath + ".Config";
-            return "config";
+                  // return Application.ExecutablePath + ".Config";
+                //  HttpContext.Current.Server.MapPath("~/App_Data");
+                  return "config";
         }
 
         private static void IniConfiguration()

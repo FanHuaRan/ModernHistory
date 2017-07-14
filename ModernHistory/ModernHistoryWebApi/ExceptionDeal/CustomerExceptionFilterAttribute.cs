@@ -33,19 +33,20 @@ namespace ModernHistoryWebApi.ExceptionDeal
                   var statusCode = HttpStatusCode.InternalServerError;
                   //错误标识缺省为1
                   var code = 1;
-                  //错误消息缺省直接就是异常的消息
-                  var message = actionExecutedContext.Exception.Message;
+                  //错误消息缺省是服务端异常
+                  var message = "服务端异常";
                   //检查是否为CustomerApiException自定义API异常，如果是则会进行进一步的处理
                   if (exception is CustomerApiException)
                   {
                         var apiException = exception as CustomerApiException;
                         statusCode = apiException.StatusCode;
                         code = apiException.Code;
+                        message = apiException.Message;
                   }
                   //错误记录日志
-                  logger.Error(string.Format("code:{0} message:{1}", code, message), exception);
+                else   logger.Error(string.Format("code:{0} message:{1}", code, actionExecutedContext.Exception.Message), exception);
                   //返回自定义的错误httpresponse
-                  actionExecutedContext.Response = GetResponseMessage(statusCode, -1, actionExecutedContext.Exception.Message);
+                  actionExecutedContext.Response = GetResponseMessage(statusCode, -1, message);
             }
             /// <summary>
             /// 自定义

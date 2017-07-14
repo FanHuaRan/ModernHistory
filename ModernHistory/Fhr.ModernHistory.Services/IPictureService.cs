@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -13,9 +14,9 @@ namespace Fhr.ModernHistory.Services
       /// </summary>
       public interface IPictureService
       {
-            void SavePersonImagFile(HttpPostedFile personImg, object personId);
+            void SavePersonImagFile(MultipartFileData personImg, object personId);
 
-            void SaveEventImageFile(HttpPostedFile eventImg, object eventId);
+            void SaveEventImageFile(MultipartFileData eventImg, object eventId);
 
             Stream GetPersonImageFile(object personId);
 

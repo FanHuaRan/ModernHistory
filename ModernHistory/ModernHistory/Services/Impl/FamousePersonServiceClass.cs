@@ -31,6 +31,36 @@ namespace ModernHistory.Services.Impl
 
         public async Task<ObservableCollection<FamousPerson>> FindAllAsync()
         {
+            #region 测试
+            using (var httpClient = new HttpClient())
+            {
+                try
+                {
+                    var response = await httpClient.GetAsync(FIND_URL);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var result=await response.Content.ReadAsAsync<ObservableCollection<Fhr.ModernHistory.Models.FamousPerson>>();
+                        var result2 = await response.Content.ReadAsAsync<ObservableCollection<FamousPerson>>();
+
+                    }
+                    else
+                    {
+                        var apiErrorModel = await response.Content.ReadAsAsync<ApiErrorModel>();
+                        throw new ApiErrorException(apiErrorModel);
+                    }
+                }
+                catch (Exception e)
+                {
+                    var apiErrorModel = new ApiErrorModel()
+                    {
+                        StatusCode=HttpStatusCode.NotFound,
+                        Message="网络连接错误",
+                        Code=3
+                    };
+                    throw new ApiErrorException(apiErrorModel);
+                }
+            }
+            #endregion
             return await  HttpClientUtils.GetAsync<ObservableCollection<FamousPerson>>(FIND_URL);
         }
 

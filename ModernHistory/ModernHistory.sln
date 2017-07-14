@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fhr.ModernHistory.Services"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModernHistoryWebApi", "ModernHistoryWebApi\ModernHistoryWebApi.csproj", "{B8012099-54D5-4936-AE5E-9D2CAFEF0AEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModernHistory", "ModernHistory\ModernHistory.csproj", "{8CF77EB6-3593-4010-B4A5-8E33B144B2A4}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,16 +73,6 @@ Global
 		{B8012099-54D5-4936-AE5E-9D2CAFEF0AEE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{B8012099-54D5-4936-AE5E-9D2CAFEF0AEE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B8012099-54D5-4936-AE5E-9D2CAFEF0AEE}.Release|x86.ActiveCfg = Release|Any CPU
-		{8CF77EB6-3593-4010-B4A5-8E33B144B2A4}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{8CF77EB6-3593-4010-B4A5-8E33B144B2A4}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{8CF77EB6-3593-4010-B4A5-8E33B144B2A4}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{8CF77EB6-3593-4010-B4A5-8E33B144B2A4}.Debug|x86.ActiveCfg = Debug|x86
-		{8CF77EB6-3593-4010-B4A5-8E33B144B2A4}.Debug|x86.Build.0 = Debug|x86
-		{8CF77EB6-3593-4010-B4A5-8E33B144B2A4}.Release|Any CPU.ActiveCfg = Release|x86
-		{8CF77EB6-3593-4010-B4A5-8E33B144B2A4}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{8CF77EB6-3593-4010-B4A5-8E33B144B2A4}.Release|Mixed Platforms.Build.0 = Release|x86
-		{8CF77EB6-3593-4010-B4A5-8E33B144B2A4}.Release|x86.ActiveCfg = Release|x86
-		{8CF77EB6-3593-4010-B4A5-8E33B144B2A4}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

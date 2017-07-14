@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using Fhr.ModernHistory.Utils;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Fhr.ModernHistory.Services.Impl
 {
@@ -16,7 +18,7 @@ namespace Fhr.ModernHistory.Services.Impl
       public class PictureServiceClass : IPictureService
       {
             //图片根目录
-            private static readonly string PICTURE_ROOT = ConfigHelper.ReadAppConfig("pictureroot");
+            private static readonly string PICTURE_ROOT = System.Configuration.ConfigurationManager.AppSettings["pictureroot"];
             //人员文件夹
             private static readonly string PERSON_DIR = "person";
             //事件文件夹
@@ -42,24 +44,31 @@ namespace Fhr.ModernHistory.Services.Impl
                   return new FileStream(fileName, FileMode.Open);
             }
 
-            public void SaveEventImageFile(HttpPostedFile eventImg, object eventId)
+            public void SaveEventImageFile(MultipartFileData eventImg, object eventId)
             {
                   var fileName = string.Format("{0}\\{1}\\{2}.jpg", PICTURE_ROOT, EVENT_DIR, eventId);
-                  if (File.Exists(fileName))
-                  {
-                        File.Delete(fileName);
-                  }
-                  eventImg.SaveAs(fileName);
+                  saveImg(eventImg, fileName);
             }
 
-            public void SavePersonImagFile(HttpPostedFile personImg, object personId)
+            public void SavePersonImagFile(MultipartFileData personImg, object personId)
             {
                   var fileName = string.Format("{0}\\{1}\\{2}.jpg", PICTURE_ROOT, PERSON_DIR, personId);
+                  saveImg(personImg, fileName);
+            }
+
+            private static void saveImg(MultipartFileData personImg, string fileName)
+            {
                   if (File.Exists(fileName))
                   {
                         File.Delete(fileName);
                   }
-                  personImg.SaveAs(fileName);
+                  var desFile = new FileInfo(fileName);
+                  if (!desFile.Directory.Exists)
+                  {
+                        desFile.Directory.Create();
+                  }
+                  File.Copy(personImg.LocalFileName, fileName);
+                  File.Delete(personImg.LocalFileName);
             }
       }
 }

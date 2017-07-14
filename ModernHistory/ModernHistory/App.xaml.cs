@@ -17,6 +17,7 @@ namespace ModernHistory
         protected override void OnStartup(StartupEventArgs e)
         {
             IFamousePersonService personService = new FamousePersonServiceClass();
+            personService.FindAllAsync();
         }
     }
 }
