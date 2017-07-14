@@ -23,7 +23,8 @@
             <localconverter:FamousPersonTypeConverter x:Key="famousPersonTypeConverter"/>
             <!--事件类型-id转换器-->
             <localconverter:HistoryEventTypeConverter x:Key="historyEventTypeConverter"/>
-
+            <!--人物图片控制器-->
+            <localconverter:PersonImageConverter x:Key="personImageConverter"/>
             <ResourceDictionary.MergedDictionaries>
                 <!--ModernUI资源-->
                 <ResourceDictionary Source="/FirstFloor.ModernUI;component/Assets/ModernUI.xaml" />

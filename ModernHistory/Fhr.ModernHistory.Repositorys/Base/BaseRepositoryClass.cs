@@ -38,10 +38,11 @@ namespace Fhr.ModernHistory.Repositorys
             {
                   using (var context = new ModernHisContext())
                   {
-                        var obj = FindById(id);
+                        var obj = context.Set<T>().Find(id);
                         if (obj != null)
                         {
-                              Delete(obj);
+                              context.Set<T>().Remove(obj);
+                              context.SaveChanges();
                         }
                   }
             }

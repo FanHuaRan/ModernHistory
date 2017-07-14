@@ -33,7 +33,7 @@ namespace Fhr.ModernHistory.Repositorys.Impl
                   using (var context = new ModernHisContext())
                   {
                         return context.FamousPersons.Include(p => p.PersonType)
-                                                                         .Where(p => p.FamousPersonTypeId == (int)id)
+                                                                         .Where(p => p.FamousPersonId == (int)id)
                                                                          .Select(p => p)
                                                                          .FirstOrDefault();
                   }

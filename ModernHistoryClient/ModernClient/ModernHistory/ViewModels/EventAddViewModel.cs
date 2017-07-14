@@ -5,8 +5,8 @@ using System.Collections.ObjectModel;
 
 // Toolkit namespace
 using SimpleMvvmToolkit;
-using ModernHistory.Models;
 using ModernHistory.Services;
+using ModernHistory.Models;
 using System.Windows.Forms;
 
 namespace ModernHistory.ViewModels
@@ -17,63 +17,32 @@ namespace ModernHistory.ViewModels
     /// Use the <strong>mvvmprop</strong> snippet to add bindable properties to this ViewModel.
     /// </para>
     /// </summary>
-    public class PersonAddViewModel : ViewModelBase<PersonAddViewModel>
+    public class EventAddViewModel : ViewModelBase<EventAddViewModel>
     {
-        private IFamousePersonService personService;
+         private IHistoryEventService historyEventService;
 
         private IImageService imageService;
 
-        private FamousPerson famousPerson = new FamousPerson();
+        private HistoryEvent historyEvent = new HistoryEvent();
 
         private string selectImg=null;
 
-        private Boolean isMale = true;
-
-        public Boolean IsMale
+        public EventAddViewModel(IHistoryEventService historyEventService, IImageService imageService)
         {
-            get { return isMale; }
-            set
-            {
-                if (isMale != value)
-                {
-                    isMale = value;
-                    NotifyPropertyChanged(p => p.IsMale);
-                }
-            }
-        }
-
-        private Boolean isFemale = false;
-
-        public Boolean IsFemale
-        {
-            get { return isFemale; }
-            set
-            {
-                if (isFemale != value)
-                {
-                    isFemale = value;
-                    NotifyPropertyChanged(p => p.IsFemale);
-                }
-            }
-        }
-
-
-        public PersonAddViewModel(IFamousePersonService personService, IImageService imageService)
-        {
-            this.personService = personService;
+            this.historyEventService = historyEventService;
             this.imageService = imageService;
             Initial();
         }
 
-        public FamousPerson FamousPerson
+        public HistoryEvent HistoryEvent
         {
-            get { return famousPerson; }
+            get { return historyEvent; }
             set
             {
-                if (famousPerson != value)
+                if (historyEvent != value)
                 {
-                    famousPerson = value;
-                    NotifyPropertyChanged(p => p.FamousPerson);
+                    historyEvent = value;
+                    NotifyPropertyChanged(p => p.HistoryEvent);
                 }
             }
         }
@@ -95,13 +64,11 @@ namespace ModernHistory.ViewModels
         {
             try
             {
-                FamousPerson.Gender = IsMale ? (byte)1 : (byte)2;
-                var result = await personService.SaveAsync(DtoConvert.DtoConvertToModel.FamousePersonConvert(famousPerson));
+                var result=await historyEventService.SaveAsync(DtoConvert.DtoConvertToModel.HistoryEventConvert(HistoryEvent));
                 System.Windows.MessageBox.Show("保存成功");
                 SyncAddModel();
-                if (!string.IsNullOrEmpty(SelectImg))
-                {
-                    await imageService.UploadPersonImgAsync(result.FamousPersonId, SelectImg);
+                if(!string.IsNullOrEmpty(SelectImg)){
+                    await imageService.UploadEventImgAsync(result.HistoryEventId, SelectImg);
                 }
                 Initial();
             }
@@ -110,7 +77,6 @@ namespace ModernHistory.ViewModels
                 System.Windows.MessageBox.Show(e.Message);
             }
         }
-
         public void ChooseImage()
         {
             var openFileDialog = new OpenFileDialog();
@@ -123,16 +89,15 @@ namespace ModernHistory.ViewModels
 
         public void Initial()
         {
-            IsMale = true;
             SelectImg = null;
-            FamousPerson = new FamousPerson();
+            HistoryEvent = new HistoryEvent();
         }
         /// <summary>
         /// 同步ViewModel的数据
         /// </summary>
         public void SyncAddModel()
         {
-            ViewModelLocator.PersonsInfoViewModelInstance.FamousPersons.Add(this.FamousPerson);
+            ViewModelLocator.EventsInfoViewModel.HistoryEvents.Add(this.HistoryEvent);
         }
     }
 }

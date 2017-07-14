@@ -8,6 +8,8 @@ using SimpleMvvmToolkit;
 
 // Toolkit extension methods
 using SimpleMvvmToolkit.ModelExtensions;
+using ModernHistory.Models;
+using ModernHistory.Services;
 
 namespace ModernHistory
 {
@@ -19,6 +21,7 @@ namespace ModernHistory
     /// </summary>
     public class MainPageViewModel : ViewModelBase<MainPageViewModel>
     {
+        
         #region Initialization and Cleanup
 
         // Default ctor

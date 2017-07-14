@@ -13,13 +13,14 @@ namespace ModernHistory.Converters
     /// FamousPersonType和ID转换器
     /// 2017/07/14 fhr
     /// </summary>
-    [ValueConversion(typeof(int), typeof(FamousPersonTypeConverter))]
+    [ValueConversion(typeof(int), typeof(FamousPersonType))]
     public class FamousPersonTypeConverter : IValueConverter
     {
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             var typeId = (int)value;
+            var  test=CommonConstViewModel.Instance.FamousPersonTypes.Where(p => p.FamousPersonTypeId == typeId);
             return CommonConstViewModel.Instance.FamousPersonTypes.Where(p => p.FamousPersonTypeId == typeId).FirstOrDefault();
         }
 

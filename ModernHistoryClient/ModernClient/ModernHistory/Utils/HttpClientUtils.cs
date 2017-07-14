@@ -3,6 +3,7 @@ using ModernHistory.Exceptions;
 using ModernHistory.Models;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -228,6 +229,12 @@ namespace ModernHistory.Utils
                     else throw er;
                 }
             }
+        }
+        public static async Task<Image> DownLoadImage(string address)
+        {
+           var strem=await httpClient.GetStreamAsync(address);
+           Image image = Image.FromStream(strem);
+           return image;
         }
     }
 }

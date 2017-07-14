@@ -35,10 +35,10 @@ namespace ModernHistory.ViewModels
         private CommonConstViewModel(IConstModelsService constModelsService)
         {
             this.constModelsService = constModelsService;
-            Task.Run(() =>
+            //Task.Run(() =>
+            //{
+            try
             {
-                try
-                {
                     this.FamousPersonTypes = constModelsService.FamousPersonTypes;
                     this.HistoryEventTypes = constModelsService.HistoryEventTypes;
                     this.Provinces = constModelsService.Provinces;
@@ -48,7 +48,7 @@ namespace ModernHistory.ViewModels
                 {
                     MessageBox.Show(e.Message);
                 }
-            });
+          //  });
         }
         #endregion
 

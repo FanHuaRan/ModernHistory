@@ -100,6 +100,7 @@
     <Compile Include="Converters\PersonDeleteInfoConverter.cs" />
     <Compile Include="Converters\EventExistConverter.cs" />
     <Compile Include="Converters\PersonExistConverter.cs" />
+    <Compile Include="Converters\PersonImageConverter.cs" />
     <Compile Include="DtoConvert\DtoConvertToModel.cs" />
     <Compile Include="Exceptions\ApiErrorException.cs" />
     <Compile Include="Gloabl\WebApiConfig.cs" />
@@ -132,10 +133,15 @@
     <Compile Include="Services\IPersonEventRelationService.cs" />
     <Compile Include="Factorys\IServiceFactory.cs" />
     <Compile Include="Factorys\Impl\SingletonServiceFactory.cs" />
+    <Compile Include="Services\Impl\LocalImageServiceClass.cs" />
     <Compile Include="Utils\HttpClientUtils.cs" />
     <Compile Include="ViewModels\AppearanceViewModel.cs" />
     <Compile Include="ViewModels\CommonConstViewModel.cs" />
+    <Compile Include="ViewModels\EventAddViewModel.cs" />
+    <Compile Include="ViewModels\EventEditViewModel.cs" />
     <Compile Include="ViewModels\EventsInfoViewModel.cs" />
+    <Compile Include="ViewModels\MapPageViewModel.cs" />
+    <Compile Include="ViewModels\PersonEditViewModel.cs" />
     <Compile Include="ViewModels\PersonAddViewModel.cs" />
     <Compile Include="ViewModels\PersonsInfoViewModel.cs" />
     <Compile Include="Views\CustomerView.xaml.cs">
@@ -178,6 +184,9 @@
     </Compile>
     <Compile Include="Views\Others\Appearance.xaml.cs">
       <DependentUpon>Appearance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Person\ModernDialog1.xaml.cs">
+      <DependentUpon>ModernDialog1.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Person\PersonAdd.xaml.cs">
       <DependentUpon>PersonAdd.xaml</DependentUpon>
@@ -264,6 +273,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Person\ModernDialog1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Person\PersonAdd.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -285,8 +298,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Person\PersonStatics.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>

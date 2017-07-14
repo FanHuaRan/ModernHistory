@@ -23,11 +23,11 @@ namespace ModernHistory.Services.Impl
 
         public static readonly string SAVE_URL = WebApiConfig.WEBAPI_BASE_URL + "/FamousPerson/Save";
 
-        public static readonly string UPDATE_URL = WebApiConfig.WEBAPI_BASE_URL + "/FamousePerson/Update";
+        public static readonly string UPDATE_URL = WebApiConfig.WEBAPI_BASE_URL + "/FamousPerson/Update";
 
-        public static readonly string SEARCH_URL = WebApiConfig.WEBAPI_BASE_URL + "/Famouse/Person/Search";
+        public static readonly string SEARCH_URL = WebApiConfig.WEBAPI_BASE_URL + "/Famous/Person/Search";
 
-        public static readonly string DELETE_URL = WebApiConfig.WEBAPI_BASE_URL + "/FamousePerson/Delete";
+        public static readonly string DELETE_URL = WebApiConfig.WEBAPI_BASE_URL + "/FamousPerson/Delete";
 
         public async Task<ObservableCollection<FamousPerson>> FindAllAsync()
         {

@@ -80,7 +80,7 @@ namespace ModernHistory.Services
         {
             if (imageService == null)
             {
-                imageService = new ImageServiceClass();
+                imageService = new LocalImageServiceClass();
             }
             return imageService;
         }

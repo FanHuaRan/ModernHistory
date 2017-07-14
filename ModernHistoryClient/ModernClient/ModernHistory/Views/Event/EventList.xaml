@@ -5,17 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-            <!-- DataContext="{Binding Source={StaticResource Locator}, Path=PersonsInfoViewModel}">-->
+             d:DesignHeight="300" d:DesignWidth="300"
+             DataContext="{Binding Source={StaticResource Locator}, Path=EventsInfoViewModel}">
     <Grid>
         <DockPanel>
             <TextBlock DockPanel.Dock="Top" Text="事件列表" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
-            <DataGrid Name="DG1" ItemsSource="{Binding}" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid Name="DG1" ItemsSource="{Binding HistoryEvents}" AutoGenerateColumns="False" IsReadOnly="True">
                 <DataGrid.Columns>
                     <mui:DataGridTextColumn Header="编号"  Binding="{Binding HistoryEventId}"/>
                     <mui:DataGridTextColumn Header="标题"  Binding="{Binding Title}"/>
                     <mui:DataGridTextColumn Header="详细信息"  Binding="{Binding Detail}">
-                        <mui:DataGridTextColumn.MaxWidth>200</mui:DataGridTextColumn.MaxWidth>
+                        <mui:DataGridTextColumn.MaxWidth>300</mui:DataGridTextColumn.MaxWidth>
                     </mui:DataGridTextColumn>
                     <mui:DataGridTextColumn Header="发生日期"  Binding="{Binding OccurDate}"  />
                     <mui:DataGridTextColumn Header="省份"  Binding="{Binding Province}"/>

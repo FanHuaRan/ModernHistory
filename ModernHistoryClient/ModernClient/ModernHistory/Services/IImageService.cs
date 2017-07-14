@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Threading.Tasks;
 namespace ModernHistory.Services
 {
@@ -8,7 +9,16 @@ namespace ModernHistory.Services
     /// </summary>
     public interface IImageService
     {
-        Task UploadPersonImgAsync(int eventId, string pictureName);
-        Task UploadEventImgAsync(int personId, string pictureName);
+        Task UploadPersonImgAsync(int personId, string pictureName);
+        Task UploadEventImgAsync(int eventId, string pictureName);
+
+        Task<Image> DownLoadPersonImgAsync(int personId);
+
+        Task<Image> DownLoadEventImgAsync(int eventId);
+
+        string GetPersonImgUrl(int personId);
+
+        string GetEventImgUrl(int eventId);
+
     }
 }

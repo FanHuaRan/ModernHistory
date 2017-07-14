@@ -16,6 +16,10 @@ namespace ModernHistory.DtoConvert
     {
         public static uimodel.FamousPerson FamousePersonConvert(dto.FamousPerson source)
         {
+            if (source == null)
+            {
+                return null;
+            }
             var destination = new uimodel.FamousPerson()
             {
                 BornDate = source.BornDate,
@@ -36,6 +40,10 @@ namespace ModernHistory.DtoConvert
 
         public static uimodel.HistoryEvent HistoryEventConvert(dto.HistoryEvent source)
         {
+            if (source == null)
+            {
+                return null;
+            }
             var destionation = new uimodel.HistoryEvent()
             {
                 Detail = source.Detail,
@@ -54,6 +62,10 @@ namespace ModernHistory.DtoConvert
 
         public static uimodel.FamousPersonType FamousPersonTypeConvert(dto.FamousPersonType source)
         {
+            if (source == null)
+            {
+                return null;
+            }
             var destination = new uimodel.FamousPersonType()
             {
                 FamousPersonTypeId = source.FamousPersonTypeId,
@@ -64,6 +76,10 @@ namespace ModernHistory.DtoConvert
 
         public static uimodel.HistoryEventType HistoryEventTypeConvert(dto.HistoryEventType source)
         {
+            if (source == null)
+            {
+                return null;
+            }
             var destination = new uimodel.HistoryEventType()
             {
                 HistoryEventTypeId = source.HistoryEventTypeId,
@@ -74,6 +90,10 @@ namespace ModernHistory.DtoConvert
 
         public static uimodel.PersonEventRelation PersonEventRelationConvert(dto.PersonEventRelation souce)
         {
+            if (souce == null)
+            {
+                return null;
+            }
             var destionnation = new uimodel.PersonEventRelation()
             {
                 FamousPersonId = souce.FamousPersonId,
@@ -85,6 +105,10 @@ namespace ModernHistory.DtoConvert
 
         public static uimodel.PersonSearchModel PersonSearchModelConvert(dto.SearchModels.PersonSearchModel source)
         {
+            if (source == null)
+            {
+                return null;
+            }
             var destionnation = new uimodel.PersonSearchModel()
             {
                 BornPlace = source.BornPlace,
@@ -103,6 +127,10 @@ namespace ModernHistory.DtoConvert
 
         public static uimodel.EventSearchModel EventSearchModelConvert(dto.SearchModels.EventSearchModel source)
         {
+            if (source == null)
+            {
+                return null;
+            }
             var destnation = new uimodel.EventSearchModel()
             {
                 HistoryEventTypeId = source.HistoryEventTypeId,
@@ -117,6 +145,10 @@ namespace ModernHistory.DtoConvert
 
         public static uimodel.PersonEventRelationSearchModel PersonEventRelationSearchModelConvert(dto.SearchModels.PersonEventRelationSearchModel source)
         {
+            if (source == null)
+            {
+                return null;
+            }
             var destnation = new uimodel.PersonEventRelationSearchModel()
             {
                 EventId = source.EventId,
@@ -127,6 +159,10 @@ namespace ModernHistory.DtoConvert
 
         public static dto.FamousPerson FamousePersonConvert(uimodel.FamousPerson source)
         {
+            if (source == null)
+            {
+                return null;
+            }
             var destination = new dto.FamousPerson()
             {
                 BornDate = source.BornDate,
@@ -147,6 +183,10 @@ namespace ModernHistory.DtoConvert
 
         public static dto.HistoryEvent HistoryEventConvert(uimodel.HistoryEvent source)
         {
+            if (source == null)
+            {
+                return null;
+            }
             var destionation = new dto.HistoryEvent()
             {
                 Detail = source.Detail,
@@ -165,6 +205,10 @@ namespace ModernHistory.DtoConvert
 
         public static dto.FamousPersonType FamousPersonTypeConvert(uimodel.FamousPersonType source)
         {
+            if (source == null)
+            {
+                return null;
+            }
             var destination = new dto.FamousPersonType()
             {
                 FamousPersonTypeId = source.FamousPersonTypeId,
@@ -175,6 +219,10 @@ namespace ModernHistory.DtoConvert
 
         public static dto.HistoryEventType HistoryEventTypeConvert(uimodel.HistoryEventType source)
         {
+            if (source == null)
+            {
+                return null;
+            }
             var destination = new dto.HistoryEventType()
             {
                 HistoryEventTypeId = source.HistoryEventTypeId,
@@ -185,6 +233,10 @@ namespace ModernHistory.DtoConvert
 
         public static dto.PersonEventRelation PersonEventRelationConvert(uimodel.PersonEventRelation souce)
         {
+            if (souce == null)
+            {
+                return null;
+            }
             var destionnation = new dto.PersonEventRelation()
             {
                 FamousPersonId = souce.FamousPersonId,
@@ -196,6 +248,10 @@ namespace ModernHistory.DtoConvert
 
         public static dto.SearchModels.PersonSearchModel PersonSearchModelConvert(uimodel.PersonSearchModel source)
         {
+            if (source == null)
+            {
+                return null;
+            }
             var destionnation = new dto.SearchModels.PersonSearchModel()
             {
                 BornPlace = source.BornPlace,
@@ -214,6 +270,10 @@ namespace ModernHistory.DtoConvert
 
         public static dto.SearchModels.EventSearchModel EventSearchModelConvert(uimodel.EventSearchModel source)
         {
+            if (source == null)
+            {
+                return null;
+            }
             var destnation = new dto.SearchModels.EventSearchModel()
             {
                 HistoryEventTypeId = source.HistoryEventTypeId,
@@ -228,6 +288,10 @@ namespace ModernHistory.DtoConvert
 
         public static dto.SearchModels.PersonEventRelationSearchModel PersonEventRelationSearchModelConvert(uimodel.PersonEventRelationSearchModel source)
         {
+            if (source == null)
+            {
+                return null;
+            }
             var destnation = new dto.SearchModels.PersonEventRelationSearchModel()
             {
                 EventId = source.EventId,
@@ -238,6 +302,10 @@ namespace ModernHistory.DtoConvert
 
         public static ObservableCollection<uimodel.FamousPerson> FamousePersonsConvert(ObservableCollection<dto.FamousPerson> sources)
         {
+            if (sources == null)
+            {
+                return null;
+            }
             var desCollections = new ObservableCollection<uimodel.FamousPerson>();
             foreach (var source in sources)
             {
@@ -248,6 +316,10 @@ namespace ModernHistory.DtoConvert
 
         public static ObservableCollection<uimodel.HistoryEvent> HistoryEventsConvert(ObservableCollection<dto.HistoryEvent> sources)
         {
+            if (sources == null)
+            {
+                return null;
+            }
             var desCollections = new ObservableCollection<uimodel.HistoryEvent>();
             foreach (var source in sources)
             {
@@ -258,6 +330,10 @@ namespace ModernHistory.DtoConvert
 
         public static ObservableCollection<uimodel.FamousPersonType> FamousPersonTypesConvert(ObservableCollection<dto.FamousPersonType> sources)
         {
+            if (sources == null)
+            {
+                return null;
+            }
             var desCollections = new ObservableCollection<uimodel.FamousPersonType>();
             foreach (var source in sources)
             {
@@ -268,6 +344,10 @@ namespace ModernHistory.DtoConvert
 
         public static ObservableCollection<uimodel.HistoryEventType> HistoryEventTypesConvert(ObservableCollection<dto.HistoryEventType> sources)
         {
+            if (sources == null)
+            {
+                return null;
+            }
             var desCollections = new ObservableCollection<uimodel.HistoryEventType>();
             foreach (var source in sources)
             {
@@ -278,6 +358,10 @@ namespace ModernHistory.DtoConvert
 
         public static ObservableCollection<uimodel.PersonEventRelation> PersonEventRelationsConvert(ObservableCollection<dto.PersonEventRelation> sources)
         {
+            if (sources == null)
+            {
+                return null;
+            }
             var desCollections = new ObservableCollection<uimodel.PersonEventRelation>();
             foreach (var source in sources)
             {
@@ -285,5 +369,6 @@ namespace ModernHistory.DtoConvert
             }
             return desCollections;
         }
+
     }
 }

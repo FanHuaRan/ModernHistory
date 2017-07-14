@@ -23,15 +23,65 @@ namespace ModernHistory
 {
     /// <summary>
     /// ViewModel定位器 相当于ViewModel工厂
+    /// 因为都是单例 但是从ViewModel的使用看 应该不会存在线程问题
     /// </summary>
     public class ViewModelLocator
     {
         /// <summary>
         /// 服务工厂
         /// </summary>
-        private IServiceFactory serviceFactory = SingletonServiceFactory.Instance;
+        private static IServiceFactory serviceFactory = SingletonServiceFactory.Instance;
 
-        private PersonsInfoViewModel personsInfoViewModel = null;
+        private static MapPageViewModel mapPageViewModel = null;
+
+        private static PersonsInfoViewModel personsInfoViewModel = null;
+
+        private static PersonEditViewModel personEditViewModel = null;
+
+        private static EventsInfoViewModel eventsInfoViewModel=null;
+
+        private static EventEditViewModel eventEditViewModel = null;
+
+        private PersonAddViewModel personAddViewModel;
+
+        private  EventAddViewModel eventAddViewModel = null;
+
+        public MapPageViewModel MapPageViewModel
+        {
+            get
+            {
+                if (mapPageViewModel == null)
+                {
+                    mapPageViewModel = new MapPageViewModel(serviceFactory.GetFamousePersonService(), serviceFactory.GetHistoryEventService(), serviceFactory.GetImageService());
+                }
+                return mapPageViewModel;
+            }
+        }
+
+        public static MapPageViewModel MapPageViewModelInstance
+        {
+            get
+            {
+                if (mapPageViewModel == null)
+                {
+                    mapPageViewModel = new MapPageViewModel(serviceFactory.GetFamousePersonService(), serviceFactory.GetHistoryEventService(), serviceFactory.GetImageService());
+                }
+                return mapPageViewModel;
+            }
+        }
+
+        public PersonEditViewModel PersonEditViewModel
+        {
+            get
+            {
+                if (personEditViewModel == null)
+                {
+                    personEditViewModel = new PersonEditViewModel(serviceFactory.GetFamousePersonService(), serviceFactory.GetImageService());
+                }
+                return personEditViewModel;
+            }
+        }
+
         /// <summary>
         /// 名人信息ViewModel
         /// </summary>
@@ -43,21 +93,79 @@ namespace ModernHistory
                 {
                     personsInfoViewModel = new PersonsInfoViewModel(
                         serviceFactory.GetFamousePersonService(),
-                        serviceFactory.GetConstModelsService(),
                         serviceFactory.GetImageService());
                 }
                 return personsInfoViewModel;
             }
         }
 
-
-        public CommonConstViewModel CommonConstViewModel
+        public static PersonsInfoViewModel PersonsInfoViewModelInstance
         {
             get
             {
-                return CommonConstViewModel.Instance;
+                {
+                    if (personsInfoViewModel == null)
+                    {
+                        personsInfoViewModel = new PersonsInfoViewModel(
+                            serviceFactory.GetFamousePersonService(),
+                            serviceFactory.GetImageService());
+                    }
+                    return personsInfoViewModel;
+                }
             }
         }
+
+
+        public PersonAddViewModel PersonAddViewModel
+        {
+            get
+            {
+                if (personAddViewModel == null)
+                {
+                    personAddViewModel = new PersonAddViewModel(serviceFactory.GetFamousePersonService(), serviceFactory.GetImageService());
+                }
+                return personAddViewModel;
+
+            }
+        }
+
+
+        public static EventsInfoViewModel EventsInfoViewModel
+        {
+            get
+            {
+                if (eventsInfoViewModel == null)
+                {
+                    eventsInfoViewModel = new EventsInfoViewModel(serviceFactory.GetHistoryEventService(), serviceFactory.GetImageService());
+                }
+                return eventsInfoViewModel;
+            }
+        }
+
+        public static EventEditViewModel EventEditViewModel
+        {
+            get
+            {
+                if (eventEditViewModel == null)
+                {
+                    eventEditViewModel = new EventEditViewModel(serviceFactory.GetHistoryEventService(), serviceFactory.GetImageService());
+                }
+                return eventEditViewModel;
+            }
+        }
+
+        public EventAddViewModel EventAddViewModel
+        {
+             get
+            {
+                if (eventAddViewModel == null)
+                {
+                    eventAddViewModel = new EventAddViewModel(serviceFactory.GetHistoryEventService(), serviceFactory.GetImageService());
+                }
+                return eventAddViewModel;
+            }
+        }
+
 
         // Create MainPageViewModel on demand
         public MainPageViewModel MainPageViewModel
@@ -76,6 +184,15 @@ namespace ModernHistory
                 return new CustomerViewModel(serviceAgent);
             }
         }
+
+        public CommonConstViewModel CommonConstViewModel
+        {
+            get
+            {
+                return CommonConstViewModel.Instance;
+            }
+        }
+
         public AppearanceViewModel AppearanceViewModel
         {
             get

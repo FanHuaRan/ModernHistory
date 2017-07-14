@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FirstFloor.ModernUI.Windows.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,14 +17,16 @@ using System.Windows.Shapes;
 namespace ModernHistory.Views.Person
 {
     /// <summary>
-    /// PersonEdit.xaml 的交互逻辑
+    /// Interaction logic for ModernDialog1.xaml
     /// </summary>
-    public partial class PersonEdit : UserControl
+    public partial class ModernDialog1 : ModernDialog
     {
-        public PersonEdit()
+        public ModernDialog1()
         {
             InitializeComponent();
-        }
 
+            // define the dialog buttons
+            this.Buttons = new Button[] { this.OkButton, this.CancelButton };
+        }
     }
 }

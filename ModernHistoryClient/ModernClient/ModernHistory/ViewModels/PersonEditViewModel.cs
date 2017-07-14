@@ -17,13 +17,13 @@ namespace ModernHistory.ViewModels
     /// Use the <strong>mvvmprop</strong> snippet to add bindable properties to this ViewModel.
     /// </para>
     /// </summary>
-    public class PersonAddViewModel : ViewModelBase<PersonAddViewModel>
+    public class PersonEditViewModel : ViewModelBase<PersonAddViewModel>
     {
         private IFamousePersonService personService;
 
         private IImageService imageService;
 
-        private FamousPerson famousPerson = new FamousPerson();
+        private FamousPerson famousPerson = null;
 
         private string selectImg=null;
 
@@ -57,8 +57,7 @@ namespace ModernHistory.ViewModels
             }
         }
 
-
-        public PersonAddViewModel(IFamousePersonService personService, IImageService imageService)
+        public PersonEditViewModel(IFamousePersonService personService, IImageService imageService)
         {
             this.personService = personService;
             this.imageService = imageService;
@@ -91,17 +90,18 @@ namespace ModernHistory.ViewModels
         }
 
 
-        public async void SaveAsync()
+        public async void UpdateAsync()
         {
             try
             {
                 FamousPerson.Gender = IsMale ? (byte)1 : (byte)2;
-                var result = await personService.SaveAsync(DtoConvert.DtoConvertToModel.FamousePersonConvert(famousPerson));
-                System.Windows.MessageBox.Show("保存成功");
-                SyncAddModel();
+                var dtoModel = DtoConvert.DtoConvertToModel.FamousePersonConvert(famousPerson);
+                dtoModel.PersonType = null;
+                await personService.UpdateAsync(dtoModel);
+                System.Windows.MessageBox.Show("修改成功");
                 if (!string.IsNullOrEmpty(SelectImg))
                 {
-                    await imageService.UploadPersonImgAsync(result.FamousPersonId, SelectImg);
+                    await imageService.UploadPersonImgAsync(FamousPerson.FamousPersonId, SelectImg);
                 }
                 Initial();
             }
@@ -110,7 +110,6 @@ namespace ModernHistory.ViewModels
                 System.Windows.MessageBox.Show(e.Message);
             }
         }
-
         public void ChooseImage()
         {
             var openFileDialog = new OpenFileDialog();
@@ -124,15 +123,13 @@ namespace ModernHistory.ViewModels
         public void Initial()
         {
             IsMale = true;
-            SelectImg = null;
-            FamousPerson = new FamousPerson();
-        }
-        /// <summary>
-        /// 同步ViewModel的数据
-        /// </summary>
-        public void SyncAddModel()
-        {
-            ViewModelLocator.PersonsInfoViewModelInstance.FamousPersons.Add(this.FamousPerson);
+            FamousPerson = ViewModelLocator.PersonsInfoViewModelInstance.SelectFamousePerson;
+            if (FamousPerson == null)
+            {
+               // System.Windows.MessageBox.Show("尚未选择任何人员信息");
+                return;
+            }
+            SelectImg = imageService.GetPersonImgUrl(FamousPerson.FamousPersonId);
         }
     }
 }

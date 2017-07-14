@@ -55,7 +55,7 @@
 
                     <StackPanel>
                         <Label Content="出生日期"/>
-                        <Calendar x:Name="DateBirth" SelectedDate="{Binding BornDate}" IsEnabled="False" />
+                        <DatePicker x:Name="DateBirth" SelectedDate="{Binding BornDate}" IsEnabled="False"/>
                     </StackPanel>
 
 
@@ -77,18 +77,29 @@
 
                     <StackPanel>
                         <Label Content="死亡日期"/>
-                        <Calendar x:Name="DateDead" SelectedDate="{Binding DeadDate}" IsEnabled="False" />
+                        <DatePicker x:Name="DateDead" SelectedDate="{Binding DeadDate}" IsEnabled="False" />
                     </StackPanel>
+                    
+                    <StackPanel>
+                        <Label Content="名人类型" Target="{Binding ElementName=ComboPersonType}"/>
+                        <ComboBox x:Name="ComboPersonType" Width="150" SelectedItem="{Binding FamousPersonTypeId,Mode=TwoWay, Converter={StaticResource famousPersonTypeConverter}}"
+                                  DisplayMemberPath="FamousPersonTypeName" IsReadOnly="True"
+                                  ItemsSource="{Binding Source={StaticResource Locator}, Path=CommonConstViewModel.FamousPersonTypes}">
+                        </ComboBox>
+                    </StackPanel>
+                    
                 </StackPanel>
                 <Grid>
-                    <Button Content="修改" Margin="33,10,161,10" />
-                    <Button Content="删除" Margin="165,10,31,10" />
+                    <Button Content="修改" Margin="33,10,161,10" Command="mui:LinkCommands.NavigateLink"
+                            CommandParameter="/Views/Person/PersonEdit.xaml"/>
+                    <Button Content="删除" Margin="165,10,31,10" Command="mui:LinkCommands.NavigateLink"
+                            CommandParameter="/Views/Person/PersonDeleteConfirm.xaml"/>
                 </Grid>
             </StackPanel>
         </ScrollViewer>
-        <StackPanel  DockPanel.Dock="Right">
-            <Image Source="{Binding }" >
-
+        <StackPanel  DockPanel.Dock="Right"> 
+            <Image Source="{Binding FamousPersonId,Converter={StaticResource personImageConverter}}"  Stretch='Uniform' 
+                   Width="300" Height="400">
             </Image>
         </StackPanel>
     </DockPanel>

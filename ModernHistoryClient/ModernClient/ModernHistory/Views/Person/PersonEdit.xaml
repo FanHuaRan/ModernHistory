@@ -4,17 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
-             DataContext="{Binding Source={StaticResource Locator}, Path=PersonsInfoViewModel}">
-    <DockPanel DataContext="{Binding SelectFamousePerson}">
+             DataContext="{Binding Source={StaticResource Locator}, Path=PersonEditViewModel}" >
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Loaded">
+                    <ei:CallMethodAction  TargetObject="{Binding}" MethodName="Initial"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+    <DockPanel>
         <StackPanel DockPanel.Dock="Top">
             <TextBlock Text="名人信息修改" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
         </StackPanel>
         <ScrollViewer DockPanel.Dock="Left">
-            <StackPanel MinWidth="200">
+            <StackPanel MinWidth="300">
                 <!-- actual form starts here -->
-                <StackPanel x:Name="Form" Orientation="Vertical">
+                <StackPanel x:Name="Form" Orientation="Vertical" DataContext="{Binding FamousPerson}">
                     <StackPanel.Resources>
                         <Style TargetType="StackPanel">
                             <Setter Property="Orientation" Value="Horizontal" />
@@ -38,9 +45,10 @@
                     </StackPanel>
 
                     <StackPanel>
+
                         <Label Content="性别" Target="{Binding ElementName=RadioGendeMale}"/>
-                        <RadioButton x:Name="RadioGendeMale" Content="Male" />
-                        <RadioButton Content="Female" Margin="8,0,0,0" />
+                        <RadioButton x:Name="RadioGendeMale" Content="男" IsChecked="{Binding Source={StaticResource Locator}, Path=PersonAddViewModel.IsMale}" />
+                        <RadioButton Content="女" Margin="8,0,0,0" IsChecked="{Binding Source={StaticResource Locator}, Path=PersonAddViewModel.IsFemale}"/>
                     </StackPanel>
 
                     <StackPanel>
@@ -67,6 +75,7 @@
                     <StackPanel>
                         <Label Content="出生地" Target="{Binding ElementName=TextBornPlace}"/>
                         <TextBox x:Name="TextBornPlace" Width="150" Text="{Binding BornPlace, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
+
                     </StackPanel>
 
                     <StackPanel>
@@ -83,24 +92,35 @@
                         <Label Content="死亡日期" Target="{Binding ElementName=DeadDead}" />
                         <DatePicker x:Name="DeadDead"  SelectedDate="{Binding DeadDate}"/>
                     </StackPanel>
-                    
-                     <StackPanel>
+                    <StackPanel>
                         <Label Content="名人类型" Target="{Binding ElementName=ComboPersonType}"/>
                         <ComboBox x:Name="ComboPersonType" Width="150" SelectedItem="{Binding FamousPersonTypeId,Mode=TwoWay, Converter={StaticResource famousPersonTypeConverter}}"
                                   DisplayMemberPath="FamousPersonTypeName"
                                   ItemsSource="{Binding Source={StaticResource Locator}, Path=CommonConstViewModel.FamousPersonTypes}">
                         </ComboBox>
                     </StackPanel>
-                    
-                    <Button Content="确认修改" Margin="100,16,0,0" HorizontalAlignment="Left" />
                 </StackPanel>
+                <Button Content="确认修改" Margin="100,16,0,0" HorizontalAlignment="Left" >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <ei:CallMethodAction 
+                                TargetObject="{Binding}"
+                                MethodName="UpdateAsync"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
             </StackPanel>
         </ScrollViewer>
+        
         <StackPanel  DockPanel.Dock="Right">
-            <Label>人物图片</Label>
-            <Image >
-
-            </Image>
+            <Button Content="选择图片">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <ei:CallMethodAction    TargetObject="{Binding}"   MethodName="ChooseImage"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <Image Source="{Binding SelectImg}"></Image>
         </StackPanel>
     </DockPanel>
 </UserControl>

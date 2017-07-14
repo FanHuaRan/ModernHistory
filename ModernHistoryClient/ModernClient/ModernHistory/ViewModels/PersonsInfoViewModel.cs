@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using ModernHistory.Exceptions;
 using ModernHistory.DtoConvert;
+using System.Drawing;
 
 namespace ModernHistory.ViewModels
 {
@@ -19,34 +20,41 @@ namespace ModernHistory.ViewModels
         // TODO: Add a member for IXxxServiceAgent
         private IFamousePersonService personService;
 
-        private IConstModelsService constModelsService;
 
         private IImageService imgService;
-
 
         private ObservableCollection<FamousPerson> famousPersons;
 
         private FamousPerson selectFamousePerson;
 
-        public PersonsInfoViewModel(IFamousePersonService personService, IConstModelsService constModelsService, IImageService imgService)
+        public PersonsInfoViewModel(IFamousePersonService personService, IImageService imgService)
         {
             this.personService = personService;
-            this.constModelsService = constModelsService;
             this.imgService = imgService;
-            Task.Run(async () =>
+            Task.Run(() =>
             {
-                try
+                //try
+                //{
+                //    var famousePersonsDto = await this.personService.FindAllAsync();
+                //    FamousPersons = DtoConvertToModel.FamousePersonsConvert(famousePersonsDto);
+                //}
+                //catch (ApiErrorException e)
+                //{
+                //    MessageBox.Show(e.Message);
+                //}
+                //连续5次延迟1秒从mapPageViewModelInstance中获取数据 不应该这样做 不过为了方便。。。。
+                for (int i = 0; i < 5; i++)
                 {
-                    var famousePersonsDto = await this.personService.FindAllAsync();
-                    FamousPersons = DtoConvertToModel.FamousePersonsConvert(famousePersonsDto);
-                }
-                catch (ApiErrorException e)
-                {
-                    MessageBox.Show(e.Message);
+                    var mapPageViewModelInstance=ViewModelLocator.MapPageViewModelInstance;
+                    if (mapPageViewModelInstance.FamousPersons != null)
+                    {
+                        FamousPersons = mapPageViewModelInstance.FamousPersons;
+                        break;
+                    }
+                    Thread.Sleep(1);
                 }
             });
         }
-
 
         public ObservableCollection<FamousPerson> FamousPersons
         {
@@ -79,13 +87,29 @@ namespace ModernHistory.ViewModels
             }
         }
 
-
         // TODO: Add events to notify the view or obtain data from the view
         public event EventHandler<NotificationEventArgs<Exception>> ErrorNotice;
 
         // TODO: Add properties using the mvvmprop code snippet
 
         // TODO: Add methods that will be called by the view
+        public async void Delete()
+        {
+            if (SelectFamousePerson != null)
+            {
+                try
+                {
+                    await personService.DeleteAsync(selectFamousePerson.FamousPersonId);
+                    this.famousPersons.Remove(SelectFamousePerson);
+                    SelectFamousePerson = null;
+                    MessageBox.Show("删除成功");
+                }
+                catch (Exception e)
+                {
+                    System.Windows.MessageBox.Show(e.Message);
+                }
+            }
+        }
 
         // TODO: Optionally add callback methods for async calls to the service agent
         
