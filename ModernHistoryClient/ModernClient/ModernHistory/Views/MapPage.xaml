@@ -10,12 +10,195 @@
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="800"
              DataContext="{Binding Source={StaticResource Locator}, Path=MapPageViewModelInstance}">
-    <Grid>
+    <UserControl.Resources>
+
+    </UserControl.Resources>
+    <Grid Style="{StaticResource ContentRoot}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="173*"/>
-            <ColumnDefinition Width="9*"/>
-            <ColumnDefinition Width="468*"/>
+            <ColumnDefinition Width="150*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="500*"/>
         </Grid.ColumnDefinitions>
+        <!--搜索表单容器-->
+        <Grid Grid.Column="0">
+            <!--人员搜索表单容器-->
+           <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Left" Height="200" Margin="-15,0,-109,0" VerticalAlignment="Top" Width="270">
+                <!---<Border.Effect>
+                    <DropShadowEffect/>
+                </Border.Effect>
+               -->
+                <StackPanel MinWidth="200">
+                    <StackPanel>
+                        <TextBlock Text="名人查询" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
+                    </StackPanel>
+                    <!-- actual form starts here -->
+                    <StackPanel x:Name="Form" Orientation="Vertical" DataContext="{Binding PersonSearhModel}" Margin="10,0,0,4">
+                        <StackPanel.Resources>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Orientation" Value="Horizontal" />
+                                <Setter Property="Margin" Value="0,0,0,4" />
+                            </Style>
+                            <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+                                <Setter Property="Width" Value="70" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                            <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
+                                <Setter Property="Padding" Value="0,3" />
+                            </Style>
+                            <Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type RadioButton}}">
+                                <Setter Property="Padding" Value="0,3" />
+                            </Style>
+                        </StackPanel.Resources>
+
+                        <StackPanel>
+                            <Label Content="姓名" Target="{Binding ElementName=TextName}"/>
+                            <TextBox x:Name="TextName" Width="150" Text="{Binding PersonName, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+                        </StackPanel>
+
+
+                        <StackPanel>
+                            <Label Content="省份" Target="{Binding ElementName=ComboProvince}"/>
+                            <ComboBox x:Name="ComboProvince" Width="150" 
+                                  SelectedItem="{Binding Province,Mode=TwoWay}"
+                                  ItemsSource="{Binding  Source={StaticResource Locator}, Path=CommonConstViewModel.Provinces}">
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel>
+                            <Label Content="民族" Target="{Binding ElementName=ComboNation}"/>
+                            <ComboBox x:Name="ComboNation" Width="150" SelectedItem="{Binding Nation,Mode=TwoWay}"
+                                  ItemsSource="{Binding Source={StaticResource Locator},Path=CommonConstViewModel.Nations}">
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel>
+                            <Label Content="名人类型" Target="{Binding ElementName=ComboPersonType}"/>
+                            <ComboBox x:Name="ComboPersonType" Width="150" SelectedItem="{Binding FamousPersonTypeId,Mode=TwoWay, Converter={StaticResource famousPersonTypeConverter}}"
+                                  DisplayMemberPath="FamousPersonTypeName"
+                                  ItemsSource="{Binding Source={StaticResource Locator}, Path=CommonConstViewModel.FamousPersonTypes}">
+                            </ComboBox>
+                        </StackPanel>
+                    </StackPanel>
+                    <Button Content="搜索" Margin="100,16,0,0" HorizontalAlignment="Left" >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <ei:CallMethodAction 
+                        			TargetObject="{Binding}"
+                        			MethodName="SearchPersonAsync"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                </StackPanel>
+            </Border>
+             <!--事件搜索表单容器-->
+            <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Left" Height="200" Margin="-15,226,-79,0" VerticalAlignment="Top" Width="270">
+                <!---<Border.Effect>
+                    <DropShadowEffect/>
+                </Border.Effect>
+               -->
+                <StackPanel MinWidth="200">
+                    <StackPanel>
+                        <TextBlock Text="事件查询" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
+                    </StackPanel>
+                    <!-- actual form starts here -->
+                    <StackPanel x:Name="EventForm" Orientation="Vertical" DataContext="{Binding EventSearhModel}" Margin="10,0,0,4">
+                        <StackPanel.Resources>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Orientation" Value="Horizontal" />
+                                <Setter Property="Margin" Value="0,0,0,4" />
+                            </Style>
+                            <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+                                <Setter Property="Width" Value="70" />
+                                <Setter Property="VerticalAlignment" Value="Center" />
+                            </Style>
+                            <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
+                                <Setter Property="Padding" Value="0,3" />
+                            </Style>
+                            <Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type RadioButton}}">
+                                <Setter Property="Padding" Value="0,3" />
+                            </Style>
+                        </StackPanel.Resources>
+
+                        <StackPanel>
+                            <Label Content="标题" Target="{Binding ElementName=TextTitle}"/>
+                            <TextBox x:Name="TextTitle" Width="150" Text="{Binding Title, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+                        </StackPanel>
+
+                        <StackPanel>
+                            <Label Content="发生日期" Target="{Binding ElementName=DateBirth}" />
+                            <DatePicker x:Name="DateBirth" SelectedDate="{Binding MinOccurDate,Mode=TwoWay}"/>
+                        </StackPanel>
+
+                        <StackPanel>
+                            <Label Content="省份" Target="{Binding ElementName=EventComboProvince}"/>
+                            <ComboBox x:Name="EventComboProvince" Width="150" 
+                                  SelectedItem="{Binding Province,Mode=TwoWay}"
+                                  ItemsSource="{Binding  Source={StaticResource Locator}, Path=CommonConstViewModel.Provinces}">
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel>
+                            <Label Content="事件类型"/>
+                            <ComboBox x:Name="ComboEventType" Width="150" IsReadOnly="True" DisplayMemberPath="HistoryEventTypeName"
+                                  SelectedItem="{Binding HistoryEventTypeId, Mode=TwoWay, Converter={StaticResource historyEventTypeConverter}}"
+                                  ItemsSource="{Binding Source={StaticResource Locator}, Path=CommonConstViewModel.HistoryEventTypes}">
+                            </ComboBox>
+                        </StackPanel>
+                    </StackPanel>
+                    <Button Content="搜索" Margin="100,16,0,0" HorizontalAlignment="Left">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <ei:CallMethodAction 
+                        			TargetObject="{Binding}"
+                        			MethodName="SearchEventAsync"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                </StackPanel>
+            </Border>
+            <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Left" Height="80" Margin="-15,431,-79,-195" VerticalAlignment="Top" Width="270">
+                <Grid>
+                    <Button Content="插入名人" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="97">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <ei:CallMethodAction 
+                        			TargetObject="{Binding}"
+                        			MethodName="InsertPerson"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                    <Button Content="查询名人" HorizontalAlignment="Left" Margin="123,10,0,0" VerticalAlignment="Top" Width="93">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <ei:CallMethodAction 
+                        			TargetObject="{Binding}"
+                        			MethodName="QueryPerson"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                    <Button Content="插入事件" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Width="97">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <ei:CallMethodAction 
+                        			TargetObject="{Binding}"
+                        			MethodName="InsertEvent"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                    <Button Content="查询事件" HorizontalAlignment="Left" Margin="123,45,0,0" VerticalAlignment="Top" Width="93">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <ei:CallMethodAction 
+                        			TargetObject="{Binding}"
+                        			MethodName="QueryEvent"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                </Grid>
+            </Border>
+
+        </Grid>
+
         <!--主地图和鹰眼的容器-->
         <Grid  Grid.Column="2" x:Name="mapGrid">
             <i:Interaction.Triggers>
@@ -38,9 +221,16 @@
                     <i:EventTrigger EventName="ExtentChanged">
                         <ei:CallMethodAction TargetObject="{Binding Mode=OneWay}" MethodName="MyMapView_ExtentChanged"/>
                     </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseDown">
+                        <ei:CallMethodAction TargetObject="{Binding Mode=OneWay}"  MethodName="MapView_MouseDown" ></ei:CallMethodAction>
+                    </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <esri:Map>
                     <customlib:AmapTiledLayer/>
+                    <!--名人图层-->
+                    <esri:GraphicsLayer ID="personsLayer"/>
+                    <!--事件图层-->
+                    <esri:GraphicsLayer ID="eventsLayer" />
                 </esri:Map>
             </esri:MapView>
             <!--鹰眼border-->

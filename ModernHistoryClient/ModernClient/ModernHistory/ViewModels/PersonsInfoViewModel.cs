@@ -87,7 +87,7 @@ namespace ModernHistory.ViewModels
                 try
                 {
                     await personService.DeleteAsync(selectFamousePerson.FamousPersonId);
-                    this.famousPersons.Remove(SelectFamousePerson);
+                    ViewModelLocator.MapPageViewModelInstance.DeleteSyncPerson(selectFamousePerson);
                     SelectFamousePerson = null;
                     MessageBox.Show("删除成功");
                 }

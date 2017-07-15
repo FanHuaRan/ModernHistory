@@ -1,5 +1,8 @@
-﻿using System;
+﻿using FirstFloor.ModernUI.Windows.Controls;
+using ModernHistory.Models;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,17 +16,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ModernHistory.Others
+namespace ModernHistory.Views.Event
 {
     /// <summary>
-    /// MapPage.xaml 的交互逻辑
+    /// Interaction logic for SelectPersonDialog.xaml
     /// </summary>
-    public partial class MapPage : UserControl
+    public partial class SelectPersonsDialog : ModernDialog
     {
-        public MapPage()
+        public SelectPersonsDialog()
         {
             InitializeComponent();
-        }
 
+            // define the dialog buttons
+            this.Buttons = new Button[] { this.OkButton, this.CancelButton };
+        }
     }
 }

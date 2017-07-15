@@ -105,6 +105,7 @@
     <Compile Include="CustomLib\AmapTiledLayer.cs" />
     <Compile Include="DtoConvert\DtoConvertToModel.cs" />
     <Compile Include="Exceptions\ApiErrorException.cs" />
+    <Compile Include="Gloabl\MapMarkerConfig.cs" />
     <Compile Include="Gloabl\WebApiConfig.cs" />
     <Compile Include="ImageServiceClassTest.cs" />
     <Compile Include="LoginWindow.xaml.cs">
@@ -139,13 +140,16 @@
     <Compile Include="Utils\HttpClientUtils.cs" />
     <Compile Include="ViewModels\AppearanceViewModel.cs" />
     <Compile Include="ViewModels\CommonConstViewModel.cs" />
+    <Compile Include="ViewModels\EventAddDialogViewModel.cs" />
     <Compile Include="ViewModels\EventAddViewModel.cs" />
     <Compile Include="ViewModels\EventEditViewModel.cs" />
     <Compile Include="ViewModels\EventsInfoViewModel.cs" />
     <Compile Include="ViewModels\MapPageViewModel.cs" />
+    <Compile Include="ViewModels\PersonAddDialogViewModel.cs" />
     <Compile Include="ViewModels\PersonEditViewModel.cs" />
     <Compile Include="ViewModels\PersonAddViewModel.cs" />
     <Compile Include="ViewModels\PersonsInfoViewModel.cs" />
+    <Compile Include="ViewModels\MapOperationType.cs" />
     <Compile Include="Views\CustomerView.xaml.cs">
       <DependentUpon>CustomerView.xaml</DependentUpon>
     </Compile>
@@ -154,6 +158,15 @@
     <Compile Include="Services\ICustomerServiceAgent.cs" />
     <Compile Include="Services\Impl\MockCustomerServiceAgent.cs" />
     <Compile Include="ViewModels\CustomerViewModel.cs" />
+    <Compile Include="Views\Dialogs\EventAddDialog.xaml.cs">
+      <DependentUpon>EventAddDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\PersonAddDialog.xaml.cs">
+      <DependentUpon>PersonAddDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\SelectEventsDialog.xaml.cs">
+      <DependentUpon>SelectEventsDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EventPage.xaml.cs">
       <DependentUpon>EventPage.xaml</DependentUpon>
     </Compile>
@@ -175,6 +188,9 @@
     <Compile Include="Views\Event\EventStatics.xaml.cs">
       <DependentUpon>EventStatics.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Dialogs\SelectPersonsDialog.xaml.cs">
+      <DependentUpon>SelectPersonsDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MapPage.xaml.cs">
       <DependentUpon>MapPage.xaml</DependentUpon>
     </Compile>
@@ -186,9 +202,6 @@
     </Compile>
     <Compile Include="Views\Others\Appearance.xaml.cs">
       <DependentUpon>Appearance.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Person\ModernDialog1.xaml.cs">
-      <DependentUpon>ModernDialog1.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Person\PersonAdd.xaml.cs">
       <DependentUpon>PersonAdd.xaml</DependentUpon>
@@ -231,6 +244,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Dialogs\EventAddDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\PersonAddDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\SelectEventsDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\EventPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -259,6 +284,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Dialogs\SelectPersonsDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MapPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -272,10 +301,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Others\Appearance.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Person\ModernDialog1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

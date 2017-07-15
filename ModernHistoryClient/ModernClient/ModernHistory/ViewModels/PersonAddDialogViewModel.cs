@@ -8,6 +8,7 @@ using SimpleMvvmToolkit;
 using ModernHistory.Models;
 using ModernHistory.Services;
 using System.Windows.Forms;
+using FirstFloor.ModernUI.Windows.Controls;
 
 namespace ModernHistory.ViewModels
 {
@@ -17,7 +18,7 @@ namespace ModernHistory.ViewModels
     /// Use the <strong>mvvmprop</strong> snippet to add bindable properties to this ViewModel.
     /// </para>
     /// </summary>
-    public class PersonAddViewModel : ViewModelBase<PersonAddViewModel>
+    public class PersonAddDialogViewModel : ViewModelBase<PersonAddViewModel>
     {
         private IFamousePersonService personService;
 
@@ -57,12 +58,10 @@ namespace ModernHistory.ViewModels
             }
         }
 
-
-        public PersonAddViewModel(IFamousePersonService personService, IImageService imageService)
+        public PersonAddDialogViewModel(IFamousePersonService personService, IImageService imageService)
         {
             this.personService = personService;
             this.imageService = imageService;
-            Initial();
         }
 
         public FamousPerson FamousPerson
@@ -104,7 +103,7 @@ namespace ModernHistory.ViewModels
                     await imageService.UploadPersonImgAsync(result.FamousPersonId, SelectImg);
                 }
                 ViewModelLocator.MapPageViewModelInstance.AddSyncPerson(FamousPerson);
-                Initial();
+                Dialog.Close();
             }
             catch (Exception e)
             {
@@ -122,11 +121,14 @@ namespace ModernHistory.ViewModels
             }
         }
 
-        public void Initial()
+        /// <summary>
+        /// 窗体。。。便于回调，为了简单
+        /// </summary>
+        public ModernDialog Dialog { get; set; }
+
+        public void Cancel()
         {
-            IsMale = true;
-            SelectImg = null;
-            FamousPerson = new FamousPerson();
+            Dialog.Close();
         }
     }
 }

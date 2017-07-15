@@ -90,7 +90,7 @@ namespace ModernHistory.ViewModels
                 try
                 {
                     await historyEventService.DeleteAsync(SelectHistoryEvent.HistoryEventId);
-                    this.HistoryEvents.Remove(SelectHistoryEvent);
+                    ViewModelLocator.MapPageViewModelInstance.DeleteSyncEvent(SelectHistoryEvent);
                     SelectHistoryEvent = null;
                     MessageBox.Show("删除成功");
                 }

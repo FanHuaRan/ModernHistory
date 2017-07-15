@@ -8,6 +8,7 @@ using SimpleMvvmToolkit;
 using ModernHistory.Services;
 using ModernHistory.Models;
 using System.Windows.Forms;
+using FirstFloor.ModernUI.Windows.Controls;
 
 namespace ModernHistory.ViewModels
 {
@@ -17,9 +18,9 @@ namespace ModernHistory.ViewModels
     /// Use the <strong>mvvmprop</strong> snippet to add bindable properties to this ViewModel.
     /// </para>
     /// </summary>
-    public class EventAddViewModel : ViewModelBase<EventAddViewModel>
+    public class EventAddDialogViewModel : ViewModelBase<EventAddViewModel>
     {
-         private IHistoryEventService historyEventService;
+        private IHistoryEventService historyEventService;
 
         private IImageService imageService;
 
@@ -27,11 +28,10 @@ namespace ModernHistory.ViewModels
 
         private string selectImg=null;
 
-        public EventAddViewModel(IHistoryEventService historyEventService, IImageService imageService)
+        public EventAddDialogViewModel(IHistoryEventService historyEventService, IImageService imageService)
         {
             this.historyEventService = historyEventService;
             this.imageService = imageService;
-            Initial();
         }
 
         public HistoryEvent HistoryEvent
@@ -59,7 +59,6 @@ namespace ModernHistory.ViewModels
             }
         }
 
-
         public async void SaveAsync()
         {
             try
@@ -71,7 +70,7 @@ namespace ModernHistory.ViewModels
                     await imageService.UploadEventImgAsync(result.HistoryEventId, SelectImg);
                 }
                 ViewModelLocator.MapPageViewModelInstance.AddSyncEvent(HistoryEvent);
-                Initial();
+                Dialog.Close();
             }
             catch (Exception e)
             {
@@ -88,10 +87,13 @@ namespace ModernHistory.ViewModels
             }
         }
 
-        public void Initial()
+        /// <summary>
+        /// 窗体。。。便于回调，为了简单
+        /// </summary>
+        public ModernDialog Dialog { get; set; }
+        public void Cancel()
         {
-            SelectImg = null;
-            HistoryEvent = new HistoryEvent();
+            Dialog.Close();
         }
     }
 }

@@ -92,7 +92,8 @@ namespace ModernHistory.CustomLib
         {
             return Task.Run(() =>
             {
-                Envelope extent = new Envelope(-20037508.3427892, -20037508.3427892, 20037508.3427892, 20037508.3427892, SpatialReferences.WebMercator);
+                var extent = new Envelope(8683687.93695427,2379976.95194823,14945347.5840909,5762088.12795044,SpatialReferences.WebMercator);
+                //Envelope extent = new Envelope(-20037508.3427892, -20037508.3427892, 20037508.3427892, 20037508.3427892, SpatialReferences.WebMercator);
                 IEnumerable<Lod> lods = null;
                 if (lods == null)
                 {

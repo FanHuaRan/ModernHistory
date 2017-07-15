@@ -9,12 +9,6 @@
         <ResourceDictionary>
             <!--ViewModel资源定位器-->
             <vm:ViewModelLocator xmlns:vm="clr-namespace:ModernHistory"  x:Key="Locator" />
-            <!--鹰眼边框资源-->
-            <esri:SimpleFillSymbol x:Key="RedFillSymbol" Color="#22FF0000">
-                <esri:SimpleFillSymbol.Outline>
-                    <esri:SimpleLineSymbol Color="Red" Width="2" />
-                </esri:SimpleFillSymbol.Outline>
-            </esri:SimpleFillSymbol>
             <!--性别转换器-->
             <localconverter:GenderConverter x:Key="genderCoverter"/>
             <!--人员删除信息转换器-->
@@ -33,6 +27,20 @@
             <localconverter:PersonImageConverter x:Key="personImageConverter"/>
             <!--事件图片转换器-->
             <localconverter:EventImageConverter x:Key="eventImageConverter"/>
+
+            <!--鹰眼边框资源-->
+            <esri:SimpleFillSymbol x:Key="RedFillSymbol" Color="#22FF0000">
+                <esri:SimpleFillSymbol.Outline>
+                    <esri:SimpleLineSymbol Color="Red" Width="2" />
+                </esri:SimpleFillSymbol.Outline>
+            </esri:SimpleFillSymbol>
+            <!--marker资源-->
+            <esri:SimpleMarkerSymbol x:Key="RedMarkerSymbolCircle" Color="Red" Size="20" Style="Circle" />
+            <esri:SimpleMarkerSymbol x:Key="RedMarkerSymbolCross" Color="Red" Size="12" Style="Cross" />
+            <esri:SimpleMarkerSymbol x:Key="BoolueMarkerSymbolDiamond" Color="Blue" Size="20" Style="Diamond" />
+            <esri:SimpleMarkerSymbol x:Key="RedMarkerSymbolSquare" Color="Red" Size="12" Style="Square" />
+            <esri:SimpleMarkerSymbol x:Key="RedMarkerSymbolTriangle" Color="Red" Size="12" Style="Triangle" />
+            <esri:SimpleMarkerSymbol x:Key="RedMarkerSymbolX" Color="Red" Size="12" Style="X" />
             <ResourceDictionary.MergedDictionaries>
                 <!--ModernUI资源-->
                 <ResourceDictionary Source="/FirstFloor.ModernUI;component/Assets/ModernUI.xaml" />

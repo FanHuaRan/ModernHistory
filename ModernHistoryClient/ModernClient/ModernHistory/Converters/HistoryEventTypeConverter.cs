@@ -19,12 +19,20 @@ namespace ModernHistory.Converters
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
+            if (value == null)
+            {
+                return null;
+            }
             var typeId = (int)value;
             return CommonConstViewModel.Instance.HistoryEventTypes.Where(p => p.HistoryEventTypeId == typeId).FirstOrDefault();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
+            if (value == null)
+            {
+                return null;
+            }
             var eventType=value as HistoryEventType;
             if (eventType != null)
             {

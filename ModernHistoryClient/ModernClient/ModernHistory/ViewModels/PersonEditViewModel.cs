@@ -104,6 +104,7 @@ namespace ModernHistory.ViewModels
                 {
                     await imageService.UploadPersonImgAsync(FamousPerson.FamousPersonId, SelectImg);
                 }
+                ViewModelLocator.MapPageViewModelInstance.EdiSyncPerson(FamousPerson);
                 Initial();
             }
             catch (Exception e)

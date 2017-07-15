@@ -19,6 +19,10 @@ namespace ModernHistory.Converters
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
+            if (value == null)
+            {
+                return null;
+            }
             var typeId = (int)value;
             var  test=CommonConstViewModel.Instance.FamousPersonTypes.Where(p => p.FamousPersonTypeId == typeId);
             return CommonConstViewModel.Instance.FamousPersonTypes.Where(p => p.FamousPersonTypeId == typeId).FirstOrDefault();
@@ -26,6 +30,10 @@ namespace ModernHistory.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
+            if (value == null)
+            {
+                return null;
+            }
             var famouseType=value as FamousPersonType;
             if (famouseType != null)
             {

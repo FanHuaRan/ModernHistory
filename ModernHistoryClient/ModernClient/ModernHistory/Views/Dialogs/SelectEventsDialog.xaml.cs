@@ -14,14 +14,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ModernHistory.Views.Person
+namespace ModernHistory.Views.Dialogs
 {
     /// <summary>
-    /// Interaction logic for ModernDialog1.xaml
+    /// Interaction logic for SelectEventsDialog.xaml
     /// </summary>
-    public partial class ModernDialog1 : ModernDialog
+    public partial class SelectEventsDialog : ModernDialog
     {
-        public ModernDialog1()
+        public SelectEventsDialog()
         {
             InitializeComponent();
 

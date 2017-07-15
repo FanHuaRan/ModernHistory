@@ -73,6 +73,7 @@ namespace ModernHistory.ViewModels
                 {
                     await imageService.UploadEventImgAsync(HistoryEvent.HistoryEventId, SelectImg);
                 }
+                ViewModelLocator.MapPageViewModelInstance.EdiSyncEvent(HistoryEvent);
                 Initial();
             }
             catch (Exception e)

@@ -17,6 +17,11 @@ using Esri.ArcGISRuntime.Layers;
 using System.Linq;
 using System.Windows.Input;
 using System.Windows.Controls;
+using Esri.ArcGISRuntime.Data;
+using ModernHistory.Gloabl;
+using System.Collections.Generic;
+using ModernHistory.Views.Dialogs;
+using ModernHistory.Views.Event;
 namespace ModernHistory.ViewModels
 {
     /// <summary>
@@ -27,11 +32,97 @@ namespace ModernHistory.ViewModels
     /// </summary>
     public class MapPageViewModel : ViewModelBase<MapPageViewModel>
     {
-        #region 地图控制区
+
+        /// <summary>
+        /// 地图操作类型
+        /// </summary>
+        private MapOperationType mapOperationType = MapOperationType.None;
+
+        //名人搜索模型
+        private PersonSearchModel personSearhModel = new PersonSearchModel();
+
+        public PersonSearchModel PersonSearhModel
+        {
+            get { return personSearhModel; }
+            set
+            {
+                if (personSearhModel != value)
+                {
+                    personSearhModel = value;
+                    NotifyPropertyChanged(p => p.PersonSearhModel);
+                }
+            }
+        }
+
+        //事件搜索模型
+        private EventSearchModel eventSearhModel = new EventSearchModel();
+
+        public EventSearchModel EventSearhModel
+        {
+            get { return eventSearhModel; }
+            set
+            {
+                if (eventSearhModel != value)
+                {
+                    eventSearhModel = value;
+                    NotifyPropertyChanged(p => p.EventSearhModel);
+                }
+            }
+        }
+
+        private ObservableCollection<FamousPerson> selectFamousPersons;
+
+        public ObservableCollection<FamousPerson> SelectFamousPersons
+        {
+            get { return selectFamousPersons; }
+            set
+            {
+                if (selectFamousPersons != value)
+                {
+                    selectFamousPersons = value;
+                    NotifyPropertyChanged(p => p.SelectFamousPersons);
+                }
+            }
+        }
+
+        private ObservableCollection<HistoryEvent> selectHistoryEvents;
+
+        public ObservableCollection<HistoryEvent> SelectHistoryEvents
+        {
+            get { return selectHistoryEvents; }
+            set
+            {
+                if (selectHistoryEvents != value)
+                {
+                    selectHistoryEvents = value;
+                    NotifyPropertyChanged(p => p.SelectHistoryEvents);
+                }
+            }
+        }
+
         //主地图
         private MapView mainMapView = null;
         //鹰眼图
         private MapView overviewMap = null;
+        //人员图层
+        private GraphicsLayer personsLayers = null;
+        //事件图层
+        private GraphicsLayer eventsLayer = null;
+        //人员marker
+        private PictureMarkerSymbol personSymbol = new PictureMarkerSymbol()
+        {
+           // Opacity = MapMarkerConfig.PERSOM_MARKER_OPACITY,
+            Height = MapMarkerConfig.PERSON_MARKER_SIZE,
+            Width = MapMarkerConfig.PERSON_MARKER_SIZE,
+        };
+        //事件marker
+        private PictureMarkerSymbol eventSymbol = new PictureMarkerSymbol()
+        {
+           // Opacity = MapMarkerConfig.EVENT_MARKER_OPACITY,
+            Height = MapMarkerConfig.EVENT_MARKER_SIZE,
+            Width = MapMarkerConfig.EVENT_MARKER_SIZE,
+        };
+        #region 鹰眼控制区
         #region Extent 暂时没用
             private Envelope extent = null;
             public Envelope Extent
@@ -74,7 +165,7 @@ namespace ModernHistory.ViewModels
             {
                 await mainMapView.LayersLoadedAsync();
                 var graphicsOverlay = overviewMap.GraphicsOverlays["overviewOverlay"];
-                var symbol = System.Windows.Application.Current.Resources["RedFillSymbol"] as Symbol;
+                var symbol = GetGloabelResorce("RedFillSymbol") as Symbol;
                 //  Symbol symbol = symbol = layoutGrid.Resources["RedFillSymbol"] as Symbol;
                 while (true)
                 {
@@ -94,27 +185,7 @@ namespace ModernHistory.ViewModels
             { }
             await AddSingleGraphicAsync();//递归调用 防止出错
         }
-        /// <summary>
-        /// 界面load事件
-        /// </summary>
-        public ICommand MapPageLoadedCommand
-        {
-            get
-            {
-                return new DelegateCommand<Grid>(mapGrid =>
-                {
-                    if (mainMapView == null)
-                    {
-                        mainMapView = mapGrid.Children[0] as MapView;
-                    }
-                    if (overviewMap == null)
-                    {
-                        var border=mapGrid.Children[1] as Border;
-                        overviewMap = border.Child as MapView;
-                    }
-                });
-            }
-        }
+       
         /// <summary>
         /// 主图范围变化事件
         /// </summary>
@@ -191,8 +262,142 @@ namespace ModernHistory.ViewModels
                 {
                     MessageBox.Show(e.Message);
                 }
+               await personSymbol.SetSourceAsync(new Uri(MapMarkerConfig.PERSON_MARKER));
+               await eventSymbol.SetSourceAsync(new Uri(MapMarkerConfig.EVENT_MARKER));
+                if (FamousPersons != null)
+                {
+                    foreach (var value in FamousPersons)
+                    {
+                        personsLayers.Dispatcher.Invoke(() =>
+                        {
+                            //personsLayers.Graphics.Add(new Graphic(new MapPoint(-7000000, 3900000), personSymbol));
+                            AddPersonGraphic(value);
+                        });
+                    }
+                }
+                if (HistoryEvents != null)
+                {
+                    foreach (var value in HistoryEvents)
+                    {
+                       // eventsLayer.Graphics.Add(new Graphic(new MapPoint(-7000000, 4000000), (Symbol)GetGloabelResorce("RedMarkerSymbolCircle")));
+                        AddEventGraphic(value);
+                    }
+                }
             });
         }
+
+        /// <summary>
+        /// 异步查询名人信息
+        /// </summary>
+        public async void SearchPersonAsync()
+        {
+            var contions=await GetSearchPersonCondtionsAsync();
+            if (contions.Count() == 0)
+            {
+                return;
+            }
+            bool isFirst = true;
+            IEnumerable<FamousPerson> tmpQuery=null;
+            foreach(var contion in contions)
+            {
+                if (isFirst)
+                {
+                    tmpQuery = FamousPersons.Where(contion);
+                    isFirst = false;
+                }
+                else
+                {
+                    tmpQuery = tmpQuery.Where(contion);
+                }
+            }
+            SelectFamousPersons = new ObservableCollection<FamousPerson>(tmpQuery);
+            new SelectPersonsDialog().ShowDialog();
+        }
+        /// <summary>
+        /// 获取名人查询条件
+        /// </summary>
+        /// <returns></returns>
+        public Task<List<Func<FamousPerson,bool>>> GetSearchPersonCondtionsAsync()
+        {
+            return Task.Run<List<Func<FamousPerson, bool>>>(() =>
+            {
+                var condtions = new List<Func<FamousPerson, bool>>();
+                if (!string.IsNullOrEmpty(personSearhModel.PersonName))
+                {
+                    condtions.Add(p => p.PersonName == personSearhModel.PersonName);
+                }
+                if (!string.IsNullOrEmpty(personSearhModel.Province))
+                {
+                    condtions.Add(p => p.Province == personSearhModel.Province);
+                }
+                if (!string.IsNullOrEmpty(personSearhModel.Nation))
+                {
+                    condtions.Add(p => p.Nation == personSearhModel.Nation);
+                }
+                if (personSearhModel.FamousPersonTypeId != null)
+                {
+                    condtions.Add(p => p.FamousPersonId == personSearhModel.FamousPersonTypeId);
+                }
+                return condtions;
+            });
+        }
+
+        /// <summary>
+        /// 异步查询事件信息
+        /// </summary>
+        public async void SearchEventAsync()
+        {
+            var contions = await GetSearchEventCondtionsAsync();
+            if (contions.Count() == 0)
+            {
+                return;
+            }
+            IEnumerable<HistoryEvent> tmpQuery = null;
+            bool isFirst = true;
+            foreach (var contion in contions)
+            {
+                if (isFirst)
+                {
+                    tmpQuery = HistoryEvents.Where(contion);
+                    isFirst = false;
+                }
+                else
+                {
+                    tmpQuery = tmpQuery.Where(contion);
+                }
+            }
+            SelectHistoryEvents = new ObservableCollection<HistoryEvent>(tmpQuery);
+            new SelectEventsDialog().ShowDialog();
+        }
+        /// <summary>
+        /// 获取事件查询条件
+        /// </summary>
+        /// <returns></returns>
+        public Task<List<Func<HistoryEvent, bool>>> GetSearchEventCondtionsAsync()
+        {
+            return Task.Run<List<Func<HistoryEvent, bool>>>(() =>
+            {
+                var condtions = new List<Func<HistoryEvent, bool>>();
+                if (!string.IsNullOrEmpty(eventSearhModel.Title))
+                {
+                    condtions.Add(p => p.Title == eventSearhModel.Title);
+                }
+                if (!string.IsNullOrEmpty(eventSearhModel.Province))
+                {
+                    condtions.Add(p => p.Province == eventSearhModel.Province);
+                }
+                if (eventSearhModel.MinOccurDate!=null)
+                {
+                    condtions.Add(p => p.OccurDate == eventSearhModel.MinOccurDate);
+                }
+                if (eventSearhModel.HistoryEventTypeId != null)
+                {
+                    condtions.Add(p => p.HistoryEventTypeId == eventSearhModel.HistoryEventTypeId);
+                }
+                return condtions;
+            });
+        }
+
 
 
         // TODO: Add events to notify the view or obtain data from the view
@@ -210,5 +415,215 @@ namespace ModernHistory.ViewModels
             // Notify view of an error
             Notify(ErrorNotice, new NotificationEventArgs<Exception>(message, error));
         }
+        /// <summary>
+        /// 界面load事件
+        /// </summary>
+        public ICommand MapPageLoadedCommand
+        {
+            get
+            {
+                return new DelegateCommand<Grid>(mapGrid =>
+                {
+                    if (mainMapView == null)
+                    {
+                        mainMapView = mapGrid.Children[0] as MapView;
+                        personsLayers = mainMapView.Map.Layers
+                                                    .Where(p => p.ID == "personsLayer")
+                                                    .FirstOrDefault() 
+                                                    as GraphicsLayer;
+                        eventsLayer = mainMapView.Map.Layers
+                                                   .Where(p => p.ID == "eventsLayer")
+                                                   .FirstOrDefault()
+                                                   as GraphicsLayer;
+                    }
+                    if (overviewMap == null)
+                    {
+                        var border = mapGrid.Children[1] as Border;
+                        overviewMap = border.Child as MapView;
+                    }
+                });
+            }
+        }
+        /// <summary>
+        /// 获取全局资源
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public object GetGloabelResorce(string key)
+        {
+            return System.Windows.Application.Current.Resources[key];
+        }
+
+        public void MapView_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            System.Windows.Point screenPoint = e.GetPosition(mainMapView);
+            MapPoint mapPoint = mainMapView.ScreenToLocation(screenPoint);
+            if (mainMapView.WrapAround)
+            {
+                mapPoint = GeometryEngine.NormalizeCentralMeridian(mapPoint) as MapPoint;
+            }
+            switch (mapOperationType)
+            {
+                case MapOperationType.AddPerson:
+                    var personAddDialogViewModel=new PersonAddDialogViewModel(personService,imgService);
+                    personAddDialogViewModel.FamousPerson.BornX = mapPoint.X;
+                    personAddDialogViewModel.FamousPerson.BornY = mapPoint.Y;
+                    new PersonAddDialog(personAddDialogViewModel).ShowDialog();
+                    break;
+                case MapOperationType.AddEvent:
+                    var eventAddDialogViewModel = new EventAddDialogViewModel(historyEventService, imgService);
+                    eventAddDialogViewModel.HistoryEvent.OccurX = mapPoint.X;
+                    eventAddDialogViewModel.HistoryEvent.OccurY = mapPoint.Y;
+                    new EventAddDialog(eventAddDialogViewModel).ShowDialog();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public void InsertPerson()
+        {
+            if (mapOperationType != MapOperationType.AddPerson)
+            {
+                mapOperationType = MapOperationType.AddPerson;
+            }
+            else
+            {
+                mapOperationType = MapOperationType.None;
+            }
+        }
+        public void QueryPerson()
+        {
+            if (mapOperationType != MapOperationType.QueryPerson)
+            {
+                mapOperationType = MapOperationType.QueryPerson;
+            }
+            else
+            {
+                mapOperationType = MapOperationType.None;
+            }
+        }
+        public void InsertEvent()
+        {
+            if (mapOperationType != MapOperationType.AddEvent)
+            {
+                mapOperationType = MapOperationType.AddEvent;
+            }
+            else
+            {
+                mapOperationType = MapOperationType.None;
+            }
+        }
+        public void QueryEvent()
+        {
+            if (mapOperationType != MapOperationType.QueryEvent)
+            {
+                mapOperationType = MapOperationType.QueryEvent;
+            }
+            else
+            {
+                mapOperationType = MapOperationType.None;
+            }
+        }
+        /// <summary>
+        /// 同步名人
+        /// </summary>
+        /// <param name="famousePerson"></param>
+        public void AddSyncPerson(FamousPerson famousePerson)
+        {
+            this.FamousPersons.Add(famousePerson);
+            //同步Graphic
+            AddPersonGraphic(famousePerson);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="famouserPerson"></param>
+        public void EdiSyncPerson(FamousPerson famouserPerson)
+        {
+            //同步Graphic
+            EditPersonGraphic(famouserPerson);
+        }
+        public void DeleteSyncPerson(FamousPerson famousePerson)
+        {
+            //删除
+            FamousPersons.Remove(famousePerson);
+            //同步Graphic
+            DeletePersonGraphic(famousePerson);
+        }
+        public void AddSyncEvent(HistoryEvent historyEvent)
+        {
+            historyEvents.Add(historyEvent);
+            AddEventGraphic(historyEvent);
+        }
+        public void EdiSyncEvent(HistoryEvent historyEvent)
+        {
+            EditEventGraphic(historyEvent);
+        }
+        public void DeleteSyncEvent(HistoryEvent historyEvent)
+        {
+            //删除
+            historyEvents.Remove(historyEvent);
+            //同步Graphic
+            DeleteEventGraphic(historyEvent);
+        }
+        private void AddPersonGraphic(FamousPerson person)
+        {
+            var point = new MapPoint(person.BornX, person.BornY);
+            var graphic = new Graphic(point,(Symbol)GetGloabelResorce("RedMarkerSymbolCircle"));
+            graphic.Attributes["PersonId"]=person.FamousPersonId;
+            personsLayers.Dispatcher.Invoke(() =>
+            {
+                personsLayers.Graphics.Add(graphic);
+            });
+        }
+         private void EditPersonGraphic(FamousPerson person)
+        {
+            var point = new MapPoint(person.BornX, person.BornY);
+          //  var graphic = new Graphic(point,(Symbol)GetGloabelResorce("RedMarkerSymbolCircle");
+           var graphic=personsLayers.Graphics.Where(p=>((int)p.Attributes["PersonId"])==person.FamousPersonId).FirstOrDefault();
+           if (graphic != null)
+           {
+               graphic.Geometry = new MapPoint(person.BornX, person.BornY);
+           }
+        }
+         private void DeletePersonGraphic(FamousPerson person)
+         {
+             var point = new MapPoint(person.BornX, person.BornY);
+             //  var graphic = new Graphic(point,(Symbol)GetGloabelResorce("RedMarkerSymbolCircle");
+             var graphic = personsLayers.Graphics.Where(p => ((int)p.Attributes["PersonId"]) == person.FamousPersonId).FirstOrDefault();
+             if (graphic != null)
+             {
+                 personsLayers.Graphics.Remove(graphic);
+             }
+         }
+         private void AddEventGraphic(HistoryEvent historyEvent)
+        {
+            var point = new MapPoint(historyEvent.OccurX, historyEvent.OccurY);
+            var graphic = new Graphic(point, (Symbol)GetGloabelResorce("BoolueMarkerSymbolDiamond"));
+            graphic.Attributes["EventId"]=historyEvent.HistoryEventId;
+            eventsLayer.Dispatcher.Invoke(() =>eventsLayer.Graphics.Add(graphic));
+         
+        }
+         private void EditEventGraphic(HistoryEvent historyEvent)
+         {
+             var point = new MapPoint(historyEvent.OccurX, historyEvent.OccurY);
+             //  var graphic = new Graphic(point,(Symbol)GetGloabelResorce("RedMarkerSymbolCircle");
+             var graphic = eventsLayer.Graphics.Where(p => ((int)p.Attributes["EventId"]) == historyEvent.HistoryEventId).FirstOrDefault();
+             if (graphic != null)
+             {
+                 graphic.Geometry = new MapPoint(historyEvent.OccurX, historyEvent.OccurY);
+             }
+         }
+         private void DeleteEventGraphic(HistoryEvent historyEvent)
+         {
+             var point = new MapPoint(historyEvent.OccurX, historyEvent.OccurY);
+             //  var graphic = new Graphic(point,(Symbol)GetGloabelResorce("RedMarkerSymbolCircle");
+             var graphic = eventsLayer.Graphics.Where(p => ((int)p.Attributes["EventId"]) == historyEvent.HistoryEventId).FirstOrDefault();
+             if (graphic != null)
+             {
+                 eventsLayer.Graphics.Remove(graphic);
+             }
+         }
     }
 }
