@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Threading;
 using System.Collections.ObjectModel;
-
+using System.Linq;
 // Toolkit namespace
 using SimpleMvvmToolkit;
 using ModernHistory.Models;
@@ -95,7 +95,8 @@ namespace ModernHistory.ViewModels
             try
             {
                 FamousPerson.Gender = IsMale ? (byte)1 : (byte)2;
-                var dtoModel = DtoConvert.DtoConvertToModel.FamousePersonConvert(famousPerson);
+                FamousPerson.PersonType = CommonConstViewModel.Instance.FamousPersonTypes.Where(p => p.FamousPersonTypeId == FamousPerson.FamousPersonTypeId).FirstOrDefault();
+                var dtoModel = DtoConvert.DtoConvertToModel.FamousePersonConvert(FamousPerson);
                 dtoModel.PersonType = null;
                 await personService.UpdateAsync(dtoModel);
                 System.Windows.MessageBox.Show("修改成功");

@@ -66,7 +66,7 @@ namespace ModernHistory.Models
         [StringLength(1030)]
         public String Detail
         {
-            get { return title; }
+            get { return detail; }
             set
             {
                 if (detail != value)
@@ -118,7 +118,7 @@ namespace ModernHistory.Models
         [Required(ErrorMessage = "Place is required")]
         public string Place
         {
-            get { return province; }
+            get { return place; }
             set
             {
                 if (place != value)

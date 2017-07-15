@@ -10,7 +10,8 @@
     <Grid>
         <DockPanel>
             <TextBlock DockPanel.Dock="Top" Text="事件列表" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
-            <DataGrid Name="DG1" ItemsSource="{Binding HistoryEvents}" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid Name="DG1" ItemsSource="{Binding HistoryEvents}" SelectedItem="{Binding SelectHistoryEvent}"
+                      AutoGenerateColumns="False"  IsReadOnly="True">
                 <DataGrid.Columns>
                     <mui:DataGridTextColumn Header="编号"  Binding="{Binding HistoryEventId}"/>
                     <mui:DataGridTextColumn Header="标题"  Binding="{Binding Title}"/>

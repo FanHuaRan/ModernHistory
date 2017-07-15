@@ -18,10 +18,19 @@ namespace ModernHistory.Services
             return Task.Run(() =>
             {
                 var fileName=string.Format("{0}\\{1}.jpg",PERSON_PICTURE_ROOT,eventId);
-                if(File.Exists(fileName)){
-                    File.Delete(fileName);
+                try
+                {
+                    if (File.Exists(fileName))
+                    {
+                        File.Delete(fileName);
+                    }
+                    File.Copy(pictureName, fileName);
                 }
-                File.Copy(pictureName, fileName);
+                catch (Exception e)
+                {
+
+                }
+               
             });
         }
 
@@ -30,11 +39,19 @@ namespace ModernHistory.Services
              return Task.Run(() =>
             {
                 var fileName = string.Format("{0}\\{1}.jpg",EVENT_PICTURE_ROOT,personId);
-                if (File.Exists(fileName))
+                try
                 {
-                    File.Delete(fileName);
+                    if (File.Exists(fileName))
+                    {
+                        File.Delete(fileName);
+                    }
+                    File.Copy(pictureName, fileName);
                 }
-                File.Copy(pictureName, fileName);
+                catch (Exception e)
+                {
+
+                }
+              
             });
         }
 

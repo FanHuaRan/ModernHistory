@@ -1,23 +1,79 @@
-﻿<UserControl
+﻿<UserControl x:Class="ModernHistory.Others.MapPage" 
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013" x:Class="ModernHistory.Others.MapPage" 
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+             xmlns:customlib="clr-namespace:ModernHistory.CustomLib"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
+             d:DesignHeight="500" d:DesignWidth="800"
              DataContext="{Binding Source={StaticResource Locator}, Path=MapPageViewModelInstance}">
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="173*"/>
             <ColumnDefinition Width="9*"/>
             <ColumnDefinition Width="468*"/>
         </Grid.ColumnDefinitions>
-        <esri:MapView Grid.Column="2">
-            <esri:Map>
-                <esri:ArcGISTiledMapServiceLayer   ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-            </esri:Map>
-        </esri:MapView>
+        <!--主地图和鹰眼的容器-->
+        <Grid  Grid.Column="2" x:Name="mapGrid">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Loaded">
+                    <i:InvokeCommandAction 
+                                Command="{Binding MapPageLoadedCommand}" 
+                                CommandParameter="{Binding ElementName=mapGrid}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Grid.Resources>
+                <esri:SimpleFillSymbol x:Key="RedFillSymbol" Color="#22FF0000">
+                    <esri:SimpleFillSymbol.Outline>
+                        <esri:SimpleLineSymbol Color="Red" Width="2" />
+                    </esri:SimpleFillSymbol.Outline>
+                </esri:SimpleFillSymbol>
+            </Grid.Resources>
+            <!--主图-->
+            <esri:MapView>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="ExtentChanged">
+                        <ei:CallMethodAction TargetObject="{Binding Mode=OneWay}" MethodName="MyMapView_ExtentChanged"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <esri:Map>
+                    <customlib:AmapTiledLayer/>
+                </esri:Map>
+            </esri:MapView>
+            <!--鹰眼border-->
+            <Border Background="White" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Bottom"
+			Margin="0,358,0,0" Padding="20" HorizontalAlignment="Right">
+                <Border.Effect>
+                    <DropShadowEffect/>
+                </Border.Effect>
+                <esri:MapView x:Name="overviewMap" Width="150" Height="90">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="LayerLoaded">
+                            <ei:CallMethodAction TargetObject="{Binding Mode=OneWay}" MethodName="OverviewMap_LayerLoaded"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <esri:MapView.GraphicsOverlays>
+                        <esri:GraphicsOverlay ID="overviewOverlay">
+                            <esri:GraphicsOverlay.Renderer>
+                                <esri:SimpleRenderer>
+                                    <esri:SimpleFillSymbol Color="#22FF0000">
+                                        <esri:SimpleFillSymbol.Outline>
+                                            <esri:SimpleLineSymbol Color="Red" Width="2" />
+                                        </esri:SimpleFillSymbol.Outline>
+                                    </esri:SimpleFillSymbol>
+                                </esri:SimpleRenderer>
+                            </esri:GraphicsOverlay.Renderer>
+                        </esri:GraphicsOverlay>
+                    </esri:MapView.GraphicsOverlays>
+                    <!--鹰眼图-->
+                    <esri:Map>
+                        <customlib:AmapTiledLayer/>
+                    </esri:Map>
+                </esri:MapView>
+            </Border>
+        </Grid>
     </Grid>
 </UserControl>

@@ -60,7 +60,6 @@ namespace Fhr.ModernHistory.Repositorys
             public virtual void Update(T obj)
             {
                   throw new NotImplementedException();
-
             }
             /// <summary>
             /// EF的更新最好的办法就是先查询再修改，不然很麻烦

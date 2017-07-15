@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Threading;
 using System.Collections.ObjectModel;
-
+using System.Linq;
 // Toolkit namespace
 using SimpleMvvmToolkit;
 using ModernHistory.Services;
@@ -65,8 +65,8 @@ namespace ModernHistory.ViewModels
         {
             try
             {
+                HistoryEvent.EventType=CommonConstViewModel.Instance.HistoryEventTypes.Where(p=>p.HistoryEventTypeId==HistoryEvent.HistoryEventTypeId).FirstOrDefault();
                 var dtoModel = DtoConvert.DtoConvertToModel.HistoryEventConvert(HistoryEvent);
-                dtoModel.EventType = null;
                 await historyEventSerivce.UpdateAsync(dtoModel);
                 System.Windows.MessageBox.Show("修改成功");
                 if (!string.IsNullOrEmpty(SelectImg))

@@ -116,7 +116,7 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Button>
-            <Image Source="{Binding SelectImg}" > </Image>
+            <Image Source="{Binding SelectImg}" Stretch='None' > </Image>
         </StackPanel>
     </DockPanel>
 </UserControl>

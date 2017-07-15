@@ -4,10 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <DockPanel>
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             d:DesignHeight="800" d:DesignWidth="600"
+             DataContext="{Binding Source={StaticResource Locator},Path=EventsInfoViewModel}">
+    <DockPanel DataContext="{Binding SelectHistoryEvent}">
         <StackPanel DockPanel.Dock="Top">
-            <TextBlock Text="名人信息" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
+            <TextBlock Text="事件信息" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
         </StackPanel>
         <ScrollViewer DockPanel.Dock="Left">
             <StackPanel MinWidth="300">
@@ -37,18 +39,18 @@
 
                     <StackPanel>
                         <Label Content="发生日期"/>
-                        <Calendar x:Name="DateBirth" SelectedDate="{Binding OccurDate,Mode=TwoWay}" IsEnabled="False"/>
+                        <DatePicker x:Name="DateBirth" SelectedDate="{Binding OccurDate,Mode=TwoWay}" IsEnabled="False"/>
                     </StackPanel>
 
                     <StackPanel>
                         <Label Content="省份"/>
-                        <TextBox x:Name="TextProvince" Width="150" Text="{Binding Province}" IsEnabled="False">
+                        <TextBox x:Name="TextProvince" Width="150" Text="{Binding Province}" IsReadOnly="True">
                         </TextBox>
                     </StackPanel>
 
                     <StackPanel>
                         <Label Content="地点"/>
-                        <TextBox x:Name="TextPlace" Width="150" Text="{Binding Place}" IsEnabled="False"/>
+                        <TextBox x:Name="TextPlace" Width="150" Text="{Binding Place}" IsReadOnly="True"/>
                     </StackPanel>
 
                     <StackPanel>
@@ -63,7 +65,9 @@
 
                     <StackPanel>
                         <Label Content="事件类型"/>
-                        <ComboBox x:Name="ComboEventType" Width="150" SelectedItem="{Binding HistoryEventTypeId,Mode=TwoWay}" IsReadOnly="True">
+                        <ComboBox x:Name="ComboEventType" Width="150" IsReadOnly="True" DisplayMemberPath="HistoryEventTypeName"
+                                  SelectedItem="{Binding HistoryEventId, Mode=TwoWay, Converter={StaticResource historyEventTypeConverter}}"
+                                  ItemsSource="{Binding Source={StaticResource Locator}, Path=CommonConstViewModel.HistoryEventTypes}">
                         </ComboBox>
                     </StackPanel>
 
@@ -71,16 +75,19 @@
                         <Label Content="详细信息"/>
                         <TextBox x:Name="TextDetail" Width="200" Height="150" Text="{Binding Detail}" IsReadOnly="True"/>
                     </StackPanel>
-                    <Grid>
-                        <Button Content="修改" Margin="33,10,161,10" />
-                        <Button Content="删除" Margin="165,10,31,10" />
-                    </Grid>
                 </StackPanel>
+                    <Grid>
+                    <Button Content="修改" Margin="33,10,236,10" Command="mui:LinkCommands.NavigateLink"
+                            CommandParameter="/Views/Event/EventEdit.xaml"/>
+                    <Button Content="删除" Margin="238,10,31,10" Command="mui:LinkCommands.NavigateLink"
+                            CommandParameter="/Views/Event/EventDeleteConfirm.xaml"/>
+                </Grid>
             </StackPanel>
         </ScrollViewer>
         <StackPanel  DockPanel.Dock="Right">
-            <Image Source="{Binding }" >
-
+            <Image Source="{Binding  HistoryEventId ,Converter={StaticResource   eventImageConverter}}" Stretch='None'>
+                  <!-- Stretch='Uniform' 
+                   Width="300" Height="400">-->
             </Image>
         </StackPanel>
     </DockPanel>

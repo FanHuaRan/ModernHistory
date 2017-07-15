@@ -20,7 +20,7 @@
                         <i:EventTrigger EventName="Click">
                             <ei:CallMethodAction 
                             TargetObject="{Binding}"
-                            MethodName="Delete"/>
+                            MethodName="DeleteAsync"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </Button>

@@ -31,27 +31,14 @@ namespace ModernHistory.ViewModels
         {
             this.personService = personService;
             this.imgService = imgService;
-            Task.Run(() =>
+            Task.Run(async () =>
             {
-                //try
-                //{
-                //    var famousePersonsDto = await this.personService.FindAllAsync();
-                //    FamousPersons = DtoConvertToModel.FamousePersonsConvert(famousePersonsDto);
-                //}
-                //catch (ApiErrorException e)
-                //{
-                //    MessageBox.Show(e.Message);
-                //}
-                //连续5次延迟1秒从mapPageViewModelInstance中获取数据 不应该这样做 不过为了方便。。。。
-                for (int i = 0; i < 5; i++)
+                //延迟3S执行
+                await Task.Delay(3000);
+                var mapPageViewModelInstance = ViewModelLocator.MapPageViewModelInstance;
+                if (mapPageViewModelInstance.FamousPersons != null)
                 {
-                    var mapPageViewModelInstance=ViewModelLocator.MapPageViewModelInstance;
-                    if (mapPageViewModelInstance.FamousPersons != null)
-                    {
-                        FamousPersons = mapPageViewModelInstance.FamousPersons;
-                        break;
-                    }
-                    Thread.Sleep(1);
+                    FamousPersons = mapPageViewModelInstance.FamousPersons;
                 }
             });
         }
@@ -93,7 +80,7 @@ namespace ModernHistory.ViewModels
         // TODO: Add properties using the mvvmprop code snippet
 
         // TODO: Add methods that will be called by the view
-        public async void Delete()
+        public async void DeleteAsync()
         {
             if (SelectFamousePerson != null)
             {

@@ -23,10 +23,12 @@ namespace ModernHistory
 {
     /// <summary>
     /// ViewModel定位器 相当于ViewModel工厂
-    /// 因为都是单例 但是从ViewModel的使用看 应该不会存在线程问题
+    /// 因为都是单例 从ViewModel的使用看 部分会存在线程问题
     /// </summary>
     public class ViewModelLocator
     {
+        private static object locker = 1;
+
         /// <summary>
         /// 服务工厂
         /// </summary>
@@ -45,28 +47,35 @@ namespace ModernHistory
         private PersonAddViewModel personAddViewModel;
 
         private  EventAddViewModel eventAddViewModel = null;
-
+        /*
         public MapPageViewModel MapPageViewModel
         {
             get
             {
-                if (mapPageViewModel == null)
+                lock (locker)
                 {
-                    mapPageViewModel = new MapPageViewModel(serviceFactory.GetFamousePersonService(), serviceFactory.GetHistoryEventService(), serviceFactory.GetImageService());
+                    if (mapPageViewModel == null)
+                    {
+                        mapPageViewModel = new MapPageViewModel(serviceFactory.GetFamousePersonService(), serviceFactory.GetHistoryEventService(), serviceFactory.GetImageService());
+                    }
+                    return mapPageViewModel;
                 }
-                return mapPageViewModel;
             }
         }
+         */
 
         public static MapPageViewModel MapPageViewModelInstance
         {
             get
             {
-                if (mapPageViewModel == null)
+                lock (locker)
                 {
-                    mapPageViewModel = new MapPageViewModel(serviceFactory.GetFamousePersonService(), serviceFactory.GetHistoryEventService(), serviceFactory.GetImageService());
+                    if (mapPageViewModel == null)
+                    {
+                        mapPageViewModel = new MapPageViewModel(serviceFactory.GetFamousePersonService(), serviceFactory.GetHistoryEventService(), serviceFactory.GetImageService());
+                    }
+                    return mapPageViewModel;
                 }
-                return mapPageViewModel;
             }
         }
 

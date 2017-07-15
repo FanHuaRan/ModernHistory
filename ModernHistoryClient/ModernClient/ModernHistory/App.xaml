@@ -1,14 +1,20 @@
 ﻿<Application x:Class="ModernHistory.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
              xmlns:local="clr-namespace:ModernHistory"
              xmlns:localconverter="clr-namespace:ModernHistory.Converters"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <!--ViewModel资源定位器-->
-            <vm:ViewModelLocator xmlns:vm="clr-namespace:ModernHistory"
-                                   x:Key="Locator" />
+            <vm:ViewModelLocator xmlns:vm="clr-namespace:ModernHistory"  x:Key="Locator" />
+            <!--鹰眼边框资源-->
+            <esri:SimpleFillSymbol x:Key="RedFillSymbol" Color="#22FF0000">
+                <esri:SimpleFillSymbol.Outline>
+                    <esri:SimpleLineSymbol Color="Red" Width="2" />
+                </esri:SimpleFillSymbol.Outline>
+            </esri:SimpleFillSymbol>
             <!--性别转换器-->
             <localconverter:GenderConverter x:Key="genderCoverter"/>
             <!--人员删除信息转换器-->
@@ -23,8 +29,10 @@
             <localconverter:FamousPersonTypeConverter x:Key="famousPersonTypeConverter"/>
             <!--事件类型-id转换器-->
             <localconverter:HistoryEventTypeConverter x:Key="historyEventTypeConverter"/>
-            <!--人物图片控制器-->
+            <!--人物图片转换器-->
             <localconverter:PersonImageConverter x:Key="personImageConverter"/>
+            <!--事件图片转换器-->
+            <localconverter:EventImageConverter x:Key="eventImageConverter"/>
             <ResourceDictionary.MergedDictionaries>
                 <!--ModernUI资源-->
                 <ResourceDictionary Source="/FirstFloor.ModernUI;component/Assets/ModernUI.xaml" />

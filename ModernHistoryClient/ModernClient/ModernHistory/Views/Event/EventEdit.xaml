@@ -3,17 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300"
+               DataContext="{Binding Source={StaticResource Locator}, Path=EventEditViewModel}" >
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Loaded">
+                    <ei:CallMethodAction  TargetObject="{Binding}" MethodName="Initial"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
     <DockPanel>
         <StackPanel DockPanel.Dock="Top">
             <TextBlock Text="修改事件" Style="{StaticResource Heading2}" Margin="0,0,0,8" />
         </StackPanel>
         <ScrollViewer DockPanel.Dock="Left">
             <StackPanel MinWidth="300">
-
                 <!-- actual form starts here -->
-                <StackPanel x:Name="Form" Orientation="Vertical">
+                <StackPanel x:Name="Form" Orientation="Vertical" DataContext="{Binding HistoryEvent}">
                     <StackPanel.Resources>
                         <Style TargetType="StackPanel">
                             <Setter Property="Orientation" Value="Horizontal" />
@@ -36,7 +43,6 @@
                         <TextBox x:Name="TextTitle" Width="150" Text="{Binding Title, Mode=TwoWay, ValidatesOnDataErrors=True}" />
                     </StackPanel>
 
-
                     <StackPanel>
                         <Label Content="发生日期" Target="{Binding ElementName=DateBirth}" />
                         <DatePicker x:Name="DateBirth" SelectedDate="{Binding OccurDate,Mode=TwoWay}"/>
@@ -44,10 +50,9 @@
 
                     <StackPanel>
                         <Label Content="省份" Target="{Binding ElementName=ComboProvince}"/>
-                        <ComboBox x:Name="ComboProvince" Width="150" SelectedItem="{Binding Province,Mode=TwoWay}">
-                            <ComboBoxItem>Alabama</ComboBoxItem>
-                            <ComboBoxItem>Missouri</ComboBoxItem>
-                            <ComboBoxItem>Montana</ComboBoxItem>
+                        <ComboBox x:Name="ComboProvince" Width="150" 
+                                  SelectedItem="{Binding Province,Mode=TwoWay}"
+                                  ItemsSource="{Binding  Source={StaticResource Locator}, Path=CommonConstViewModel.Provinces}">
                         </ComboBox>
                     </StackPanel>
 
@@ -67,8 +72,10 @@
                     </StackPanel>
 
                     <StackPanel>
-                        <Label Content="事件类型" Target="{Binding ElementName=ComboEventType}"/>
-                        <ComboBox x:Name="ComboEventType" Width="150" SelectedItem="{Binding HistoryEventTypeId,Mode=TwoWay}">
+                        <Label Content="事件类型"/>
+                        <ComboBox x:Name="ComboEventType" Width="150" IsReadOnly="True" DisplayMemberPath="HistoryEventTypeName"
+                                  SelectedItem="{Binding HistoryEventTypeId, Mode=TwoWay, Converter={StaticResource historyEventTypeConverter}}"
+                                  ItemsSource="{Binding Source={StaticResource Locator}, Path=CommonConstViewModel.HistoryEventTypes}">
                         </ComboBox>
                     </StackPanel>
 
@@ -76,16 +83,27 @@
                         <Label Content="详细信息" Target="{Binding ElementName=TextDetail}"/>
                         <TextBox x:Name="TextDetail" Width="200" Height="150" Text="{Binding Detail, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
                     </StackPanel>
-
-                    <Button Content="确认添加" Margin="100,16,0,0" HorizontalAlignment="Left" />
                 </StackPanel>
+                <Button Content="确认修改" Margin="100,16,0,0" HorizontalAlignment="Left">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <ei:CallMethodAction 
+                                TargetObject="{Binding}"
+                                MethodName="UpdateAsync"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
             </StackPanel>
         </ScrollViewer>
         <StackPanel  DockPanel.Dock="Right">
-            <Label>确认修改</Label>
-            <Image >
-
-            </Image>
+            <Button Content="选择图片">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <ei:CallMethodAction    TargetObject="{Binding}"   MethodName="ChooseImage"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <Image Source="{Binding SelectImg}" Stretch='None'></Image>
         </StackPanel>
     </DockPanel>
 </UserControl>

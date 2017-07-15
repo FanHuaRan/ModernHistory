@@ -83,11 +83,10 @@
                     <StackPanel>
                         <Label Content="名人类型" Target="{Binding ElementName=ComboPersonType}"/>
                         <ComboBox x:Name="ComboPersonType" Width="150" SelectedItem="{Binding FamousPersonTypeId,Mode=TwoWay, Converter={StaticResource famousPersonTypeConverter}}"
-                                  DisplayMemberPath="FamousPersonTypeName" IsReadOnly="True"
+                                  DisplayMemberPath="FamousPersonTypeName" IsEnabled="True" 
                                   ItemsSource="{Binding Source={StaticResource Locator}, Path=CommonConstViewModel.FamousPersonTypes}">
                         </ComboBox>
                     </StackPanel>
-                    
                 </StackPanel>
                 <Grid>
                     <Button Content="修改" Margin="33,10,161,10" Command="mui:LinkCommands.NavigateLink"
@@ -97,9 +96,10 @@
                 </Grid>
             </StackPanel>
         </ScrollViewer>
-        <StackPanel  DockPanel.Dock="Right"> 
-            <Image Source="{Binding FamousPersonId,Converter={StaticResource personImageConverter}}"  Stretch='Uniform' 
-                   Width="300" Height="400">
+        <StackPanel  DockPanel.Dock="Right">
+            <Image Source="{Binding FamousPersonId,Converter={StaticResource personImageConverter}}" Stretch='None' > 
+                    <!-- Stretch='Uniform' 
+                   Width="300" Height="400">-->
             </Image>
         </StackPanel>
     </DockPanel>

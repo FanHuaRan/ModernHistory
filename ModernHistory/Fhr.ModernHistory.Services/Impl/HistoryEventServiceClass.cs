@@ -45,7 +45,7 @@ namespace Fhr.ModernHistory.Services.Impl
 
             public void Update(HistoryEvent HistoryEvent)
             {
-                  historyEventRepository.Update(HistoryEvent);
+                  historyEventRepository.Update(HistoryEvent,p=>p.HistoryEventId);
             }
 
             public IEnumerable<HistoryEvent> Search(EventSearchModel searchModel)
