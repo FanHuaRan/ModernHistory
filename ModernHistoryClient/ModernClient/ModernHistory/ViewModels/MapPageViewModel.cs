@@ -311,7 +311,7 @@ namespace ModernHistory.ViewModels
                 }
             }
             SelectFamousPersons = new ObservableCollection<FamousPerson>(tmpQuery);
-            new SelectPersonsDialog().ShowDialog();
+            ShowSelectFamouses();
         }
         /// <summary>
         /// 获取名人查询条件
@@ -367,7 +367,7 @@ namespace ModernHistory.ViewModels
                 }
             }
             SelectHistoryEvents = new ObservableCollection<HistoryEvent>(tmpQuery);
-            new SelectEventsDialog().ShowDialog();
+            ShowSelectEvents();
         }
         /// <summary>
         /// 获取事件查询条件
@@ -492,15 +492,34 @@ namespace ModernHistory.ViewModels
                 mapOperationType = MapOperationType.None;
             }
         }
-        public void QueryPerson()
+        public async void QueryPerson()
         {
             if (mapOperationType != MapOperationType.QueryPerson)
             {
                 mapOperationType = MapOperationType.QueryPerson;
+               // await Task.Run(async() =>
+               // {
+                    while (true)
+                    {
+                        if (mapOperationType != MapOperationType.QueryPerson)
+                        {
+                            break;
+                        }
+                        var mapRect = await mainMapView.Editor.RequestShapeAsync(DrawShape.Envelope) as Envelope;
+                        personsLayers.ClearSelection();
+                        var winRect = new Rect(
+                            mainMapView.LocationToScreen(new MapPoint(mapRect.XMin, mapRect.YMax, mainMapView.SpatialReference)),
+                            mainMapView.LocationToScreen(new MapPoint(mapRect.XMax, mapRect.YMin, mainMapView.SpatialReference)));
+
+                        var graphics = await personsLayers.HitTestAsync(mainMapView, winRect, 1000);
+                        ShowSelectFamousesByGraphic(graphics);
+                    }
+               // });
             }
             else
             {
                 mapOperationType = MapOperationType.None;
+                personsLayers.ClearSelection();
             }
         }
         public void InsertEvent()
@@ -514,11 +533,25 @@ namespace ModernHistory.ViewModels
                 mapOperationType = MapOperationType.None;
             }
         }
-        public void QueryEvent()
+        public async void QueryEvent()
         {
             if (mapOperationType != MapOperationType.QueryEvent)
             {
                 mapOperationType = MapOperationType.QueryEvent;
+                while (true)
+                {
+                    if (mapOperationType != MapOperationType.QueryPerson)
+                    {
+                        break;
+                    }
+                    var mapRect = await mainMapView.Editor.RequestShapeAsync(DrawShape.Envelope) as Envelope;
+                    personsLayers.ClearSelection();
+                    var winRect = new Rect(
+                        mainMapView.LocationToScreen(new MapPoint(mapRect.XMin, mapRect.YMax, mainMapView.SpatialReference)),
+                        mainMapView.LocationToScreen(new MapPoint(mapRect.XMax, mapRect.YMin, mainMapView.SpatialReference)));
+                    var graphics = await eventsLayer.HitTestAsync(mainMapView, winRect, 1000);
+                    ShowSelectEventsByGraphic(graphics);
+                }
             }
             else
             {
@@ -624,6 +657,56 @@ namespace ModernHistory.ViewModels
              {
                  eventsLayer.Graphics.Remove(graphic);
              }
+         }
+         private void ShowSelectFamouses()
+         {
+             var grahics = personsLayers.Graphics.Where(g =>
+             {
+                 var personId = (int)g.Attributes["PersonId"];
+                 return SelectFamousPersons.Where(p => p.FamousPersonId == personId).Count() > 0;
+             });
+             foreach (var v in grahics)
+             {
+                 v.IsSelected = true;
+             }
+             new SelectPersonsDialog().ShowDialog();
+         }
+         private void ShowSelectFamousesByGraphic(IEnumerable<Graphic> graphics)
+         {
+             SelectFamousPersons =new ObservableCollection<FamousPerson>(FamousPersons.Where(p =>
+             {
+                 return personsLayers.Graphics.Where(g => (int)g.Attributes["PersonId"] == p.FamousPersonId).Count() > 0;
+             }));
+             foreach (var graphic in graphics)
+             {
+                 graphic.IsSelected = true;
+             }
+             new SelectPersonsDialog().ShowDialog();
+         }
+         private void ShowSelectEvents()
+         {
+             var grahics = eventsLayer.Graphics.Where(g =>
+             {
+                 var eventId = (int)g.Attributes["EventId"];
+                 return SelectHistoryEvents.Where(p => p.HistoryEventId == eventId).Count() > 0;
+             });
+             foreach (var v in grahics)
+             {
+                 v.IsSelected = true;
+             }
+             new SelectEventsDialog().ShowDialog();
+         }
+         private void ShowSelectEventsByGraphic(IEnumerable<Graphic> graphics)
+         {
+             SelectHistoryEvents = new ObservableCollection<HistoryEvent>(HistoryEvents.Where(p =>
+             {
+                 return eventsLayer.Graphics.Where(g => (int)g.Attributes["EventId"] == p.HistoryEventId).Count() > 0;
+             }));
+             foreach (var graphic in graphics)
+             {
+                 graphic.IsSelected = true;
+             }
+             new SelectPersonsDialog().ShowDialog();
          }
     }
 }
