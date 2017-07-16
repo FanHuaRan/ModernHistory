@@ -111,7 +111,6 @@
     <Compile Include="Exceptions\ApiErrorException.cs" />
     <Compile Include="Gloabl\MapMarkerConfig.cs" />
     <Compile Include="Gloabl\WebApiConfig.cs" />
-    <Compile Include="ImageServiceClassTest.cs" />
     <Compile Include="LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>

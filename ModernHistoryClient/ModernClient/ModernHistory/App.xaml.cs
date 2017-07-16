@@ -1,7 +1,4 @@
 ﻿using log4net;
-using ModernHistory.Services;
-using ModernHistory.Services.Impl;
-using ModernHistory.UnitTest.Services;
 using System;
 using System.Collections.Generic;
 using System.Configuration;

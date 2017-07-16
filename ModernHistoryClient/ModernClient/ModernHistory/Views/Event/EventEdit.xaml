@@ -81,7 +81,9 @@
 
                     <StackPanel>
                         <Label Content="详细信息" Target="{Binding ElementName=TextDetail}"/>
-                        <TextBox x:Name="TextDetail" Width="200" Height="150" Text="{Binding Detail, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
+                        <TextBox x:Name="TextDetail" Width="200" Height="150" 
+                                 TextWrapping="Wrap" AcceptsReturn="True"  VerticalScrollBarVisibility="Visible"
+                                 Text="{Binding Detail, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
                     </StackPanel>
                 </StackPanel>
                 <Button Content="确认修改" Margin="100,16,0,0" HorizontalAlignment="Left">
