@@ -99,6 +99,7 @@ namespace ModernHistory.ViewModels
                 FamousPerson.PersonType = CommonConstViewModel.Instance.FamousPersonTypes.Where(p => p.FamousPersonTypeId == FamousPerson.FamousPersonTypeId).FirstOrDefault();
                 var result = await personService.SaveAsync(DtoConvert.DtoConvertToModel.FamousePersonConvert(famousPerson));
                 System.Windows.MessageBox.Show("保存成功");
+                FamousPerson.FamousPersonId = result.FamousPersonId;
                 if (!string.IsNullOrEmpty(SelectImg))
                 {
                     await imageService.UploadPersonImgAsync(result.FamousPersonId, SelectImg);

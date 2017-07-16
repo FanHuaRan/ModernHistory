@@ -22,7 +22,7 @@
         <!--搜索表单容器-->
         <Grid Grid.Column="0">
             <!--人员搜索表单容器-->
-           <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Left" Height="200" Margin="-15,0,-109,0" VerticalAlignment="Top" Width="270">
+            <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Left" Height="200" Margin="-15,0,-109,0" VerticalAlignment="Top" Width="270">
                 <!---<Border.Effect>
                     <DropShadowEffect/>
                 </Border.Effect>
@@ -90,7 +90,7 @@
                     </Button>
                 </StackPanel>
             </Border>
-             <!--事件搜索表单容器-->
+            <!--事件搜索表单容器-->
             <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Left" Height="200" Margin="-15,226,-79,0" VerticalAlignment="Top" Width="270">
                 <!---<Border.Effect>
                     <DropShadowEffect/>
@@ -156,9 +156,10 @@
                     </Button>
                 </StackPanel>
             </Border>
+            <!--基本操作-->
             <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Left" Height="80" Margin="-15,431,-79,-195" VerticalAlignment="Top" Width="270">
                 <Grid>
-                    <Button Content="插入名人" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="97">
+                    <Button Content="新增名人" HorizontalAlignment="Left" Margin="19,10,0,0" VerticalAlignment="Top" Width="97">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <ei:CallMethodAction 
@@ -167,7 +168,7 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </Button>
-                    <Button Content="查询名人" HorizontalAlignment="Left" Margin="123,10,0,0" VerticalAlignment="Top" Width="93">
+                    <Button Content="查询名人" HorizontalAlignment="Left" Margin="146,10,0,0" VerticalAlignment="Top" Width="93">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <ei:CallMethodAction 
@@ -176,7 +177,7 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </Button>
-                    <Button Content="插入事件" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Width="97">
+                    <Button Content="新增事件" HorizontalAlignment="Left" Margin="19,45,0,0" VerticalAlignment="Top" Width="97">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <ei:CallMethodAction 
@@ -185,7 +186,7 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </Button>
-                    <Button Content="查询事件" HorizontalAlignment="Left" Margin="123,45,0,0" VerticalAlignment="Top" Width="93">
+                    <Button Content="查询事件" HorizontalAlignment="Left" Margin="146,45,0,0" VerticalAlignment="Top" Width="93">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <ei:CallMethodAction 
@@ -216,13 +217,16 @@
                 </esri:SimpleFillSymbol>
             </Grid.Resources>
             <!--主图-->
-            <esri:MapView>
+            <esri:MapView x:Name="mainMap">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="ExtentChanged">
                         <ei:CallMethodAction TargetObject="{Binding Mode=OneWay}" MethodName="MyMapView_ExtentChanged"/>
                     </i:EventTrigger>
                     <i:EventTrigger EventName="MouseDown">
-                        <ei:CallMethodAction TargetObject="{Binding Mode=OneWay}"  MethodName="MapView_MouseDown" ></ei:CallMethodAction>
+                        <ei:CallMethodAction TargetObject="{Binding Mode=OneWay}"  MethodName="MapView_MouseDown"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseMove">
+                        <ei:CallMethodAction TargetObject="{Binding Mode=OneWay}"  MethodName="MyMapView_MouseMove"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <esri:Map>
@@ -232,6 +236,38 @@
                     <!--事件图层-->
                     <esri:GraphicsLayer ID="eventsLayer" />
                 </esri:Map>
+                <esri:MapView.Overlays>
+                    <esri:OverlayItemsControl>
+                        <Border Background="White" BorderBrush="Red" BorderThickness="1" 
+                                Width="300" Height="250"
+                                DataContext="{Binding  PersonTipGraphic}"
+                                Padding="4" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4"
+                                Visibility="{Binding Source={StaticResource Locator}, Path=MapPageViewModelInstance.PersonTipVisibility}" 
+                                esri:ViewBase.ViewOverlayAnchor="{Binding Geometry}">
+                            <StackPanel>
+                                <Image Source="{Binding Attributes[PersonId],Converter={StaticResource  personImageConverter}}" Width="300" Height="160" Stretch="UniformToFill"/>
+                                <TextBlock Text="{Binding Attributes[PersonId], StringFormat='编号: {0}'}" />
+                                <TextBlock Text="{Binding Attributes[PersonName],StringFormat='姓名:{0}'}"></TextBlock>
+                                <TextBlock Text="{Binding Attributes[Place], StringFormat='地点: {0}'}" />
+                                <TextBlock Text="{Binding Attributes[BornDate], StringFormat='出生日期日期: {0}'}" />
+                            </StackPanel>
+                        </Border>
+                        <Border Background="White" BorderBrush="Red" BorderThickness="1" 
+                                Width="300" Height="250"
+                                DataContext="{Binding EventTipGraphic}"
+                                Padding="4" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4"
+                                Visibility="{Binding Source={StaticResource Locator}, Path=MapPageViewModelInstance.EventTipVisibility}" 
+                                esri:ViewBase.ViewOverlayAnchor="{Binding Geometry}">
+                            <StackPanel>
+                                <Image Source="{Binding Attributes[EventId],Converter={StaticResource eventImageConverter}}" Width="300" Height="160" Stretch="UniformToFill"/>
+                                <TextBlock Text="{Binding Attributes[EventId], StringFormat='编号: {0}'}" />
+                                <TextBlock Text="{Binding Attributes[Title],StringFormat='标题:{0}'}"></TextBlock>
+                                <TextBlock Text="{Binding Attributes[Place], StringFormat='地点: {0}'}" />
+                                <TextBlock Text="{Binding Attributes[OccurDate], StringFormat='日期: {0}'}" />
+                            </StackPanel>
+                        </Border>
+                    </esri:OverlayItemsControl>
+                </esri:MapView.Overlays>
             </esri:MapView>
             <!--鹰眼border-->
             <Border Background="White" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Bottom"
@@ -263,6 +299,16 @@
                         <customlib:AmapTiledLayer/>
                     </esri:Map>
                 </esri:MapView>
+            </Border>
+            <Border BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Left" Height="20" Margin="0,427,0,-2" VerticalAlignment="Bottom" Width="258">
+                <Border.Effect>
+                    <DropShadowEffect/>
+                </Border.Effect>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding ElementName=mainMap, StringFormat='当前比例尺:{0}', Path=Scale}" FontSize="12" FontWeight="Bold" Foreground="Black"/>
+                    <!--<TextBlock Width="5"></TextBlock>
+                    <Button></Button>-->
+                </StackPanel>
             </Border>
         </Grid>
     </Grid>

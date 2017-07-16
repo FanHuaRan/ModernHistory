@@ -32,6 +32,110 @@ namespace ModernHistory.ViewModels
     /// </summary>
     public class MapPageViewModel : ViewModelBase<MapPageViewModel>
     {
+        #region tip显示控制区
+        private Graphic personTipGraphic;
+
+        public Graphic PersonTipGraphic
+        {
+            get { return personTipGraphic; }
+            set
+            {
+                if (personTipGraphic != value)
+                {
+                    personTipGraphic = value;
+                    NotifyPropertyChanged(p => p.PersonTipGraphic);
+                }
+            }
+        }
+
+        private Visibility personTipVisibility;
+
+        public Visibility PersonTipVisibility
+        {
+            get { return personTipVisibility; }
+            set
+            {
+                if (personTipVisibility != value)
+                {
+                    personTipVisibility = value;
+                    NotifyPropertyChanged(p => p.PersonTipVisibility);
+                }
+            }
+        }
+
+        private bool _isHitTesting;
+
+
+        private Graphic eventTipGraphic;
+
+        public Graphic EventTipGraphic
+        {
+            get { return eventTipGraphic; }
+            set
+            {
+                if (eventTipGraphic != value)
+                {
+                    eventTipGraphic = value;
+                    NotifyPropertyChanged(p => p.EventTipGraphic);
+                }
+            }
+        }
+
+        private Visibility eventTipVisibility;
+
+        public Visibility EventTipVisibility
+        {
+            get { return eventTipVisibility; }
+            set
+            {
+                if (eventTipVisibility != value)
+                {
+                    eventTipVisibility = value;
+                    NotifyPropertyChanged(p => p.EventTipVisibility);
+                }
+            }
+        }
+
+        public async void MyMapView_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (_isHitTesting)
+            {
+                return;
+            }
+            try
+            {
+                _isHitTesting = true;
+                System.Windows.Point screenPoint = e.GetPosition(mainMapView);
+                PersonTipGraphic = await personsLayers.HitTestAsync(mainMapView, screenPoint);
+                if (PersonTipGraphic != null)
+                {
+                    PersonTipVisibility = System.Windows.Visibility.Visible;
+                }
+                else
+                {
+                    PersonTipVisibility = System.Windows.Visibility.Collapsed;
+                }
+                EventTipGraphic = await eventsLayer.HitTestAsync(mainMapView, screenPoint);
+                if (EventTipGraphic != null)
+                {
+                    EventTipVisibility = System.Windows.Visibility.Visible;
+                }
+                else
+                {
+                    EventTipVisibility = System.Windows.Visibility.Collapsed;
+                }
+            }
+            catch
+            {
+                PersonTipVisibility = System.Windows.Visibility.Collapsed;
+                EventTipVisibility = System.Windows.Visibility.Collapsed;
+            }
+            finally
+            {
+                _isHitTesting = false;
+            }
+        }
+        #endregion
 
         /// <summary>
         /// 地图操作类型
@@ -465,7 +569,7 @@ namespace ModernHistory.ViewModels
             switch (mapOperationType)
             {
                 case MapOperationType.AddPerson:
-                    var personAddDialogViewModel=new PersonAddDialogViewModel(personService,imgService);
+                    var personAddDialogViewModel = new PersonAddDialogViewModel(personService, imgService);
                     personAddDialogViewModel.FamousPerson.BornX = mapPoint.X;
                     personAddDialogViewModel.FamousPerson.BornY = mapPoint.Y;
                     new PersonAddDialog(personAddDialogViewModel).ShowDialog();
@@ -494,33 +598,22 @@ namespace ModernHistory.ViewModels
         }
         public async void QueryPerson()
         {
-            if (mapOperationType != MapOperationType.QueryPerson)
-            {
+            //if (mapOperationType != MapOperationType.QueryPerson)
+            //{
                 mapOperationType = MapOperationType.QueryPerson;
-               // await Task.Run(async() =>
-               // {
-                    while (true)
-                    {
-                        if (mapOperationType != MapOperationType.QueryPerson)
-                        {
-                            break;
-                        }
-                        var mapRect = await mainMapView.Editor.RequestShapeAsync(DrawShape.Envelope) as Envelope;
-                        personsLayers.ClearSelection();
-                        var winRect = new Rect(
-                            mainMapView.LocationToScreen(new MapPoint(mapRect.XMin, mapRect.YMax, mainMapView.SpatialReference)),
-                            mainMapView.LocationToScreen(new MapPoint(mapRect.XMax, mapRect.YMin, mainMapView.SpatialReference)));
-
-                        var graphics = await personsLayers.HitTestAsync(mainMapView, winRect, 1000);
-                        ShowSelectFamousesByGraphic(graphics);
-                    }
-               // });
-            }
-            else
-            {
-                mapOperationType = MapOperationType.None;
+                var mapRect = await mainMapView.Editor.RequestShapeAsync(DrawShape.Envelope) as Envelope;
                 personsLayers.ClearSelection();
-            }
+                eventsLayer.ClearSelection(); 
+                var winRect = new Rect(mainMapView.LocationToScreen(new MapPoint(mapRect.XMin, mapRect.YMax, mainMapView.SpatialReference)), mainMapView.LocationToScreen(new MapPoint(mapRect.XMax, mapRect.YMin, mainMapView.SpatialReference)));
+                var graphics = await personsLayers.HitTestAsync(mainMapView, winRect, 1000);
+                ShowSelectFamousesByGraphic(graphics);
+                mapOperationType = MapOperationType.None;
+            //}
+            //else
+            //{
+            //    mapOperationType = MapOperationType.None;
+            //    personsLayers.ClearSelection();
+            //}
         }
         public void InsertEvent()
         {
@@ -535,43 +628,30 @@ namespace ModernHistory.ViewModels
         }
         public async void QueryEvent()
         {
-            if (mapOperationType != MapOperationType.QueryEvent)
-            {
-                mapOperationType = MapOperationType.QueryEvent;
-                while (true)
-                {
-                    if (mapOperationType != MapOperationType.QueryPerson)
-                    {
-                        break;
-                    }
-                    var mapRect = await mainMapView.Editor.RequestShapeAsync(DrawShape.Envelope) as Envelope;
-                    personsLayers.ClearSelection();
-                    var winRect = new Rect(
-                        mainMapView.LocationToScreen(new MapPoint(mapRect.XMin, mapRect.YMax, mainMapView.SpatialReference)),
-                        mainMapView.LocationToScreen(new MapPoint(mapRect.XMax, mapRect.YMin, mainMapView.SpatialReference)));
-                    var graphics = await eventsLayer.HitTestAsync(mainMapView, winRect, 1000);
-                    ShowSelectEventsByGraphic(graphics);
-                }
-            }
-            else
-            {
-                mapOperationType = MapOperationType.None;
-            }
+            //if (mapOperationType != MapOperationType.QueryEvent)
+            //{
+            mapOperationType = MapOperationType.QueryEvent;
+            var mapRect = await mainMapView.Editor.RequestShapeAsync(DrawShape.Envelope) as Envelope;
+            personsLayers.ClearSelection();
+            eventsLayer.ClearSelection();
+            var winRect = new Rect(mainMapView.LocationToScreen(new MapPoint(mapRect.XMin, mapRect.YMax, mainMapView.SpatialReference)),mainMapView.LocationToScreen(new MapPoint(mapRect.XMax, mapRect.YMin, mainMapView.SpatialReference)));
+            var graphics = await eventsLayer.HitTestAsync(mainMapView, winRect, 1000);
+            ShowSelectEventsByGraphic(graphics);
+            mapOperationType = MapOperationType.None;
+            // }
+            // else
+            // {
+            //    mapOperationType = MapOperationType.None;
+            // }
         }
-        /// <summary>
-        /// 同步名人
-        /// </summary>
-        /// <param name="famousePerson"></param>
+        #region 数据同步区
         public void AddSyncPerson(FamousPerson famousePerson)
         {
             this.FamousPersons.Add(famousePerson);
             //同步Graphic
             AddPersonGraphic(famousePerson);
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="famouserPerson"></param>
+        
         public void EdiSyncPerson(FamousPerson famouserPerson)
         {
             //同步Graphic
@@ -605,6 +685,9 @@ namespace ModernHistory.ViewModels
             var point = new MapPoint(person.BornX, person.BornY);
             var graphic = new Graphic(point,(Symbol)GetGloabelResorce("RedMarkerSymbolCircle"));
             graphic.Attributes["PersonId"]=person.FamousPersonId;
+            graphic.Attributes["PersonName"] = person.PersonName;
+            graphic.Attributes["Place"] = person.BornPlace;
+            graphic.Attributes["BornDate"] = person.BornDate;
             personsLayers.Dispatcher.Invoke(() =>
             {
                 personsLayers.Graphics.Add(graphic);
@@ -635,8 +718,11 @@ namespace ModernHistory.ViewModels
             var point = new MapPoint(historyEvent.OccurX, historyEvent.OccurY);
             var graphic = new Graphic(point, (Symbol)GetGloabelResorce("BoolueMarkerSymbolDiamond"));
             graphic.Attributes["EventId"]=historyEvent.HistoryEventId;
-            eventsLayer.Dispatcher.Invoke(() =>eventsLayer.Graphics.Add(graphic));
-         
+            graphic.Attributes["Title"] = historyEvent.Title;
+            graphic.Attributes["Place"] = historyEvent.Place;
+            graphic.Attributes["OccurDate"] = historyEvent.OccurDate;
+            graphic.Attributes["Detail"] = historyEvent.Detail;
+            eventsLayer.Dispatcher.Invoke(() => eventsLayer.Graphics.Add(graphic));
         }
          private void EditEventGraphic(HistoryEvent historyEvent)
          {
@@ -658,6 +744,7 @@ namespace ModernHistory.ViewModels
                  eventsLayer.Graphics.Remove(graphic);
              }
          }
+        #endregion
          private void ShowSelectFamouses()
          {
              var grahics = personsLayers.Graphics.Where(g =>
@@ -675,7 +762,7 @@ namespace ModernHistory.ViewModels
          {
              SelectFamousPersons =new ObservableCollection<FamousPerson>(FamousPersons.Where(p =>
              {
-                 return personsLayers.Graphics.Where(g => (int)g.Attributes["PersonId"] == p.FamousPersonId).Count() > 0;
+                 return graphics.Where(g => (int)g.Attributes["PersonId"] == p.FamousPersonId).Count() > 0;
              }));
              foreach (var graphic in graphics)
              {
@@ -700,13 +787,13 @@ namespace ModernHistory.ViewModels
          {
              SelectHistoryEvents = new ObservableCollection<HistoryEvent>(HistoryEvents.Where(p =>
              {
-                 return eventsLayer.Graphics.Where(g => (int)g.Attributes["EventId"] == p.HistoryEventId).Count() > 0;
+                 return graphics.Where(g => (int)g.Attributes["EventId"] == p.HistoryEventId).Count() > 0;
              }));
              foreach (var graphic in graphics)
              {
                  graphic.IsSelected = true;
              }
-             new SelectPersonsDialog().ShowDialog();
+             new SelectEventsDialog().ShowDialog();
          }
     }
 }

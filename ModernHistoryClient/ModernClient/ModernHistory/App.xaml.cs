@@ -1,4 +1,5 @@
-﻿using ModernHistory.Services;
+﻿using log4net;
+using ModernHistory.Services;
 using ModernHistory.Services.Impl;
 using ModernHistory.UnitTest.Services;
 using System;
@@ -8,7 +9,7 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-
+ [assembly: log4net.Config.XmlConfigurator(Watch = true)] 
 namespace ModernHistory
 {
     /// <summary>
@@ -16,11 +17,15 @@ namespace ModernHistory
     /// </summary>
     public partial class App : Application
     {
+        ILog logger = LogManager.GetLogger(typeof(App));
         protected override void OnStartup(StartupEventArgs e)
         {
-            IFamousePersonService personService = new FamousePersonServiceClass();
-          //  personService.FindAllAsync();
-           // ImageServiceClassTest.TestUploadPersonImgAsync();
+            //未知异常记录日志
+            this.DispatcherUnhandledException += (sender, e1) =>
+            {
+                //logger.Error("未知异常", e1.Exception);
+                e1.Handled = true;
+            };
         }
     }
 }

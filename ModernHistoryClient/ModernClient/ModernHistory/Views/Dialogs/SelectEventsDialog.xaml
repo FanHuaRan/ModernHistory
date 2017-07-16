@@ -10,7 +10,7 @@
                   DataContext="{Binding Source={StaticResource Locator}, Path=MapPageViewModelInstance}">
     <Grid>
         <DockPanel>
-            <DataGrid Name="DG1" ItemsSource="{Binding selectHistoryEvents}"
+            <DataGrid Name="DG1" ItemsSource="{Binding SelectHistoryEvents}"
                       AutoGenerateColumns="False"  IsReadOnly="True" Width="1200">
                 <DataGrid.Columns>
                     <mui:DataGridTextColumn Header="编号"  Binding="{Binding HistoryEventId}"/>

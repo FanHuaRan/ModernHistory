@@ -33,8 +33,8 @@ namespace ModernHistory.ViewModels
             this.imgService = imgService;
             Task.Run(async () =>
             {
-                //延迟3S执行
-                await Task.Delay(3000);
+                //延迟1S执行
+                await Task.Delay(1000);
                 var mapPageViewModelInstance = ViewModelLocator.MapPageViewModelInstance;
                 if (mapPageViewModelInstance.FamousPersons != null)
                 {

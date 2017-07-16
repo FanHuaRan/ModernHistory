@@ -47,6 +47,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\FirstFloor.ModernUI.dll</HintPath>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\SimpleMvvmToolkit.5.5.0.0\lib\net45\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
@@ -102,6 +105,7 @@
     <Compile Include="Converters\PersonExistConverter.cs" />
     <Compile Include="Converters\EventImageConverter.cs" />
     <Compile Include="Converters\PersonImageConverter.cs" />
+    <Compile Include="Converters\VisibilityBooleanConverter.cs" />
     <Compile Include="CustomLib\AmapTiledLayer.cs" />
     <Compile Include="DtoConvert\DtoConvertToModel.cs" />
     <Compile Include="Exceptions\ApiErrorException.cs" />
@@ -193,6 +197,9 @@
     </Compile>
     <Compile Include="Views\MapPage.xaml.cs">
       <DependentUpon>MapPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Others\SystemSet.xaml.cs">
+      <DependentUpon>SystemSet.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PersonPage.xaml.cs">
       <DependentUpon>PersonPage.xaml</DependentUpon>
@@ -289,6 +296,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MapPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Others\SystemSet.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -24,7 +24,10 @@ namespace ModernHistory.ViewModels
 
         private IImageService imageService;
 
-        private HistoryEvent historyEvent = new HistoryEvent();
+        private HistoryEvent historyEvent = new HistoryEvent()
+        {
+            OccurDate = DateTime.Parse("1900/01/01")
+        };
 
         private string selectImg=null;
 
@@ -69,6 +72,7 @@ namespace ModernHistory.ViewModels
                 if(!string.IsNullOrEmpty(SelectImg)){
                     await imageService.UploadEventImgAsync(result.HistoryEventId, SelectImg);
                 }
+                HistoryEvent.HistoryEventId = result.HistoryEventId;
                 ViewModelLocator.MapPageViewModelInstance.AddSyncEvent(HistoryEvent);
                 Dialog.Close();
             }

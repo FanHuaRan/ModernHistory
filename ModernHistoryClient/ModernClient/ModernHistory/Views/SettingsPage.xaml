@@ -11,7 +11,8 @@
             <mui:ModernTab.Links>
                 <!--外观设置-->
                 <mui:Link DisplayName="外观设置" Source="/Views/Others/Appearance.xaml" />
-                <mui:Link DisplayName="系统设置"/>
+                <!--系统设置-->
+                <mui:Link DisplayName="系统设置"  Source="/Views/Others/SystemSet.xaml" />
                 <!--关于-->
                 <mui:Link DisplayName="关于" Source="/Views/Others/About.xaml" />
             </mui:ModernTab.Links>

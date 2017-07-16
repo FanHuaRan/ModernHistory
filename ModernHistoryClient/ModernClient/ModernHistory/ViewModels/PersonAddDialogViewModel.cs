@@ -24,7 +24,11 @@ namespace ModernHistory.ViewModels
 
         private IImageService imageService;
 
-        private FamousPerson famousPerson = new FamousPerson();
+        private FamousPerson famousPerson = new FamousPerson()
+        {
+            BornDate=DateTime.Parse("1900/01/01"),
+            DeadDate=DateTime.Parse("1900/01/01")
+        };
 
         private string selectImg=null;
 
@@ -98,6 +102,7 @@ namespace ModernHistory.ViewModels
                 FamousPerson.PersonType = CommonConstViewModel.Instance.FamousPersonTypes.Where(p => p.FamousPersonTypeId == FamousPerson.FamousPersonTypeId).FirstOrDefault();
                 var result = await personService.SaveAsync(DtoConvert.DtoConvertToModel.FamousePersonConvert(famousPerson));
                 System.Windows.MessageBox.Show("保存成功");
+                FamousPerson.FamousPersonId = result.FamousPersonId;
                 if (!string.IsNullOrEmpty(SelectImg))
                 {
                     await imageService.UploadPersonImgAsync(result.FamousPersonId, SelectImg);

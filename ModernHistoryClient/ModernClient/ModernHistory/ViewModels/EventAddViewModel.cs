@@ -67,6 +67,7 @@ namespace ModernHistory.ViewModels
                 HistoryEvent.EventType = CommonConstViewModel.Instance.HistoryEventTypes.Where(p => p.HistoryEventTypeId == HistoryEvent.HistoryEventTypeId).FirstOrDefault();
                 var result=await historyEventService.SaveAsync(DtoConvert.DtoConvertToModel.HistoryEventConvert(HistoryEvent));
                 System.Windows.MessageBox.Show("保存成功");
+                HistoryEvent.HistoryEventId = result.HistoryEventId;
                 if(!string.IsNullOrEmpty(SelectImg)){
                     await imageService.UploadEventImgAsync(result.HistoryEventId, SelectImg);
                 }

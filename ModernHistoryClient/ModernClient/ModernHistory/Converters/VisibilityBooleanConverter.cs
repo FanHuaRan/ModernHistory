@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 
-namespace demo
+namespace ModernHistory.Converters
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-        }
-    }
+
 }

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ModernHistory.Others.Settings.About"
+﻿<UserControl x:Class="ModernHistory.Views.Others.SystemSet"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -9,8 +9,8 @@
     <Grid>
         <ScrollViewer>
             <StackPanel MinWidth="200">
-                <TextBlock Text="关于本程序" Style="{StaticResource Heading2}" />
-                <mui:BBCodeBlock BBCode="[b]本程序是一个关于近代名人事件信息系统的客户端，服务端采用asp.net webapi编写 [url=https://github.com/FanHuaRan/ModernHistory]程序源码[/url][/b]" Margin="0,0,0,32" />
+                <TextBlock Text="系统设置" Style="{StaticResource Heading2}" />
+                <TextBlock Text="Oh Oh.............." Margin="0,0,0,8" TextWrapping="Wrap" />
             </StackPanel>
         </ScrollViewer>
     </Grid>
