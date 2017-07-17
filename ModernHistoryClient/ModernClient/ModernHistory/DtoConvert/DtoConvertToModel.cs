@@ -10,6 +10,7 @@ namespace ModernHistory.DtoConvert
 {
     /// <summary>
     /// DTO与MVVM model互相转换
+    /// 防止外键问题 Model->DTO放弃依赖属性
     /// 2017/07/13
     /// </summary>
     public class DtoConvertToModel
@@ -176,7 +177,7 @@ namespace ModernHistory.DtoConvert
                 Gender = source.Gender,
                 Nation = source.Nation,
                 PersonName = source.PersonName,
-                PersonType = FamousPersonTypeConvert(source.PersonType)
+               // PersonType = FamousPersonTypeConvert(source.PersonType)
             };
             return destination;
         }
@@ -190,7 +191,7 @@ namespace ModernHistory.DtoConvert
             var destionation = new dto.HistoryEvent()
             {
                 Detail = source.Detail,
-                EventType = HistoryEventTypeConvert(source.EventType),
+                //EventType = HistoryEventTypeConvert(source.EventType),
                 HistoryEventId = source.HistoryEventId,
                 HistoryEventTypeId = source.HistoryEventTypeId,
                 OccurDate = source.OccurDate,

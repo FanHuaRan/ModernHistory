@@ -41,7 +41,6 @@ namespace ModernHistory.Services.Impl
                         new HistoryEventType(){ HistoryEventTypeId=2,HistoryEventTypeName="军事"},
                         new HistoryEventType(){ HistoryEventTypeId=3,HistoryEventTypeName="经济"},
                         new HistoryEventType(){ HistoryEventTypeId=4,HistoryEventTypeName="文学"},
-                        new HistoryEventType(){ HistoryEventTypeId=5,HistoryEventTypeName="军事"},
                 };
             }
         }
