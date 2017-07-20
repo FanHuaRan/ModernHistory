@@ -22,7 +22,7 @@ namespace ModernHistoryWebApi.Controllers
       ///  FamousPerson API控制器
       ///  2017/07/02 fhr
       /// </summary>
-     [Authorize]
+     //[Authorize]
       public class FamousPersonController : ApiController
       {
 
