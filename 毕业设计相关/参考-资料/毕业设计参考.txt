@@ -1,0 +1,5 @@
+基于GIS的历史地理数据的管理与可视化 ——以《中国历代户口、田地、田赋统计》一书为例：http://www.sohu.com/a/227427830_494912
+基于GIS的长沙市历史文化名城智慧管理研究：http://cpfd.cnki.com.cn/Article/CPFDTOTAL-ZHCG201711009015.htm
+基于GIS的历史地理数据的管理与可视化：https://www.1xuezhe.exuezhe.com/Qk/art/7373981?dbcode=4&flag=2
+基于GIS的中国近代名人重大事件年谱：http://contest.esrichina.com.cn/html/zuopinzhanshi/2015Webyuyidongkaifazuzuopin/2015/1211/334.html
+一种基于gis网络拓扑结构的历史名人事件年谱方法：https://patents.google.com/patent/CN105740341A/zh
